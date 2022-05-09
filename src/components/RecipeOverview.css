@@ -1,0 +1,17 @@
+.recipe-overview-bottom-bar {
+  border: 1px solid #000;
+}
+
+.recipe-overview-steps {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+}
+
+.recipe-overview-step {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #333;
+  padding: 8px;
+  cursor: pointer;
+}

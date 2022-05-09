@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import { AppHeader } from './components/Header'
+import { RecipeOverview } from './components/RecipeOverview'
+import { RecipeProvider } from './contexts/RecipeContext'
+import { StepDetails } from './components/StepDetails'
+
+import './App.css'
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <RecipeProvider>
+        <AppHeader />
+        <RecipeOverview />
+        <StepDetails />
+      </RecipeProvider>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
