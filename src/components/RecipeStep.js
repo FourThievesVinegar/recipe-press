@@ -1,19 +1,32 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { recipeStepBaseTasks } from '../constants'
+import { useRecipeContext } from '../contexts/RecipeContext'
 
 import './RecipeStep.css'
 
-export const RecipeStep = ({ step }) => {
+export const RecipeStep = ({ step, position }) => {
+  const { updateStep } = useRecipeContext()
+
   const stepParameters = step.parameters
   return (
     <div className="recipe-step">
-      <h2>{`Step ${step.nr}`}</h2>
-      <label htmlFor="title">Step title</label>
-      <input type="text" name="title" />
-      <label htmlFor="title">Step description</label>
-      <textarea name="description" value={step.message} />
-      <select value={step.baseTask || 'noTask'}>
+      <label htmlFor="message">User message</label>
+      <textarea
+        name="message"
+        value={step.message}
+        onChange={e => {
+          updateStep({ ...step, message: e.target.value }, position)
+        }}
+      />
+      <label htmlFor="base-task">Task type</label>
+      <select
+        value={step.baseTask || 'noTask'}
+        name="base-task"
+        onChange={e => {
+          updateStep({ ...step, baseTask: e.target.value }, position)
+        }}
+      >
         {recipeStepBaseTasks.map(task => {
           return <option value={task.value}>{task.label}</option>
         })}
@@ -26,13 +39,6 @@ export const RecipeStep = ({ step }) => {
             </p>
           )
         })}
-      <button
-        onClick={() => {
-          console.log('save step.')
-        }}
-      >
-        Save Step
-      </button>
     </div>
   )
 }

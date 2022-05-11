@@ -1,13 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useRecipeContext } from '../contexts/RecipeContext'
 
 export const NewStep = () => {
+  const [message, setMessage] = useState('')
+
+  const { createStep } = useRecipeContext()
+
   return (
     <div className="new-step recipe-step">
       <h2>New Recipe Step</h2>
-      <label for="title">Step title</label>
-      <input type="text" name="title" />
-      <label for="title">Step description</label>
-      <textarea name="description" />
+      <label for="message">User Message</label>
+      <textarea
+        name="message"
+        value={message}
+        onChange={e => {
+          setMessage(e.target.value)
+        }}
+      />
+      <button
+        onClick={() => {
+          createStep(message)
+        }}
+      >
+        New Step
+      </button>
     </div>
   )
 }
