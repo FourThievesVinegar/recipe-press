@@ -9,9 +9,9 @@ export const RecipeStep = ({ step }) => {
   return (
     <div className="recipe-step">
       <h2>{`Step ${step.nr}`}</h2>
-      <label for="title">Step title</label>
+      <label htmlFor="title">Step title</label>
       <input type="text" name="title" />
-      <label for="title">Step description</label>
+      <label htmlFor="title">Step description</label>
       <textarea name="description" value={step.message} />
       <select value={step.baseTask || 'noTask'}>
         {recipeStepBaseTasks.map(task => {
@@ -21,7 +21,7 @@ export const RecipeStep = ({ step }) => {
       {stepParameters &&
         Object.keys(stepParameters).map(key => {
           return (
-            <p>
+            <p key={key}>
               {key}: {stepParameters[key]}
             </p>
           )
