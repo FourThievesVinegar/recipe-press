@@ -5,10 +5,11 @@ export const RecipeOverviewStep = ({ step, index }) => {
   const { setCurrentStep } = useRecipeContext()
   return (
     <div
-      className={`recipe-overview-step ${!step.baseTask ? 'human-task' : 'automated-task'}`}
+      className={`recipe-overview-step ${
+        !step.baseTask || step.baseTask === 'noTask' ? 'human-task' : 'automated-task'
+      }`}
       onClick={() => setCurrentStep(index)}
     >
-      <p>{step.nr}</p>
       <p>{step.message}</p>
     </div>
   )
