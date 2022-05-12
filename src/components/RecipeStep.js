@@ -28,7 +28,11 @@ export const RecipeStep = ({ step, position }) => {
         }}
       >
         {recipeStepBaseTasks.map(task => {
-          return <option value={task.value}>{task.label}</option>
+          return (
+            <option key={task.value} value={task.value}>
+              {task.label}
+            </option>
+          )
         })}
       </select>
       {stepParameters &&

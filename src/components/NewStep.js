@@ -9,7 +9,7 @@ export const NewStep = () => {
   return (
     <div className="new-step recipe-step">
       <h2>New Recipe Step</h2>
-      <label for="message">User Message</label>
+      <label htmlFor="message">User Message</label>
       <textarea
         name="message"
         value={message}
