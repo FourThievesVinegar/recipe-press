@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState } from 'react'
+import { saveAs } from 'file-saver'
 import dummyRecipeData from './DummyRecipeData.json'
 
 export const RecipeContext = createContext({})
@@ -58,6 +59,24 @@ export const RecipeProvider = ({ children }) => {
     setRecipes(newRecipes)
   }
 
+  const exportRecipe = () => {
+    const title = recipes[currentRecipe].title
+    const steps = recipes[currentRecipe].steps
+    var recipeString = `
+from recipes import base
+
+recipe = base.Recipe(
+    {
+      'title': '${title}' 
+      'steps': ${JSON.stringify(steps)}
+    }
+  )
+`
+
+    console.log(recipeString)
+    saveAs(new Blob([recipeString], { type: 'application/python' }), `${title}.py`)
+  }
+
   return (
     <RecipeContext.Provider
       value={{
@@ -67,6 +86,7 @@ export const RecipeProvider = ({ children }) => {
         setCurrentRecipe,
         currentStep,
         setCurrentStep,
+        exportRecipe,
         recipes,
         updateStep,
       }}
