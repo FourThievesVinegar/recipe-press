@@ -39,7 +39,7 @@ export const RecipeStep = ({ step, position }) => {
       <label htmlFor="details">Detailed description</label>
       <textarea
         name="details"
-        value={step.details}
+        value={step.details || ''}
         onChange={e => {
           updateStep({ ...step, details: e.target.value }, position)
         }}

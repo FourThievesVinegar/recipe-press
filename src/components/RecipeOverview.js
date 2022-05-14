@@ -9,7 +9,7 @@ export const RecipeOverview = () => {
   return (
     <div className="recipe-overview">
       <div className="recipe-overview-steps">
-        {recipes[currentRecipe].steps.map((step, index) => {
+        {recipes[currentRecipe]?.steps?.map((step, index) => {
           return <RecipeOverviewStep step={step} index={index} key={index + step.message} />
         })}
       </div>

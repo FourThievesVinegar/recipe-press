@@ -9,7 +9,8 @@
           "next": 1
         }
       ],
-      "icon": "reaction_chamber"
+      "icon": "reaction_chamber",
+      "details": "For centuries (probably) salicylic acid has been harvested from willow bark and turned into medicine."
     },
     {
       "message": "Place XX mL acetic anhydride into Pump A",
