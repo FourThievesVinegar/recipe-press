@@ -31,8 +31,8 @@ export const RecipeProvider = ({ children }) => {
     setRecipes([...recipes, newRecipe])
   }
 
-  const createStep = (message, baseStep, parameters) => {
-    const newStep = { message, baseStep, parameters }
+  const createStep = (message, baseStep, parameters, description) => {
+    const newStep = { message, baseStep, parameters, description }
     const newSteps = [...recipes[currentRecipe].steps]
 
     newSteps.push(newStep)

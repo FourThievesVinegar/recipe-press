@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 import { recipeStepBaseTasks } from '../constants'
 import { useRecipeContext } from '../contexts/RecipeContext'
 
 import './RecipeStep.css'
+import { RecipeStepParameters } from './RecipeStepParameters'
 
 export const RecipeStep = ({ step, position }) => {
   const { updateStep } = useRecipeContext()
 
-  const stepParameters = step.parameters
   return (
     <div className="recipe-step">
       <label htmlFor="message">User message</label>
@@ -35,14 +35,15 @@ export const RecipeStep = ({ step, position }) => {
           )
         })}
       </select>
-      {stepParameters &&
-        Object.keys(stepParameters).map(key => {
-          return (
-            <p key={key}>
-              {key}: {stepParameters[key]}
-            </p>
-          )
-        })}
+      <RecipeStepParameters step={step} />
+      <label htmlFor="details">Detailed description</label>
+      <textarea
+        name="details"
+        value={step.details}
+        onChange={e => {
+          updateStep({ ...step, details: e.target.value }, position)
+        }}
+      />
     </div>
   )
 }
