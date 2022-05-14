@@ -1,7 +1,7 @@
 import React from 'react'
 
 export const RecipeStepParameters = ({ step }) => {
-  const { parameters, baseTask } = step
+  const { parameters } = step
   return (
     <>
       {parameters &&

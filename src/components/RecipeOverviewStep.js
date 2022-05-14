@@ -4,7 +4,7 @@ import { useRecipeContext } from '../contexts/RecipeContext'
 import Looking from '../icons/looking.svg'
 import ReactionChamber from '../icons/reaction_chamber.svg'
 import ReactionComplete from '../icons/reaction_complete.svg'
-import SyringeEmpty from '../icons/syringe_empty.svg'
+//import SyringeEmpty from '../icons/syringe_empty.svg'
 import Syringe from '../icons/syringe.svg'
 import Temperature from '../icons/temperature.svg'
 
@@ -24,7 +24,7 @@ const RecipeOverviewStepIcon = ({ step }) => {
     case 'noTask':
       return <img src={Looking} alt="Human task" />
     default:
-      return <img src={ReactionComplete} alt="Default image" />
+      return <img src={ReactionComplete} alt="" />
   }
 }
 

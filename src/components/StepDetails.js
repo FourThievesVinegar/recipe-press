@@ -5,7 +5,7 @@ import { RecipeStep } from './RecipeStep'
 
 import './StepDetails.css'
 
-export const StepDetails = ({}) => {
+export const StepDetails = () => {
   const { recipes, currentRecipe, currentStep, setCurrentStep } = useRecipeContext()
 
   const step = recipes[currentRecipe].steps[currentStep]

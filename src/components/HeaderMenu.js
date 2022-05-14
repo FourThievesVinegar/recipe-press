@@ -3,7 +3,7 @@ import { useRecipeContext } from '../contexts/RecipeContext'
 import './HeaderMenu.css'
 
 export const HeaderMenu = () => {
-  const { createRecipe, recipes, currentRecipe, setCurrentRecipe } = useRecipeContext()
+  const { createRecipe, recipes, setCurrentRecipe } = useRecipeContext()
 
   const [menuOpen, setMenuOpen] = useState(false)
   const [newRecipeTitle, setNewRecipeTitle] = useState('')
