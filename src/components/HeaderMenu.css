@@ -1,0 +1,19 @@
+.header-menu {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 100%;
+  background-color: white;
+  padding: 8px;
+  width: 50vw;
+  color: black;
+}
+
+.header-menu ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.header-menu-recipe {
+  margin-bottom: 16px;
+}
