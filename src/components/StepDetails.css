@@ -4,3 +4,33 @@
   align-items: center;
   padding: 24px;
 }
+
+.recipe-step-task-section {
+  margin-top: 16px;
+  border: 1px solid #333;
+}
+
+.recipe-step-task label {
+  margin-right: 16px;
+}
+
+.recipe-step-parameter {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  border-top: 1px solid #333;
+  padding: 0 8px;
+}
+
+.recipe-step-parameter label {
+  width: 100px;
+  margin: 0 16px 0 0;
+  text-align: left;
+}
+
+.recipe-step-parameter input {
+  width: 100px;
+  margin: 0 16px 0 0;
+}
