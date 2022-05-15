@@ -1,5 +1,5 @@
 .recipe-step {
-  max-width: 400px;
+  width: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,4 +21,9 @@
 .recipe-step select,
 .recipe-step button {
   margin-top: 8px;
+}
+
+.recipe-step-parameter {
+  margin-top: 8px;
+  margin-bottom: 16px;
 }

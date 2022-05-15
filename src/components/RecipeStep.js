@@ -19,23 +19,27 @@ export const RecipeStep = ({ step, position }) => {
           updateStep({ ...step, message: e.target.value }, position)
         }}
       />
-      <label htmlFor="base-task">Task type</label>
-      <select
-        value={step.baseTask || 'noTask'}
-        name="base-task"
-        onChange={e => {
-          updateStep({ ...step, baseTask: e.target.value }, position)
-        }}
-      >
-        {recipeStepBaseTasks.map(task => {
-          return (
-            <option key={task.value} value={task.value}>
-              {task.label}
-            </option>
-          )
-        })}
-      </select>
-      <RecipeStepParameters step={step} />
+      <div className="recipe-step-task-section">
+        <div className="recipe-step-task">
+          <label htmlFor="base-task">Task type</label>
+          <select
+            value={step.baseTask || 'noTask'}
+            name="base-task"
+            onChange={e => {
+              updateStep({ ...step, baseTask: e.target.value }, position)
+            }}
+          >
+            {recipeStepBaseTasks.map(task => {
+              return (
+                <option key={task.value} value={task.value}>
+                  {task.label}
+                </option>
+              )
+            })}
+          </select>
+        </div>
+        <RecipeStepParameters step={step} updateStep={updateStep} />
+      </div>
       <label htmlFor="details">Detailed description</label>
       <textarea
         name="details"

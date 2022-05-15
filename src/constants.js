@@ -10,10 +10,10 @@ export const recipeStepBaseTasks = [
 
 export const baseStepParameters = {
   noTask: [],
-  cool: [],
-  heat: [],
-  maintainCool: [],
-  maintainHeat: [],
-  pump: [],
-  stir: [],
+  cool: ['temp'],
+  heat: ['temp'],
+  maintainCool: ['temp', 'time', 'tolerance'],
+  maintainHeat: ['temp', 'time', 'tolerance'],
+  pump: ['pump', 'volume'],
+  stir: ['time'],
 }
