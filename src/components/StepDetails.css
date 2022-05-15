@@ -6,6 +6,7 @@
 }
 
 .recipe-step-task-section {
+  width: 100%;
   margin-top: 16px;
   border: 1px solid #333;
 }
@@ -33,4 +34,8 @@
 .recipe-step-parameter input {
   width: 100px;
   margin: 0 16px 0 0;
+}
+
+.recipe-step textarea {
+  width: 100%;
 }
