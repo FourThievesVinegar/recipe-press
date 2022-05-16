@@ -28,12 +28,12 @@ const RecipeOverviewStepIcon = ({ step }) => {
   }
 }
 
-export const RecipeOverviewStep = ({ step, index }) => {
+export const RecipeOverviewStep = ({ step, index, isCurrentStep }) => {
   const { setCurrentStep } = useRecipeContext()
 
   return (
     <div
-      className={`recipe-overview-step ${
+      className={`recipe-overview-step ${isCurrentStep ? 'current-step' : ''} ${
         !step.baseTask || step.baseTask === 'noTask' ? 'human-task' : 'automated-task'
       }`}
       onClick={() => setCurrentStep(index)}

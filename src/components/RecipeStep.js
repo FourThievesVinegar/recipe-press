@@ -38,7 +38,7 @@ export const RecipeStep = ({ step, position }) => {
             })}
           </select>
         </div>
-        <RecipeStepParameters step={step} updateStep={updateStep} />
+        <RecipeStepParameters step={step} updateStep={updateStep} stepPosition={position} />
       </div>
       <label htmlFor="details">Detailed description</label>
       <textarea
