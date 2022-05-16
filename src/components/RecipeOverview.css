@@ -16,6 +16,10 @@
   cursor: pointer;
 }
 
+.recipe-overview-step.current-step {
+  font-weight: bold;
+}
+
 .recipe-overview-step-icon img {
   max-width: 40px;
 }
