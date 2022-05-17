@@ -62,19 +62,24 @@ export const RecipeProvider = ({ children }) => {
   const exportRecipe = () => {
     const title = recipes[currentRecipe].title
     const steps = recipes[currentRecipe].steps
-    var recipeString = `
-from recipes import base
+
+    //Validate steps
+
+    var recipeString = `from recipes import base
 
 recipe = base.Recipe(
     {
-      'title': '${title}' 
+      'title': '${title}',
       'steps': ${JSON.stringify(steps)}
     }
   )
 `
+    recipeString = recipeString.replace('true', 'True')
 
-    console.log(recipeString)
-    saveAs(new Blob([recipeString], { type: 'application/python' }), `${title}.py`)
+    // Sanitize title
+    // Make sure numerical values are numbers
+
+    saveAs(new Blob([recipeString], { type: 'application/python' }), `${title}.4tv`)
   }
 
   return (
