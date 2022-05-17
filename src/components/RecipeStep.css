@@ -22,7 +22,7 @@
 .recipe-step button {
   margin-top: 8px;
 }
-
+.recipe-step-option,
 .recipe-step-parameter {
   margin-top: 8px;
   margin-bottom: 16px;

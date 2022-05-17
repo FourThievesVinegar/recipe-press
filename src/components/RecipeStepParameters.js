@@ -20,7 +20,7 @@ const parameterFieldHelpText = {
 const ParameterField = ({ parameter, value, updateParameter }) => {
   return (
     <>
-      <label for={parameter}>{parameter}</label>
+      <label htmlFor={parameter}>{parameter}</label>
       <input
         name={parameter}
         type={parameterFieldMap[parameter]}
@@ -34,8 +34,34 @@ const ParameterField = ({ parameter, value, updateParameter }) => {
   )
 }
 
+const OptionField = ({ index, option, updateOptions }) => {
+  return (
+    <>
+      <p>Button {index}: </p>
+      <label htmlFor={`${option}-text`}>Text:</label>
+      <input
+        name={`${option}-text`}
+        type="text"
+        value={option.text}
+        onChange={e => {
+          updateOptions(option + e.target.value)
+        }}
+      />
+      <label htmlFor={`${option}-next`}>Next step:</label>
+      <input
+        name={`${option}-text`}
+        type="text"
+        value={option.next}
+        onChange={e => {
+          updateOptions(option + e.target.value)
+        }}
+      />
+    </>
+  )
+}
+
 export const RecipeStepParameters = ({ step, updateStep, stepPosition }) => {
-  const { parameters } = step
+  const { parameters = [], options = [], baseTask } = step
 
   const stepParameters = parameters
   const defaultParameters = baseStepParameters[step?.baseTask]
@@ -43,19 +69,32 @@ export const RecipeStepParameters = ({ step, updateStep, stepPosition }) => {
     updateStep({ ...step, parameters: { ...step.parameters, [parameter]: value } }, stepPosition)
   }
 
+  const updateOptions = options => {
+    console.log(options)
+  }
+
   return (
     <>
-      {defaultParameters?.map(parameter => {
-        return (
-          <div key={parameter} className="recipe-step-parameter">
-            <ParameterField
-              parameter={parameter}
-              value={stepParameters[parameter] || ''}
-              updateParameter={updateParameter}
-            />
-          </div>
-        )
-      })}
+      {(baseTask !== '' || baseTask !== 'noTask') &&
+        defaultParameters?.map(parameter => {
+          return (
+            <div key={parameter} className="recipe-step-option">
+              <ParameterField
+                parameter={parameter}
+                value={stepParameters[parameter] || ''}
+                updateParameter={updateParameter}
+              />
+            </div>
+          )
+        })}
+      {(!baseTask || baseTask === '' || baseTask === 'noTask') &&
+        options?.map((option, index) => {
+          return (
+            <div key={option} className="recipe-step-parameter">
+              <OptionField index={index} option={option} updateOptions={updateOptions} />
+            </div>
+          )
+        })}
     </>
   )
 }
