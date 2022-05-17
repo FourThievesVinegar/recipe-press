@@ -34,7 +34,7 @@ const ParameterField = ({ parameter, value, updateParameter }) => {
   )
 }
 
-const OptionField = ({ index, option, updateOptions }) => {
+const OptionField = ({ index, option, updateOption }) => {
   return (
     <>
       <p>Button {index}: </p>
@@ -44,7 +44,7 @@ const OptionField = ({ index, option, updateOptions }) => {
         type="text"
         value={option.text}
         onChange={e => {
-          updateOptions(option + e.target.value)
+          updateOption({ ...option, text: e.target.value }, index)
         }}
       />
       <label htmlFor={`${option}-next`}>Next step:</label>
@@ -53,24 +53,30 @@ const OptionField = ({ index, option, updateOptions }) => {
         type="text"
         value={option.next}
         onChange={e => {
-          updateOptions(option + e.target.value)
+          updateOption({ ...option, next: e.target.value }, index)
         }}
       />
     </>
   )
 }
 
-export const RecipeStepParameters = ({ step, updateStep, stepPosition }) => {
+export const RecipeStepParameters = ({ step, updateStep, stepIndex }) => {
   const { parameters = [], options = [], baseTask } = step
 
   const stepParameters = parameters
   const defaultParameters = baseStepParameters[step?.baseTask]
   const updateParameter = (parameter, value) => {
-    updateStep({ ...step, parameters: { ...step.parameters, [parameter]: value } }, stepPosition)
+    updateStep({ ...step, parameters: { ...step.parameters, [parameter]: value } }, stepIndex)
   }
 
-  const updateOptions = options => {
-    console.log(options)
+  const updateOption = (newOption, newOptionIndex) => {
+    const newOptions = [
+      ...step.options.slice(0, newOptionIndex),
+      newOption,
+      ...step.options.slice(newOptionIndex + 1, options.length),
+    ]
+    console.log(newOption, newOptions, newOptionIndex, step.options.slice(newOptionIndex))
+    updateStep({ ...step, options: [...newOptions] }, stepIndex)
   }
 
   return (
@@ -90,11 +96,18 @@ export const RecipeStepParameters = ({ step, updateStep, stepPosition }) => {
       {(!baseTask || baseTask === '' || baseTask === 'noTask') &&
         options?.map((option, index) => {
           return (
-            <div key={option} className="recipe-step-parameter">
-              <OptionField index={index} option={option} updateOptions={updateOptions} />
+            <div key={`option-${index}`} className="recipe-step-parameter">
+              <OptionField index={index} option={option} updateOption={updateOption} />
             </div>
           )
         })}
+      <button
+        onClick={() => {
+          updateOption({ text: '', next: '' }, options.length)
+        }}
+      >
+        New Option +
+      </button>
     </>
   )
 }

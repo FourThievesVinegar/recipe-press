@@ -21,7 +21,7 @@ export const StepDetails = () => {
         </button>
       </div>
       <div className="step-details">
-        {step ? <RecipeStep step={step} position={currentStep} /> : <NewStep />}
+        {step ? <RecipeStep step={step} index={currentStep} /> : <NewStep />}
       </div>
     </>
   )
