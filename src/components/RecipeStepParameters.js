@@ -102,7 +102,7 @@ export const RecipeStepParameters = ({ step, updateStep, stepIndex }) => {
           })}
           <button
             onClick={() => {
-              updateOption({ text: '', next: -1 }, options.length)
+              updateOption({ text: '', next: stepIndex + 1 }, options.length)
             }}
           >
             New Option +
