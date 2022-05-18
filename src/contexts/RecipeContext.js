@@ -44,7 +44,7 @@ export const RecipeProvider = ({ children }) => {
   const updateStep = (step, position) => {
     let newSteps = [...recipes[currentRecipe].steps]
 
-    newSteps[position] = step
+    newSteps[position] = { ...step, next: position + 1 }
     updateRecipe(recipes[currentRecipe].title, newSteps)
   }
 
@@ -63,7 +63,12 @@ export const RecipeProvider = ({ children }) => {
     const title = recipes[currentRecipe].title
     const steps = recipes[currentRecipe].steps
 
-    //Validate steps
+    steps[steps.length - 1].done = true
+    // Validate steps
+    // Make sure every human task has options
+    // Make sure every step has a next (or options?)
+    // Make sure at least one step has a done (the last one?)
+    // Make sure every option has a text and a next
 
     var recipeString = `from recipes import base
 
@@ -74,7 +79,7 @@ recipe = base.Recipe(
     }
   )
 `
-    recipeString = recipeString.replace('true', 'True')
+    recipeString = recipeString.replaceAll('true', 'True')
 
     // Sanitize title
     // Make sure numerical values are numbers
