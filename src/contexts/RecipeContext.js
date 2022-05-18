@@ -79,7 +79,7 @@ recipe = base.Recipe(
     // Sanitize title
     // Make sure numerical values are numbers
 
-    saveAs(new Blob([recipeString], { type: 'application/python' }), `${title}.4tv`)
+    saveAs(new Blob([recipeString], { type: 'application/python' }), `${title}.py`) //When the microlab can read it, change to .4tv
   }
 
   return (
