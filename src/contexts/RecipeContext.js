@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import { saveAs } from 'file-saver'
 import dummyRecipeData from './DummyRecipeData.json'
 
@@ -19,6 +19,21 @@ export const RecipeProvider = ({ children }) => {
   const [currentRecipe, setCurrentRecipe] = useState(0)
   const [currentStep, setCurrentStep] = useState(0)
 
+  useEffect(() => {
+    const localRecipes = getLocalRecipes()
+    if (localRecipes) {
+      setRecipes(localRecipes)
+    }
+  }, [])
+
+  const getLocalRecipes = () => {
+    return JSON.parse(localStorage.getItem('recipes'))
+  }
+
+  const saveLocalRecipes = recipes => {
+    localStorage.setItem('recipes', JSON.stringify(recipes))
+  }
+
   const createRecipe = (title, steps) => {
     if (!title) {
       console.log('You must have a title!')
@@ -29,7 +44,10 @@ export const RecipeProvider = ({ children }) => {
       steps: steps ? steps : [],
     }
 
-    setRecipes([...recipes, newRecipe])
+    const newRecipies = [...recipes, newRecipe]
+
+    saveLocalRecipes(newRecipies)
+    setRecipes(newRecipies)
   }
 
   const createStep = (message, baseStep, parameters, description) => {
@@ -55,7 +73,7 @@ export const RecipeProvider = ({ children }) => {
       }
       return recipe
     })
-
+    saveLocalRecipes(newRecipes)
     setRecipes(newRecipes)
   }
 
