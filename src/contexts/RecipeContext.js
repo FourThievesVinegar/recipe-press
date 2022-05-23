@@ -66,6 +66,27 @@ export const RecipeProvider = ({ children }) => {
     updateRecipe(recipes[currentRecipe].title, newSteps)
   }
 
+  const reorderStep = (newIndex, currentIndex) => {
+    const oldSteps = [...recipes[currentRecipe].steps]
+
+    const newSteps =
+      newIndex < currentIndex
+        ? [
+            ...oldSteps.slice(0, newIndex),
+            { ...oldSteps[currentIndex] },
+            ...oldSteps.slice(newIndex, currentIndex),
+            ...oldSteps.slice(currentIndex + 1, oldSteps.length),
+          ]
+        : [
+            ...oldSteps.slice(0, currentIndex),
+            ...oldSteps.slice(currentIndex + 1, newIndex),
+            { ...oldSteps[currentIndex] },
+            ...oldSteps.slice(newIndex, oldSteps.length),
+          ]
+
+    updateRecipe(recipes[currentRecipe].title, newSteps)
+  }
+
   const updateRecipe = (title, steps) => {
     const newRecipes = recipes.map((recipe, index) => {
       if (index === currentRecipe) {
@@ -116,6 +137,7 @@ recipe = base.Recipe(
         setCurrentStep,
         exportRecipe,
         recipes,
+        reorderStep,
         updateStep,
       }}
     >

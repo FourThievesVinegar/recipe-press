@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useRecipeContext } from '../contexts/RecipeContext'
 
 import Looking from '../icons/looking.svg'
@@ -28,8 +28,42 @@ const RecipeOverviewStepIcon = ({ step }) => {
   }
 }
 
+export const RecipeOverViewDropTarget = ({ index }) => {
+  const { reorderStep } = useRecipeContext()
+  const [hovered, setHovered] = useState(false)
+
+  const dropHandler = (newIndex, stepIndex) => {
+    if (newIndex && stepIndex) {
+      reorderStep(newIndex, stepIndex)
+    }
+  }
+  return (
+    <div
+      droppable="true"
+      onDrop={e => {
+        const stepIndex = parseInt(e.dataTransfer.getData('dragged/index'))
+        setHovered(false)
+        dropHandler(index, stepIndex)
+      }}
+      onDragOver={e => {
+        e.stopPropagation()
+        e.preventDefault()
+        setHovered(true)
+      }}
+      onDragLeave={() => setHovered(false)}
+      className={`${index === 0 ? 'first-target-drop-target ' : ''}${
+        hovered ? 'hovered-drop-target ' : ''
+      }recipe-overview-drop-target`}
+    />
+  )
+}
+
 export const RecipeOverviewStep = ({ step, index, isCurrentStep }) => {
   const { setCurrentStep } = useRecipeContext()
+
+  const dragStartHandler = e => {
+    e.dataTransfer.setData('dragged/index', index)
+  }
 
   return (
     <div
@@ -37,11 +71,15 @@ export const RecipeOverviewStep = ({ step, index, isCurrentStep }) => {
         !step.baseTask || step.baseTask === 'noTask' ? 'human-task' : 'automated-task'
       }`}
       onClick={() => setCurrentStep(index)}
+      draggable="true"
+      onDragStart={e => dragStartHandler(e)}
     >
       <div className="recipe-overview-step-icon">
         <RecipeOverviewStepIcon step={step} />
       </div>
       <p>{step.message}</p>
+      {index === 0 && <RecipeOverViewDropTarget index={index} />}
+      <RecipeOverViewDropTarget index={index + 1} />
     </div>
   )
 }
