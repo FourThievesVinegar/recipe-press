@@ -1,5 +1,5 @@
 export const recipeStepBaseTasks = [
-  { label: 'Human Task', value: 'noTask' },
+  { label: 'Human Task', value: 'humanTask' },
   { label: 'Cool', value: 'cool' },
   { label: 'Heat', value: 'heat' },
   { label: 'Maintain Cooling', value: 'maintainCool' },
@@ -9,7 +9,7 @@ export const recipeStepBaseTasks = [
 ]
 
 export const baseStepParameters = {
-  noTask: [],
+  humanTask: [],
   cool: ['temp'],
   heat: ['temp'],
   maintainCool: ['temp', 'time', 'tolerance'],

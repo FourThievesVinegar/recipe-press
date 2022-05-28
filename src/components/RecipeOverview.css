@@ -6,41 +6,7 @@
   display: flex;
   flex-direction: row;
   overflow-x: auto;
-}
-
-.recipe-overview-step {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  margin-right: 16px;
-  border: 1px solid #333;
-  padding: 8px;
-  cursor: pointer;
-  border-radius: 8px;
-  min-width: 100px;
-}
-
-.recipe-overview-step:first-of-type {
-  margin-left: 16px;
-}
-
-.recipe-overview-step.current-step {
-  font-weight: bold;
-}
-
-.human-task {
-  margin-bottom: 32px;
-  background-color: lightsalmon;
-}
-
-.automated-task {
-  margin-top: 32px;
-  background-color: lightblue;
-}
-
-.recipe-overview-step-icon img {
-  max-width: 40px;
-  pointer-events: none;
+  min-height: 400px;
 }
 
 .recipe-overview-drop-target {
