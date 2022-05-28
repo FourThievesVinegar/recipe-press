@@ -1,0 +1,48 @@
+.recipe-overview-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-right: 16px;
+  border: 1px solid #333;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 8px;
+  min-width: 150px;
+  max-height: 180px;
+}
+
+.recipe-overview-step:first-of-type {
+  margin-left: 16px;
+}
+
+.recipe-overview-step.current-step {
+  font-weight: bold;
+}
+
+.human-task {
+  margin-bottom: 32px;
+  background-color: lightsalmon;
+}
+
+.automated-task {
+  margin-top: 32px;
+  background-color: lightblue;
+}
+
+.recipe-overview-step-icon img {
+  max-width: 40px;
+  pointer-events: none;
+}
+
+.recipe-step-arrows {
+  width: 100%;
+  position: absolute;
+  left: 80%;
+  bottom: 0;
+  z-index: 10;
+}
+.recipe-step-arrow {
+  text-align: left;
+  background-color: #ddd;
+  border: 1px solid #333;
+}

@@ -8,6 +8,8 @@ import ReactionComplete from '../icons/reaction_complete.svg'
 import Syringe from '../icons/syringe.svg'
 import Temperature from '../icons/temperature.svg'
 
+import './RecipeOverviewStep.css'
+
 const RecipeOverviewStepIcon = ({ step }) => {
   if (!step) return <></>
 
@@ -21,7 +23,7 @@ const RecipeOverviewStepIcon = ({ step }) => {
       return <img src={Syringe} alt="Pumping reagent" />
     case 'stir':
       return <img src={ReactionChamber} alt="Reaction chamber" />
-    case 'noTask':
+    case 'humanTask':
       return <img src={Looking} alt="Human task" />
     default:
       return <img src={ReactionComplete} alt="" />
@@ -58,6 +60,26 @@ export const RecipeOverViewDropTarget = ({ index }) => {
   )
 }
 
+export const RecpieOverViewStepArrows = ({ step, index }) => {
+  let arrows = []
+
+  if (step.options) {
+    arrows = step.options.map(option => {
+      const nextDistance = parseInt(option.next) - index
+      const arrowWidth = 50 + 110 * (nextDistance - 1)
+
+      console.log(option.text, ': ', nextDistance, arrowWidth)
+      return (
+        <div className="recipe-step-arrow" style={{ width: `${arrowWidth}%` }}>
+          {option.text}
+        </div>
+      )
+    })
+  }
+
+  return <div className="recipe-step-arrows">{arrows}</div>
+}
+
 export const RecipeOverviewStep = ({ step, index, isCurrentStep }) => {
   const { setCurrentStep } = useRecipeContext()
 
@@ -68,7 +90,7 @@ export const RecipeOverviewStep = ({ step, index, isCurrentStep }) => {
   return (
     <div
       className={`recipe-overview-step ${isCurrentStep ? 'current-step' : ''} ${
-        !step.baseTask || step.baseTask === 'noTask' ? 'human-task' : 'automated-task'
+        !step.baseTask || step.baseTask === 'humanTask' ? 'human-task' : 'automated-task'
       }`}
       onClick={() => setCurrentStep(index)}
       draggable="true"
@@ -80,6 +102,7 @@ export const RecipeOverviewStep = ({ step, index, isCurrentStep }) => {
       <p>{step.message}</p>
       {index === 0 && <RecipeOverViewDropTarget index={index} />}
       <RecipeOverViewDropTarget index={index + 1} />
+      <RecpieOverViewStepArrows step={step} index={index} />
     </div>
   )
 }

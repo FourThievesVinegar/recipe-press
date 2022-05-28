@@ -68,19 +68,20 @@ export const RecipeProvider = ({ children }) => {
 
   const reorderStep = (newIndex, currentIndex) => {
     const oldSteps = [...recipes[currentRecipe].steps]
+    const newStep = { ...oldSteps[currentIndex] }
 
     const newSteps =
       newIndex < currentIndex
         ? [
             ...oldSteps.slice(0, newIndex),
-            { ...oldSteps[currentIndex] },
+            newStep,
             ...oldSteps.slice(newIndex, currentIndex),
             ...oldSteps.slice(currentIndex + 1, oldSteps.length),
           ]
         : [
             ...oldSteps.slice(0, currentIndex),
             ...oldSteps.slice(currentIndex + 1, newIndex),
-            { ...oldSteps[currentIndex] },
+            newStep,
             ...oldSteps.slice(newIndex, oldSteps.length),
           ]
 
@@ -90,7 +91,16 @@ export const RecipeProvider = ({ children }) => {
   const updateRecipe = (title, steps) => {
     const newRecipes = recipes.map((recipe, index) => {
       if (index === currentRecipe) {
-        return { ...recipe, steps }
+        const newSteps = [...steps]
+        newSteps.forEach((step, index) => {
+          if (!step.baseTask || step.baseTask === 'humanTask') {
+            delete step.next
+          }
+          if (step.next) {
+            step.next = index + 1
+          }
+        })
+        return { ...recipe, steps: newSteps }
       }
       return recipe
     })

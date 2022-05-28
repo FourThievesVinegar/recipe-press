@@ -79,7 +79,7 @@ export const RecipeStepParameters = ({ step, updateStep, stepIndex }) => {
 
   return (
     <>
-      {(baseTask !== '' || baseTask !== 'noTask') &&
+      {(baseTask !== '' || baseTask !== 'humanTask') &&
         defaultParameters?.map(parameter => {
           return (
             <div key={parameter} className="recipe-step-option">
@@ -91,7 +91,7 @@ export const RecipeStepParameters = ({ step, updateStep, stepIndex }) => {
             </div>
           )
         })}
-      {(!baseTask || baseTask === '' || baseTask === 'noTask') && (
+      {(!baseTask || baseTask === '' || baseTask === 'humanTask') && (
         <>
           {options?.map((option, index) => {
             return (
