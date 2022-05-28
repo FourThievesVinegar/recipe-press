@@ -99,6 +99,10 @@ export const RecipeProvider = ({ children }) => {
           if (step.next) {
             step.next = index + 1
           }
+          // If no next step and no options, this is an ending step
+          if (!step.next && !step.options) {
+            step.done = true
+          }
         })
         return { ...recipe, steps: newSteps }
       }

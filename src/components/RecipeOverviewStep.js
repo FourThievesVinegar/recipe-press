@@ -66,12 +66,28 @@ export const RecpieOverViewStepArrows = ({ step, index }) => {
   if (step.options) {
     arrows = step.options.map(option => {
       const nextDistance = parseInt(option.next) - index
-      const arrowWidth = 50 + 110 * (nextDistance - 1)
+      let styleObject = {}
+      if (nextDistance === 0) {
+        styleObject = {}
+        return (
+          <div className="recipe-step-arrow-same" style={styleObject}>
+            {option.text}
+          </div>
+        )
+      } else if (nextDistance > 1) {
+        const arrowWidth = 50 + 110 * (nextDistance - 1)
+        styleObject = { width: `${arrowWidth}%` }
+        return (
+          <div className="recipe-step-arrow-forward" style={styleObject}>
+            {option.text}: {index} {'->'} {option.next}
+          </div>
+        )
+      }
 
-      console.log(option.text, ': ', nextDistance, arrowWidth)
+      console.log(index, option.text, ': ', nextDistance, styleObject)
       return (
-        <div className="recipe-step-arrow" style={{ width: `${arrowWidth}%` }}>
-          {option.text}
+        <div className="recipe-step-arrow-forward" style={styleObject}>
+          {`${option.text} >`}
         </div>
       )
     })
@@ -96,6 +112,8 @@ export const RecipeOverviewStep = ({ step, index, isCurrentStep }) => {
       draggable="true"
       onDragStart={e => dragStartHandler(e)}
     >
+      <div className="recipe-overview-step-index">{index}</div>
+      {step.done && <div className="recipe-step-final-step">☑</div>}
       <div className="recipe-overview-step-icon">
         <RecipeOverviewStepIcon step={step} />
       </div>
