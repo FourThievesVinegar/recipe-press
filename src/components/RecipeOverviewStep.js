@@ -129,6 +129,7 @@ export const RecpieOverViewStepArrows = ({ step, index }) => {
           </div>
         )
       }
+      return null
     })
   }
 
