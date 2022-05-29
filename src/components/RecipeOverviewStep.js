@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useRecipeContext } from '../contexts/RecipeContext'
+import { HUMAN_TASK, useRecipeContext } from '../contexts/RecipeContext'
 
 import Looking from '../icons/looking.svg'
 import ReactionChamber from '../icons/reaction_chamber.svg'
@@ -23,7 +23,7 @@ const RecipeOverviewStepIcon = ({ step }) => {
       return <img src={Syringe} alt="Pumping reagent" />
     case 'stir':
       return <img src={ReactionChamber} alt="Reaction chamber" />
-    case 'humanTask':
+    case HUMAN_TASK:
       return <img src={Looking} alt="Human task" />
     default:
       return <img src={ReactionComplete} alt="" />
@@ -64,32 +64,71 @@ export const RecpieOverViewStepArrows = ({ step, index }) => {
   let arrows = []
 
   if (step.options) {
-    arrows = step.options.map(option => {
+    arrows = step.options.map((option, optionIndex) => {
       const nextDistance = parseInt(option.next) - index
       let styleObject = {}
       if (nextDistance === 0) {
         styleObject = {}
         return (
-          <div className="recipe-step-arrow-same" style={styleObject}>
+          <div
+            key={`${index}-${optionIndex}`}
+            className="recipe-step-arrow-same"
+            style={styleObject}
+          >
             {option.text}
           </div>
         )
-      } else if (nextDistance > 1) {
-        const arrowWidth = 50 + 110 * (nextDistance - 1)
-        styleObject = { width: `${arrowWidth}%` }
+      }
+      if (nextDistance > 1) {
+        const arrowWidth = 50 + 120 * (nextDistance - 1)
+        const arrowTop = 0 + 100 * (Math.min(nextDistance, 6) - 1)
+        styleObject = { width: `${arrowWidth}%`, top: `${arrowTop}%` }
         return (
-          <div className="recipe-step-arrow-forward" style={styleObject}>
-            {option.text}: {index} {'->'} {option.next}
+          <div
+            key={`${index}-${optionIndex}`}
+            className="recipe-step-arrow-forward"
+            style={styleObject}
+          >
+            {option.text}: {index} {'⇨'} {option.next}
           </div>
         )
       }
-
-      console.log(index, option.text, ': ', nextDistance, styleObject)
-      return (
-        <div className="recipe-step-arrow-forward" style={styleObject}>
-          {`${option.text} >`}
-        </div>
-      )
+      if (nextDistance === 1) {
+        return (
+          <div
+            key={`${index}-${optionIndex}`}
+            className="recipe-step-arrow-forward"
+            style={styleObject}
+          >
+            {`${option.text}`}
+          </div>
+        )
+      }
+      if (nextDistance === -1) {
+        return (
+          <div
+            key={`${index}-${optionIndex}`}
+            className="recipe-step-arrow-backward"
+            style={styleObject}
+          >
+            {`${option.text}`}
+          </div>
+        )
+      }
+      if (nextDistance < -1) {
+        const arrowWidth = 50 - 120 * (nextDistance + 1)
+        const arrowTop = 0 - 100 * (Math.max(nextDistance, -6) + 1)
+        styleObject = { width: `${arrowWidth}%`, top: `${arrowTop}%` }
+        return (
+          <div
+            key={`${index}-${optionIndex}`}
+            className="recipe-step-arrow-backward"
+            style={styleObject}
+          >
+            {`${option.text}`}: {index} {'⇨'} {option.next}
+          </div>
+        )
+      }
     })
   }
 
@@ -106,7 +145,7 @@ export const RecipeOverviewStep = ({ step, index, isCurrentStep }) => {
   return (
     <div
       className={`recipe-overview-step ${isCurrentStep ? 'current-step' : ''} ${
-        !step.baseTask || step.baseTask === 'humanTask' ? 'human-task' : 'automated-task'
+        !step.baseTask || step.baseTask === HUMAN_TASK ? 'human-task' : 'automated-task'
       }`}
       onClick={() => setCurrentStep(index)}
       draggable="true"

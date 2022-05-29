@@ -40,7 +40,7 @@ export const HeaderMenu = () => {
           <ul>
             {recipes.map((recipe, index) => {
               return (
-                <li className="header-menu-recipe">
+                <li className="header-menu-recipe" key={index}>
                   <a
                     href={`#recipe-${index}`}
                     onClick={() => {

@@ -1,5 +1,7 @@
+import { HUMAN_TASK } from './contexts/RecipeContext'
+
 export const recipeStepBaseTasks = [
-  { label: 'Human Task', value: 'humanTask' },
+  { label: 'Human Task', value: HUMAN_TASK },
   { label: 'Cool', value: 'cool' },
   { label: 'Heat', value: 'heat' },
   { label: 'Maintain Cooling', value: 'maintainCool' },
