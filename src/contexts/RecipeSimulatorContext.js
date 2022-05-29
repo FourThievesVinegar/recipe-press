@@ -28,6 +28,7 @@ export const RecipeSimulatorProvider = ({ children }) => {
         goToNextStep()
       }, 1000 * automatedStepLength)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [simulationStepIndex])
 
   const simulateRecipe = () => {
