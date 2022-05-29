@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useRecipeContext } from '../contexts/RecipeContext'
+import { HUMAN_TASK, useRecipeContext } from '../contexts/RecipeContext'
 
 import Looking from '../icons/looking.svg'
 import ReactionChamber from '../icons/reaction_chamber.svg'
@@ -23,7 +23,7 @@ const RecipeOverviewStepIcon = ({ step }) => {
       return <img src={Syringe} alt="Pumping reagent" />
     case 'stir':
       return <img src={ReactionChamber} alt="Reaction chamber" />
-    case 'humanTask':
+    case HUMAN_TASK:
       return <img src={Looking} alt="Human task" />
     default:
       return <img src={ReactionComplete} alt="" />
@@ -145,7 +145,7 @@ export const RecipeOverviewStep = ({ step, index, isCurrentStep }) => {
   return (
     <div
       className={`recipe-overview-step ${isCurrentStep ? 'current-step' : ''} ${
-        !step.baseTask || step.baseTask === 'humanTask' ? 'human-task' : 'automated-task'
+        !step.baseTask || step.baseTask === HUMAN_TASK ? 'human-task' : 'automated-task'
       }`}
       onClick={() => setCurrentStep(index)}
       draggable="true"

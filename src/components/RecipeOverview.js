@@ -5,7 +5,7 @@ import { useRecipeContext } from '../contexts/RecipeContext'
 import './RecipeOverview.css'
 
 export const RecipeOverview = () => {
-  const { recipes, currentRecipe, currentStep } = useRecipeContext()
+  const { recipes, currentRecipe, currentStep, setCurrentStep } = useRecipeContext()
   return (
     <div className="recipe-overview">
       <div className="recipe-overview-steps">
@@ -21,7 +21,13 @@ export const RecipeOverview = () => {
         })}
       </div>
       <div className="recipe-overview-bottom-bar">
-        <button>Expand / collapse</button>
+        <button
+          onClick={() => {
+            setCurrentStep(-1)
+          }}
+        >
+          New Step
+        </button>
       </div>
     </div>
   )

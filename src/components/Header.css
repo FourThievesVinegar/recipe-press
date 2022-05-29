@@ -17,6 +17,7 @@
   align-items: center;
   justify-content: space-between;
   color: white;
+  padding: 0 8px;
 }
 
 @keyframes App-logo-spin {
@@ -26,4 +27,8 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.header-controls button {
+  margin-left: 8px;
 }

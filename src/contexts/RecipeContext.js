@@ -4,6 +4,8 @@ import dummyRecipeData from './DummyRecipeData.json'
 
 export const RecipeContext = createContext({})
 
+export const HUMAN_TASK = 'humanTask'
+
 export const useRecipeContext = () => {
   const context = useContext(RecipeContext)
 
@@ -94,10 +96,9 @@ export const RecipeProvider = ({ children }) => {
         const newSteps = [...steps]
         newSteps.forEach((step, index) => {
           step.done = false
-          if (!step.baseTask || step.baseTask === 'humanTask') {
+          if (!step.baseTask || step.baseTask === HUMAN_TASK) {
             delete step.next
-          }
-          if (step.next) {
+          } else {
             step.next = index + 1
           }
           // If this is the last step, it is an ending step.
@@ -120,10 +121,16 @@ export const RecipeProvider = ({ children }) => {
 
     steps[steps.length - 1].done = true
     // Validate steps
-    // Make sure every human task has options
-    //Every option has a text and a next
-    // Make sure every step has a next or options or done (and only one of them)
-    // Make sure at least one step has a done (the last one?)
+    //    Every human task has options
+    //      Every option has a text and a next
+    //      Every next is a valid step
+    //      Can a step loop back to itself? Probably not?
+    //    Every automated step has a next that is one more than its index
+    //    Every step has a next or options or done (and only one of them)
+    //    At least one step has a done
+    //      The last step has a done
+    // Validate title
+    //    No illegal characters - alphanumeric only
 
     var recipeString = `from recipes import base
 

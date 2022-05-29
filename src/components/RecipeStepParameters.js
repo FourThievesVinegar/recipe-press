@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { baseStepParameters } from '../constants'
+import { HUMAN_TASK } from '../contexts/RecipeContext'
 
 import './RecipeStepParameters.css'
 
@@ -21,7 +22,7 @@ const parameterFieldHelpText = {
 
 const ParameterField = ({ parameter, value, updateParameter }) => {
   return (
-    <li className="parameter-data-row">
+    <div className="parameter-data-row">
       <label htmlFor={parameter}>{parameter}</label>
       <input
         name={parameter}
@@ -35,14 +36,14 @@ const ParameterField = ({ parameter, value, updateParameter }) => {
         }}
       />
       <p>{parameterFieldHelpText[parameter]}</p>
-    </li>
+    </div>
   )
 }
 
 const OptionField = ({ index, option, updateOption, deleteOption }) => {
   return (
     <>
-      <p>Option {index}: </p>
+      <p>User Option {index}: </p>
       <div className="option-data-row">
         <label htmlFor={`${option}-text`}>Button Text:</label>
         <input
@@ -100,7 +101,7 @@ export const RecipeStepParameters = ({ step, updateStep, stepIndex }) => {
 
   return (
     <>
-      {(baseTask !== '' || baseTask !== 'humanTask') && (
+      {(baseTask !== '' || baseTask !== HUMAN_TASK) && (
         <ul className="parameters-list">
           {defaultParameters?.map(parameter => {
             return (
@@ -115,7 +116,7 @@ export const RecipeStepParameters = ({ step, updateStep, stepIndex }) => {
           })}
         </ul>
       )}
-      {(!baseTask || baseTask === '' || baseTask === 'humanTask') && (
+      {(!baseTask || baseTask === '' || baseTask === HUMAN_TASK) && (
         <ul className="options-list">
           {options?.map((option, index) => {
             return (

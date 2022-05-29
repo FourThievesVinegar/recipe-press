@@ -1,24 +1,16 @@
 .parameters-list,
 .options-list {
+  margin-bottom: 0;
   padding: 0;
 }
 
 .parameters-list li,
 .options-list li {
   list-style-type: none;
-}
-
-.recipe-step-option,
-.recipe-step-parameter {
-  margin-top: 8px;
-  margin-bottom: 16px;
-}
-
-.recipe-step-option,
-.recipe-step-parameter {
-  padding: 0 8px;
+  padding: 8px;
   border-top: 1px solid #333;
 }
+
 .option-data-row,
 .parameter-data-row {
   display: flex;
@@ -33,6 +25,10 @@
   width: 100px;
   margin: 0 16px 0 0;
   text-align: left;
+}
+
+.recipe-step-option p {
+  margin-top: 0;
 }
 
 .recipe-step-option input,

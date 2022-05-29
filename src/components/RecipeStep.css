@@ -5,10 +5,7 @@
   align-items: center;
 }
 
-.recipe-step label,
-.recipe-step input,
-.recipe-step textarea,
-.recipe-step select,
-.recipe-step button {
-  margin-top: 8px;
+.recipe-step-task-section {
+  margin-bottom: 16px;
+  padding-top: 16px;
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { recipeStepBaseTasks } from '../constants'
-import { useRecipeContext } from '../contexts/RecipeContext'
+import { HUMAN_TASK, useRecipeContext } from '../contexts/RecipeContext'
 
 import './RecipeStep.css'
 import { RecipeStepParameters } from './RecipeStepParameters'
@@ -23,7 +23,7 @@ export const RecipeStep = ({ step, index }) => {
         <div className="recipe-step-task">
           <label htmlFor="base-task">Task type</label>
           <select
-            value={step.baseTask || 'humanTask'}
+            value={step.baseTask || HUMAN_TASK}
             name="base-task"
             onChange={e => {
               updateStep({ ...step, baseTask: e.target.value }, index)

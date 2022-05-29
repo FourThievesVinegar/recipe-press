@@ -1,0 +1,55 @@
+.recipe-simulator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 1000;
+}
+
+.recipe-simulator-backdrop {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  background-color: #ddde;
+}
+
+.recipe-simulator-container {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 480px;
+  z-index: 10;
+  margin-top: 24px;
+}
+
+.recipe-simulator-controls {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  z-index: 10;
+  background-color: #fff;
+  padding: 24px;
+}
+
+.recipe-simulator-controls-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.recipe-simulator-window {
+  height: 320px;
+  width: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #fff;
+}
+
+.recipe-simulator-parameters {
+  text-align: left;
+  padding: 0;
+}
