@@ -1,0 +1,42 @@
+.parameters-list,
+.options-list {
+  padding: 0;
+}
+
+.parameters-list li,
+.options-list li {
+  list-style-type: none;
+}
+
+.recipe-step-option,
+.recipe-step-parameter {
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+
+.recipe-step-option,
+.recipe-step-parameter {
+  padding: 0 8px;
+  border-top: 1px solid #333;
+}
+.option-data-row,
+.parameter-data-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+
+.recipe-step-option label,
+.recipe-step-parameter label {
+  width: 100px;
+  margin: 0 16px 0 0;
+  text-align: left;
+}
+
+.recipe-step-option input,
+.recipe-step-parameter input {
+  width: 100px;
+  margin: 0 16px 0 0;
+}

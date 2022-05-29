@@ -64,32 +64,71 @@ export const RecpieOverViewStepArrows = ({ step, index }) => {
   let arrows = []
 
   if (step.options) {
-    arrows = step.options.map(option => {
+    arrows = step.options.map((option, optionIndex) => {
       const nextDistance = parseInt(option.next) - index
       let styleObject = {}
       if (nextDistance === 0) {
         styleObject = {}
         return (
-          <div className="recipe-step-arrow-same" style={styleObject}>
+          <div
+            key={`${index}-${optionIndex}`}
+            className="recipe-step-arrow-same"
+            style={styleObject}
+          >
             {option.text}
           </div>
         )
-      } else if (nextDistance > 1) {
-        const arrowWidth = 50 + 110 * (nextDistance - 1)
-        styleObject = { width: `${arrowWidth}%` }
+      }
+      if (nextDistance > 1) {
+        const arrowWidth = 50 + 120 * (nextDistance - 1)
+        const arrowTop = 0 + 100 * (Math.min(nextDistance, 6) - 1)
+        styleObject = { width: `${arrowWidth}%`, top: `${arrowTop}%` }
         return (
-          <div className="recipe-step-arrow-forward" style={styleObject}>
-            {option.text}: {index} {'->'} {option.next}
+          <div
+            key={`${index}-${optionIndex}`}
+            className="recipe-step-arrow-forward"
+            style={styleObject}
+          >
+            {option.text}: {index} {'⇨'} {option.next}
           </div>
         )
       }
-
-      console.log(index, option.text, ': ', nextDistance, styleObject)
-      return (
-        <div className="recipe-step-arrow-forward" style={styleObject}>
-          {`${option.text} >`}
-        </div>
-      )
+      if (nextDistance === 1) {
+        return (
+          <div
+            key={`${index}-${optionIndex}`}
+            className="recipe-step-arrow-forward"
+            style={styleObject}
+          >
+            {`${option.text}`}
+          </div>
+        )
+      }
+      if (nextDistance === -1) {
+        return (
+          <div
+            key={`${index}-${optionIndex}`}
+            className="recipe-step-arrow-backward"
+            style={styleObject}
+          >
+            {`${option.text}`}
+          </div>
+        )
+      }
+      if (nextDistance < -1) {
+        const arrowWidth = 50 - 120 * (nextDistance + 1)
+        const arrowTop = 0 - 100 * (Math.max(nextDistance, -6) + 1)
+        styleObject = { width: `${arrowWidth}%`, top: `${arrowTop}%` }
+        return (
+          <div
+            key={`${index}-${optionIndex}`}
+            className="recipe-step-arrow-backward"
+            style={styleObject}
+          >
+            {`${option.text}`}: {index} {'⇨'} {option.next}
+          </div>
+        )
+      }
     })
   }
 

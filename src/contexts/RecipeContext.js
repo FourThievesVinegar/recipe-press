@@ -93,15 +93,17 @@ export const RecipeProvider = ({ children }) => {
       if (index === currentRecipe) {
         const newSteps = [...steps]
         newSteps.forEach((step, index) => {
+          step.done = false
           if (!step.baseTask || step.baseTask === 'humanTask') {
             delete step.next
           }
           if (step.next) {
             step.next = index + 1
           }
-          // If no next step and no options, this is an ending step
-          if (!step.next && !step.options) {
+          // If this is the last step, it is an ending step.
+          if (index === newSteps.length - 1) {
             step.done = true
+            delete step.next
           }
         })
         return { ...recipe, steps: newSteps }
@@ -119,9 +121,9 @@ export const RecipeProvider = ({ children }) => {
     steps[steps.length - 1].done = true
     // Validate steps
     // Make sure every human task has options
-    // Make sure every step has a next (or options?)
+    //Every option has a text and a next
+    // Make sure every step has a next or options or done (and only one of them)
     // Make sure at least one step has a done (the last one?)
-    // Make sure every option has a text and a next
 
     var recipeString = `from recipes import base
 
@@ -133,6 +135,7 @@ recipe = base.Recipe(
   )
 `
     recipeString = recipeString.replaceAll('true', 'True')
+    recipeString = recipeString.replaceAll('false', 'False')
 
     // Sanitize title
     // Make sure numerical values are numbers
