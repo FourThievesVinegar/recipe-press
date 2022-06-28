@@ -1,0 +1,151 @@
+.recipe-overview-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-right: 16px;
+  border: 1px solid #333;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 8px;
+  min-width: 150px;
+  max-height: 250px;
+}
+
+.recipe-overview-step:first-of-type {
+  margin-left: 16px;
+}
+
+.recipe-overview-step.current-step {
+  z-index: 20;
+  font-weight: bold;
+  -webkit-box-shadow: 5px 5px 15px 5px #d9c84b;
+  box-shadow: 0px 0px 15px 5px #d9c84b;
+}
+
+.recipe-overview-step.current-step .recipe-step-arrow-backward,
+.recipe-overview-step.current-step .recipe-step-arrow-forward {
+  font-weight: bold;
+  background-color: #491d88;
+  border: 1px solid #d9c84b;
+}
+
+.recipe-overview-step.current-step .recipe-step-arrow-same {
+  font-weight: bold;
+}
+
+.recipe-overview-step.current-step .recipe-step-arrow-same::after {
+  color: #491d88;
+}
+
+.human-task {
+  margin-bottom: 32px;
+  background-color: #e07c31;
+}
+
+.automated-task {
+  margin-top: 32px;
+  background-color: #cf4673;
+}
+
+.recipe-overview-step-index {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.recipe-step-final-step {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  font-size: 1.5rem;
+}
+
+.recipe-overview-step-icon img {
+  max-width: 40px;
+  pointer-events: none;
+}
+
+.recipe-step-arrows {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  z-index: 10;
+  font-weight: normal;
+  height: 24px;
+}
+.recipe-step-arrow-backward,
+.recipe-step-arrow-forward {
+  position: absolute;
+  bottom: 0;
+  width: fit-content;
+  height: fit-content;
+  text-align: left;
+  background-color: #491d88;
+  border: 1px solid #000;
+  width: 85%;
+}
+.recipe-step-arrow-forward {
+  left: 60%;
+  padding: 0px 32px 0 4px;
+}
+.recipe-step-arrow-forward::after {
+  content: '⇨';
+  position: absolute;
+  right: 0;
+  font-size: 2em;
+  line-height: 0.45;
+}
+.recipe-step-arrow-backward {
+  right: 70%;
+  padding: 0px 4px 0 32px;
+}
+.recipe-step-arrow-backward::after {
+  content: '⇦';
+  position: absolute;
+  left: 0;
+  font-size: 2em;
+  line-height: 0.45;
+}
+.recipe-step-arrow-same {
+  position: absolute;
+  top: 100%;
+  width: 80%;
+  height: 50px;
+  padding-top: 35px;
+  /*  border-bottom-left-radius: 100px;
+  border-bottom-right-radius: 100px;
+  border: 20px solid #ededed;
+  border-top: 0;*/
+}
+.recipe-step-arrow-same::after {
+  content: '↷';
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-top: 21px;
+  z-index: -1;
+  transform: rotate(180deg);
+  font-size: 8em;
+  line-height: 0.4em;
+  color: #491d88;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #000;
+}
+
+/* same-step semi-circle
+.recipe-step-arrow-same::after {
+  content: '';
+  position: absolute;
+  width: calc(100% + 42px);
+  height: 56px;
+  top: 0px;
+  left: -21px;
+  z-index: -1;
+  border-bottom-left-radius: 100px;
+  border-bottom-right-radius: 100px;
+  border: 22px solid #000;
+  border-top: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}*/

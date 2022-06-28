@@ -27,3 +27,17 @@
     transform: rotate(360deg);
   }
 }
+
+.title-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.title-container h1 {
+  margin: 0;
+  margin-left: 16px;
+}
+
+.header-controls button {
+  margin-left: 8px;
+}
