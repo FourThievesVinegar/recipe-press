@@ -4,14 +4,19 @@ import { RecipeProvider } from './contexts/RecipeContext'
 import { StepDetails } from './components/StepDetails'
 
 import './App.css'
+import { RecipeSimulatorProvider } from './contexts/RecipeSimulatorContext'
+import { RecipeSimulator } from './components/RecipeSimulator'
 
 function App() {
   return (
     <div className="App">
       <RecipeProvider>
-        <AppHeader />
-        <RecipeOverview />
-        <StepDetails />
+        <RecipeSimulatorProvider>
+          <AppHeader />
+          <RecipeOverview />
+          <StepDetails />
+          <RecipeSimulator />
+        </RecipeSimulatorProvider>
       </RecipeProvider>
     </div>
   )

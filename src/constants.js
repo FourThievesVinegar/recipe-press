@@ -1,5 +1,7 @@
+import { HUMAN_TASK } from './contexts/RecipeContext'
+
 export const recipeStepBaseTasks = [
-  { label: 'Human Task', value: 'noTask' },
+  { label: 'Human Task', value: HUMAN_TASK },
   { label: 'Cool', value: 'cool' },
   { label: 'Heat', value: 'heat' },
   { label: 'Maintain Cooling', value: 'maintainCool' },
@@ -9,11 +11,11 @@ export const recipeStepBaseTasks = [
 ]
 
 export const baseStepParameters = {
-  noTask: [],
-  cool: [],
-  heat: [],
-  maintainCool: [],
-  maintainHeat: [],
-  pump: [],
-  stir: [],
+  humanTask: [],
+  cool: ['temp'],
+  heat: ['temp'],
+  maintainCool: ['temp', 'time', 'tolerance'],
+  maintainHeat: ['temp', 'time', 'tolerance'],
+  pump: ['pump', 'volume'],
+  stir: ['time'],
 }

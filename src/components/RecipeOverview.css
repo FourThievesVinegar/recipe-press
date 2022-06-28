@@ -1,21 +1,30 @@
-.recipe-overview-bottom-bar {
-  border: 1px solid #000;
-}
-
 .recipe-overview-steps {
   display: flex;
   flex-direction: row;
   overflow-x: auto;
+  height: fit-content;
+  padding-top: 16px;
+  padding-bottom: 96px;
 }
 
-.recipe-overview-step {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #333;
+.recipe-overview-drop-target {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  right: -16px;
+  width: 16px;
+  z-index: 100;
+}
+
+.recipe-overview-drop-target.first-target-drop-target {
+  left: -16px;
+}
+
+.hovered-drop-target {
+  background-color: blue;
+}
+
+.recipe-overview-bottom-bar {
+  border: 1px solid #000;
   padding: 8px;
-  cursor: pointer;
-}
-
-.recipe-overview-step-icon img {
-  max-width: 40px;
 }

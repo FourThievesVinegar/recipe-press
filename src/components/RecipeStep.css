@@ -1,24 +1,11 @@
 .recipe-step {
-  max-width: 400px;
+  width: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.automated-task {
-  margin-top: 16px;
-  background-color: lightblue;
-}
-
-.human-task {
+.recipe-step-task-section {
   margin-bottom: 16px;
-  background-color: lightsalmon;
-}
-
-.recipe-step label,
-.recipe-step input,
-.recipe-step textarea,
-.recipe-step select,
-.recipe-step button {
-  margin-top: 8px;
+  padding-top: 16px;
 }
