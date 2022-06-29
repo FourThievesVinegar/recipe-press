@@ -12,7 +12,7 @@
   height: 100%;
   width: 100%;
   z-index: 1;
-  background-color: #ddde;
+  background-color: #333e;
 }
 
 .recipe-simulator-container {
@@ -30,7 +30,7 @@
   flex-direction: row;
   justify-content: space-around;
   z-index: 10;
-  background-color: #fff;
+  background-color: #000;
   padding: 24px;
 }
 
@@ -46,7 +46,7 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  background-color: #fff;
+  background-color: #000;
 }
 
 .recipe-simulator-parameters {

@@ -45,7 +45,6 @@ export const RecipeSimulatorProvider = ({ children }) => {
     setSimulationStep(simulationRecipe.steps[0])
   }
   const goToNextStep = () => {
-    console.log(simulationStepIndex, simulationStep, simulationRecipe.steps[simulationStepIndex])
     setSimulationStepIndex(simulationStep.next)
     setSimulationStep(simulationRecipe.steps[simulationStep.next])
   }
@@ -64,6 +63,7 @@ export const RecipeSimulatorProvider = ({ children }) => {
         goToNextStep,
         goToStep,
         simulationStep,
+        simulationStepIndex,
         isSimulating,
         simulateRecipe,
         startSimulation,

@@ -6,12 +6,12 @@ import './RecipeSimulator.css'
 export const RecipeSimulator = () => {
   const {
     automatedStepLength,
-    setAutomatedStepLength,
-
-    isSimulating,
     cancelSimulation,
     goToStep,
+    isSimulating,
+    setAutomatedStepLength,
     simulationStep,
+    simulationStepIndex,
     startSimulation,
   } = useRecipeSimulatorContext()
 
@@ -22,6 +22,7 @@ export const RecipeSimulator = () => {
         <div className="recipe-simulator-container">
           <div className="recipe-simulator-controls">
             <button onClick={e => startSimulation()}>Restart</button>
+            <p>Step {simulationStepIndex}</p>
             <div className="recipe-simulator-controls-item">
               <label htmlFor="automated-step-length">Automated step length</label>
               <input
@@ -41,6 +42,7 @@ export const RecipeSimulator = () => {
                 <h3>{simulationStep.message}</h3>
                 {simulationStep.options?.map(option => (
                   <button
+                    key={option.text}
                     className="recipe-simulator-option-button"
                     onClick={e => goToStep(option.next)}
                   >
