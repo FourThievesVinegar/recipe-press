@@ -68,6 +68,7 @@ const OptionField = ({ index, option, updateOption, deleteOption }) => {
           onClick={e => {
             deleteOption(index)
           }}
+          title="Delete User Option"
         >
           X
         </button>
