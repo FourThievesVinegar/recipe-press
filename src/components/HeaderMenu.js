@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
+import { NewRecipeForm } from './NewRecipeForm'
 import { useRecipeContext } from '../contexts/RecipeContext'
 import './HeaderMenu.css'
 
 export const HeaderMenu = () => {
-  const { createRecipe, recipes, setCurrentRecipe } = useRecipeContext()
+  const { recipes, setCurrentRecipe } = useRecipeContext()
 
   const [menuOpen, setMenuOpen] = useState(false)
-  const [newRecipeTitle, setNewRecipeTitle] = useState('')
 
   return (
     <>
@@ -20,21 +20,7 @@ export const HeaderMenu = () => {
       {menuOpen && (
         <nav className="header-menu">
           <div className="header-menu-buttons">
-            <input
-              name="new-recipe-title"
-              value={newRecipeTitle}
-              placeholder="New Recipe Title"
-              onChange={e => {
-                setNewRecipeTitle(e.target.value)
-              }}
-            />
-            <button
-              onClick={() => {
-                createRecipe(newRecipeTitle)
-              }}
-            >
-              New Recipe
-            </button>
+            <NewRecipeForm />
           </div>
           <h4>Recipes</h4>
           <ul>

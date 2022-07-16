@@ -1,11 +1,15 @@
 import React from 'react'
+import { NewRecipeForm } from './NewRecipeForm'
 import { RecipeOverviewStep } from './RecipeOverviewStep'
 import { useRecipeContext } from '../contexts/RecipeContext'
 
 import './RecipeOverview.css'
 
 export const RecipeOverview = () => {
-  const { recipes, currentRecipe, currentStep, setCurrentStep } = useRecipeContext()
+  const { recipes, currentRecipe, currentStep, embedded, setCurrentStep } = useRecipeContext()
+  if (!embedded && recipes.length == 0) {
+    return <NewRecipeForm />
+  }
   return (
     <div className="recipe-overview">
       <div className="recipe-overview-steps">

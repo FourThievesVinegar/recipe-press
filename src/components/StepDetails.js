@@ -7,7 +7,9 @@ import './StepDetails.css'
 export const StepDetails = () => {
   const { recipes, currentRecipe, currentStep } = useRecipeContext()
 
-  const step = recipes[currentRecipe].steps[currentStep]
+  const step = recipes[currentRecipe]?.steps[currentStep]
+
+  if (step === null) return
 
   return (
     <>
