@@ -6,6 +6,11 @@ export const RecipeContext = createContext({})
 
 export const HUMAN_TASK = 'humanTask'
 
+const MESSAGE_TYPES = {
+  RECIPE: 'recipe',
+  RECIPE_REQUEST: 'recipe request',
+}
+
 export const useRecipeContext = () => {
   const context = useContext(RecipeContext)
 
@@ -20,11 +25,19 @@ export const RecipeProvider = ({ children }) => {
   const [recipes, setRecipes] = useState([dummyRecipeData])
   const [currentRecipe, setCurrentRecipe] = useState(0)
   const [currentStep, setCurrentStep] = useState(0)
+  const [embedded, setEmbedded] = useState(false)
 
   useEffect(() => {
     const localRecipes = getLocalRecipes()
-    if (localRecipes) {
-      setRecipes(localRecipes)
+
+    if (window.location.search.includes('embedded=true')) {
+      setEmbedded(true)
+      window.addEventListener('message', handleMessageFromParent, false)
+      requestRecipeFromParent()
+    } else {
+      if (localRecipes) {
+        setRecipes(localRecipes)
+      }
     }
   }, [])
 
@@ -34,6 +47,31 @@ export const RecipeProvider = ({ children }) => {
 
   const saveLocalRecipes = recipes => {
     localStorage.setItem('recipes', JSON.stringify(recipes))
+  }
+
+  const requestRecipeFromParent = () => {
+    const message = { messageType: MESSAGE_TYPES.RECIPE_REQUEST }
+    window.parent.postMessage(message)
+  }
+
+  const sendRecipeToParent = newRecipe => {
+    const message = { messageType: MESSAGE_TYPES.RECIPE, payload: newRecipe }
+    console.log('Sending recipe message to parent', message)
+    window.parent.postMessage(message)
+  }
+
+  const handleMessageFromParent = event => {
+    console.log(event)
+    switch (event.data.type) {
+      case MESSAGE_TYPES.RECIPE: {
+        let parentRecipe = event.data.payload
+        createRecipe(parentRecipe.title, parentRecipe.steps)
+        return
+      }
+      default: {
+        console.log('UNHANDLED MESSAGE FROM PARENT', event)
+      }
+    }
   }
 
   const createRecipe = (title, steps) => {
@@ -91,6 +129,7 @@ export const RecipeProvider = ({ children }) => {
   }
 
   const updateRecipe = (title, steps) => {
+    let newRecipe = null
     const newRecipes = recipes.map((recipe, index) => {
       if (index === currentRecipe) {
         const newSteps = [...steps]
@@ -107,11 +146,16 @@ export const RecipeProvider = ({ children }) => {
             delete step.next
           }
         })
-        return { ...recipe, steps: newSteps }
+        newRecipe = { ...recipe, steps: newSteps }
+        return newRecipe
       }
       return recipe
     })
-    saveLocalRecipes(newRecipes)
+    if (embedded) {
+      sendRecipeToParent(newRecipe)
+    } else {
+      saveLocalRecipes(newRecipes)
+    }
     setRecipes(newRecipes)
   }
 
