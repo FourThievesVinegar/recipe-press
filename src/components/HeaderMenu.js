@@ -4,9 +4,11 @@ import { useRecipeContext } from '../contexts/RecipeContext'
 import './HeaderMenu.css'
 
 export const HeaderMenu = () => {
-  const { recipes, setCurrentRecipe } = useRecipeContext()
+  const { recipes, embedded, setCurrentRecipe } = useRecipeContext()
 
   const [menuOpen, setMenuOpen] = useState(false)
+
+  if (embedded) return null
 
   return (
     <>
