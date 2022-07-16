@@ -11,6 +11,8 @@ const MESSAGE_TYPES = {
   RECIPE_REQUEST: 'recipe request',
 }
 
+const PARENT_DOMAIN = 'https://4tv-vinni.netlify.app/'
+
 export const useRecipeContext = () => {
   const context = useContext(RecipeContext)
 
@@ -55,13 +57,13 @@ export const RecipeProvider = ({ children }) => {
   const requestRecipeFromParent = () => {
     const message = { messageType: MESSAGE_TYPES.RECIPE_REQUEST }
     console.log('Requesting recipe from parent', message)
-    window.parent.postMessage(message, '*') //TODO: This is insecure - add allow-list once domains are set.
+    window.parent.postMessage(message, PARENT_DOMAIN)
   }
 
   const sendRecipeToParent = newRecipe => {
     const message = { messageType: MESSAGE_TYPES.RECIPE, payload: newRecipe }
     console.log('Sending recipe message to parent', message)
-    window.parent.postMessage(message, '*') //TODO: This is insecure - add allow-list once domains are set.
+    window.parent.postMessage(message, PARENT_DOMAIN)
   }
 
   const handleMessageFromParent = event => {
