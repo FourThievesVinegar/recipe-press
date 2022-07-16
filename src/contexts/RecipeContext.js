@@ -69,6 +69,7 @@ export const RecipeProvider = ({ children }) => {
     switch (event.data.type) {
       case MESSAGE_TYPES.RECIPE: {
         let parentRecipe = event.data.payload
+        console.log('GOT RECIPE FROM PARENT', event.data)
         createRecipe(parentRecipe.title, parentRecipe.steps)
         return
       }
@@ -204,6 +205,7 @@ recipe = base.Recipe(
         createRecipe,
         createStep,
         currentRecipe,
+        embedded,
         setCurrentRecipe,
         currentStep,
         setCurrentStep,
