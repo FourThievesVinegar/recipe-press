@@ -7,7 +7,7 @@ import './RecipeOverview.css'
 
 export const RecipeOverview = () => {
   const { recipes, currentRecipe, currentStep, embedded, setCurrentStep } = useRecipeContext()
-  if (!embedded && recipes.length == 0) {
+  if (!embedded && recipes.length === 0) {
     return <NewRecipeForm />
   }
   return (
