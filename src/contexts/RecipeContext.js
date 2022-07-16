@@ -54,13 +54,13 @@ export const RecipeProvider = ({ children }) => {
 
   const requestRecipeFromParent = () => {
     const message = { messageType: MESSAGE_TYPES.RECIPE_REQUEST }
-    window.parent.postMessage(message)
+    window.parent.postMessage(message, '*') //TODO: This is insecure - add allow-list once domains are set.
   }
 
   const sendRecipeToParent = newRecipe => {
     const message = { messageType: MESSAGE_TYPES.RECIPE, payload: newRecipe }
     console.log('Sending recipe message to parent', message)
-    window.parent.postMessage(message)
+    window.parent.postMessage(message, '*') //TODO: This is insecure - add allow-list once domains are set.
   }
 
   const handleMessageFromParent = event => {
