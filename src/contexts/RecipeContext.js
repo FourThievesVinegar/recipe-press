@@ -34,8 +34,6 @@ export const RecipeProvider = ({ children }) => {
 
     if (window.location.search.includes('embedded=true')) {
       setEmbedded(true)
-      // Hook into parent window's React devtools
-      window.__REACT_DEVTOOLS_GLOBAL_HOOK__ = window.parent.__REACT_DEVTOOLS_GLOBAL_HOOK__
       window.addEventListener('message', handleMessageFromParent, false)
       requestRecipeFromParent()
     } else {
