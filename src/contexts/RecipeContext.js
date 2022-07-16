@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { saveAs } from 'file-saver'
-import dummyRecipeData from './DummyRecipeData.json'
+// import dummyRecipeData from './DummyRecipeData.json'
 
 export const RecipeContext = createContext({})
 
@@ -22,7 +22,7 @@ export const useRecipeContext = () => {
 }
 
 export const RecipeProvider = ({ children }) => {
-  const [recipes, setRecipes] = useState([dummyRecipeData])
+  const [recipes, setRecipes] = useState([])
   const [currentRecipe, setCurrentRecipe] = useState(0)
   const [currentStep, setCurrentStep] = useState(0)
   const [embedded, setEmbedded] = useState(false)
@@ -32,6 +32,8 @@ export const RecipeProvider = ({ children }) => {
 
     if (window.location.search.includes('embedded=true')) {
       setEmbedded(true)
+      // Hook into parent window's React devtools
+      window.__REACT_DEVTOOLS_GLOBAL_HOOK__ = window.parent.__REACT_DEVTOOLS_GLOBAL_HOOK__
       window.addEventListener('message', handleMessageFromParent, false)
       requestRecipeFromParent()
     } else {
