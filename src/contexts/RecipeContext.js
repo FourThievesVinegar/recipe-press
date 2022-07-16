@@ -54,6 +54,7 @@ export const RecipeProvider = ({ children }) => {
 
   const requestRecipeFromParent = () => {
     const message = { messageType: MESSAGE_TYPES.RECIPE_REQUEST }
+    console.log('Requesting recipe from parent', message)
     window.parent.postMessage(message, '*') //TODO: This is insecure - add allow-list once domains are set.
   }
 
