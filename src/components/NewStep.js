@@ -22,7 +22,7 @@ export const NewStep = () => {
           createStep(message)
         }}
       >
-        New Step
+        Add Step
       </button>
     </div>
   )
