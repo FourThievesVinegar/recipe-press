@@ -8,12 +8,13 @@ import './RecipeStepParameters.css'
 const parameterFieldMap = {
   temp: 'number',
   pump: 'text',
-  volume: 'text',
+  volume: 'number',
   time: 'number',
   tolerance: 'number',
 }
 
 const parameterFieldHelpText = {
+  pump: '',
   temp: 'degrees C',
   time: 'seconds',
   tolerance: 'degrees C',
@@ -24,17 +25,34 @@ const ParameterField = ({ parameter, value, updateParameter }) => {
   return (
     <div className="parameter-data-row">
       <label htmlFor={parameter}>{parameter}</label>
-      <input
-        name={parameter}
-        type={parameterFieldMap[parameter]}
-        value={value}
-        onChange={e => {
-          const value = e.target.value
-          if (value?.length > 0) {
-            updateParameter(parameter, parseInt(value))
-          }
-        }}
-      />
+      {parameter === 'pump' ? (
+        <select
+          name={parameter}
+          value={value}
+          onChange={e => {
+            const value =
+              parameterFieldMap[parameter] === 'number' ? parseInt(e.target.value) : e.target.value
+            updateParameter(parameter, value)
+          }}
+        >
+          {['A', 'B', 'C'].map(value => (
+            <option value={value} key={value}>
+              {value}
+            </option>
+          ))}
+        </select>
+      ) : (
+        <input
+          name={parameter}
+          type={parameterFieldMap[parameter]}
+          value={value}
+          onChange={e => {
+            const value =
+              parameterFieldMap[parameter] === 'number' ? parseInt(e.target.value) : e.target.value
+            updateParameter(parameter, value)
+          }}
+        />
+      )}
       <p>{parameterFieldHelpText[parameter]}</p>
     </div>
   )
