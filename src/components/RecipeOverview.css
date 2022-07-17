@@ -1,3 +1,8 @@
+.recipe-overview {
+  position: relative;
+  border-bottom: 1px solid white;
+}
+
 .recipe-overview-steps {
   display: flex;
   flex-direction: row;
@@ -24,7 +29,10 @@
   background-color: blue;
 }
 
-.recipe-overview-bottom-bar {
+.recipe-overview-controls {
+  position: absolute;
+  right: 0;
+  bottom: 16px;
   border: 1px solid #000;
   padding: 8px;
 }

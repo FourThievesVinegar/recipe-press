@@ -24,7 +24,7 @@ export const RecipeOverview = () => {
           )
         })}
       </div>
-      <div className="recipe-overview-bottom-bar">
+      <div className="recipe-overview-controls">
         <button
           onClick={() => {
             setCurrentStep(-1)
