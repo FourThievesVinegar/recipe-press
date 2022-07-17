@@ -11,7 +11,7 @@ const MESSAGE_TYPES = {
   RECIPE_REQUEST: 'recipe request',
 }
 
-const PARENT_DOMAIN = 'https://4tv-vinni.netlify.app/'
+const PARENT_DOMAIN = 'https://vinni.fourthievesvinegar.org'
 
 export const useRecipeContext = () => {
   const context = useContext(RecipeContext)
