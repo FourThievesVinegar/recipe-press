@@ -66,7 +66,7 @@ export const RecipeProvider = ({ children }) => {
 
   const handleMessageFromParent = event => {
     console.log(event)
-    switch (event.data.type) {
+    switch (event.data.messageType) {
       case MESSAGE_TYPES.RECIPE: {
         let parentRecipe = event.data.payload
         console.log('GOT RECIPE FROM PARENT', event.data)
