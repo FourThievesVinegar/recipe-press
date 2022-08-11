@@ -33,6 +33,6 @@
   position: absolute;
   right: 0;
   bottom: 16px;
-  border: 1px solid #000;
   padding: 8px;
+  z-index: 10;
 }
