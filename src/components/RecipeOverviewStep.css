@@ -1,6 +1,7 @@
 .recipe-overview-step {
   position: relative;
   display: flex;
+  flex: 1 1 0px;
   flex-direction: column;
   margin-right: 16px;
   border: 1px solid #333;
