@@ -35,7 +35,7 @@ const ParameterField = ({ parameter, value, updateParameter }) => {
             updateParameter(parameter, value)
           }}
         >
-          {['A', 'B', 'C'].map(value => (
+          {['-', 'A', 'B', 'C'].map(value => (
             <option value={value} key={value}>
               {value}
             </option>

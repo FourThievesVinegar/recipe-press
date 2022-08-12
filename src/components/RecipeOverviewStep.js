@@ -39,6 +39,7 @@ export const RecipeOverViewDropTarget = ({ index }) => {
       reorderStep(newIndex, stepIndex)
     }
   }
+
   return (
     <div
       droppable="true"
@@ -137,11 +138,20 @@ export const RecpieOverViewStepArrows = ({ step, index }) => {
 }
 
 export const RecipeOverviewStep = ({ step, index, isCurrentStep }) => {
-  const { setCurrentStep } = useRecipeContext()
+  const { setCurrentStep, reportStepError } = useRecipeContext()
 
   const dragStartHandler = e => {
     e.dataTransfer.setData('dragged/index', index)
   }
+
+  let hasError
+  let errorMessage
+  if (step.baseTask === 'pump' && (step.parameters?.pump === '-' || !step.parameters?.pump)) {
+    hasError = true
+    errorMessage = 'You must select a pump'
+  }
+
+  reportStepError(index, errorMessage || null)
 
   return (
     <div
@@ -154,9 +164,16 @@ export const RecipeOverviewStep = ({ step, index, isCurrentStep }) => {
     >
       <div className="recipe-overview-step-index">{index}</div>
       {step.done && <div className="recipe-step-final-step">☑</div>}
-      <div className="recipe-overview-step-icon">
-        <RecipeOverviewStepIcon step={step} />
-      </div>
+      {hasError ? (
+        <div title={errorMessage} className="recipe-step-error-icon">
+          ⚠
+        </div>
+      ) : (
+        <div className="recipe-overview-step-icon">
+          <RecipeOverviewStepIcon step={step} />
+        </div>
+      )}
+
       <p>{step.message}</p>
       {index === 0 && <RecipeOverViewDropTarget index={index} />}
       <RecipeOverViewDropTarget index={index + 1} />

@@ -61,6 +61,11 @@
   font-size: 1.5rem;
 }
 
+.recipe-step-error-icon {
+  font-size: 48px;
+  color: #d9c84b;
+}
+
 .recipe-overview-step-icon img {
   max-width: 40px;
   pointer-events: none;

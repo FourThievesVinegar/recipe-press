@@ -29,6 +29,8 @@ export const RecipeProvider = ({ children }) => {
   const [currentStep, setCurrentStep] = useState(0)
   const [embedded, setEmbedded] = useState(false)
 
+  const [stepErrors, setStepErrors] = useState({})
+
   useEffect(() => {
     const localRecipes = getLocalRecipes()
 
@@ -164,6 +166,12 @@ export const RecipeProvider = ({ children }) => {
     setRecipes(newRecipes)
   }
 
+  const reportStepError = (stepIndex, errorMessage) => {
+    if (stepErrors[stepIndex] !== errorMessage) {
+      setStepErrors({ ...stepErrors, [stepIndex]: errorMessage })
+    }
+  }
+
   const exportRecipe = () => {
     const title = recipes[currentRecipe].title
     const steps = recipes[currentRecipe].steps
@@ -212,6 +220,8 @@ recipe = base.Recipe(
         exportRecipe,
         recipes,
         reorderStep,
+        reportStepError,
+        stepErrors,
         updateStep,
       }}
     >
