@@ -107,7 +107,7 @@ export const RecipeStepParameters = ({ step, updateStep, stepIndex }) => {
     const newOptions = [...step.options]
     newOptions.splice(index, index)
     console.log(newOptions)
-    updateStep({ ...step, options: { ...newOptions } }, stepIndex)
+    updateStep({ ...step, options: [ ...newOptions ] }, stepIndex)
   }
 
   const updateOption = (newOption, newOptionIndex) => {
