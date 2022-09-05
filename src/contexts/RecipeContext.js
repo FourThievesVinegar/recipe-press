@@ -189,22 +189,16 @@ export const RecipeProvider = ({ children }) => {
     // Validate title
     //    No illegal characters - alphanumeric only
 
-    var recipeString = `from recipes import base
-
-recipe = base.Recipe(
+    var recipeString = `
     {
-      'title': '${title}',
-      'steps': ${JSON.stringify(steps)}
-    }
-  )
-`
-    recipeString = recipeString.replaceAll('true', 'True')
-    recipeString = recipeString.replaceAll('false', 'False')
+      "title": "${title}",
+      "steps": ${JSON.stringify(steps)}
+    }`
 
     // Sanitize title
     // Make sure numerical values are numbers
 
-    saveAs(new Blob([recipeString], { type: 'application/python' }), `${title}.py`) //When the microlab can read it, change to .4tv
+    saveAs(new Blob([recipeString], { type: 'application/json' }), `${title}.json`) //When the microlab can read it, change to .4tv
   }
 
   return (
