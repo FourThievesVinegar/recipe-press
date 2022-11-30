@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { baseStepParameters } from '../constants'
+import { baseStepParameters, pumpNames } from '../constants'
 import { HUMAN_TASK } from '../contexts/RecipeContext'
 
 import './RecipeStepParameters.css'
@@ -35,7 +35,7 @@ const ParameterField = ({ parameter, value, updateParameter }) => {
             updateParameter(parameter, value)
           }}
         >
-          {['-', 'A', 'B', 'C'].map(value => (
+          {['-', ...pumpNames].map(value => (
             <option value={value} key={value}>
               {value}
             </option>

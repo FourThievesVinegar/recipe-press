@@ -37,7 +37,7 @@
       "next": 4,
       "baseTask": "pump",
       "parameters": {
-        "pump": "A",
+        "pump": "X",
         "volume": 5
       },
       "icon": "dispensing"
@@ -47,7 +47,7 @@
       "next": 5,
       "baseTask": "pump",
       "parameters": {
-        "pump": "B",
+        "pump": "Y",
         "volume": 0.1
       },
       "icon": "dispensing"
@@ -122,9 +122,9 @@
     {
       "message": "Dispensing deionized water...",
       "next": 13,
-      "baseTask": " pump",
+      "baseTask": "pump",
       "parameters": {
-        "pump": "A",
+        "pump": "X",
         "volume": 50
       },
       "icon": "syringe"
