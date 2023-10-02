@@ -96,5 +96,8 @@ export const iconMap = {
   },
   'temperature': {
     image: <img src={setUpHeating} alt="Temperature" /> // This should be deprecated for more precise icons
+  },
+  'remove': {
+    image: <img src={takeOutOfReactionChamber} alt="Remove from Reaction Chamber" /> // This should be deprecated for more precise icons
   }
 }
