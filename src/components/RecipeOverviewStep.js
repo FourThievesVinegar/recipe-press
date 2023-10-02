@@ -1,33 +1,14 @@
 import React, { useState } from 'react'
 import { HUMAN_TASK, useRecipeContext } from '../contexts/RecipeContext'
 
-import Looking from '../icons/looking.svg'
-import ReactionChamber from '../icons/reaction_chamber.svg'
-import ReactionComplete from '../icons/reaction_complete.svg'
-//import SyringeEmpty from '../icons/syringe_empty.svg'
-import Syringe from '../icons/syringe.svg'
-import Temperature from '../icons/temperature.svg'
+import { iconMap } from "../constants"
 
 import './RecipeOverviewStep.css'
 
 const RecipeOverviewStepIcon = ({ step }) => {
   if (!step) return <></>
 
-  switch (step.baseTask) {
-    case 'cool':
-    case 'heat':
-    case 'maintainCool':
-    case 'maintainHeat':
-      return <img src={Temperature} alt="Heating or cooling" />
-    case 'pump':
-      return <img src={Syringe} alt="Pumping reagent" />
-    case 'stir':
-      return <img src={ReactionChamber} alt="Reaction chamber" />
-    case HUMAN_TASK:
-      return <img src={Looking} alt="Human task" />
-    default:
-      return <img src={ReactionComplete} alt="" />
-  }
+  return iconMap[step.icon || step.baseTask]?.image
 }
 
 export const RecipeOverViewDropTarget = ({ index }) => {
@@ -54,9 +35,8 @@ export const RecipeOverViewDropTarget = ({ index }) => {
         setHovered(true)
       }}
       onDragLeave={() => setHovered(false)}
-      className={`${index === 0 ? 'first-target-drop-target ' : ''}${
-        hovered ? 'hovered-drop-target ' : ''
-      }recipe-overview-drop-target`}
+      className={`${index === 0 ? 'first-target-drop-target ' : ''}${hovered ? 'hovered-drop-target ' : ''
+        }recipe-overview-drop-target`}
     />
   )
 }
@@ -155,9 +135,8 @@ export const RecipeOverviewStep = ({ step, index, isCurrentStep }) => {
 
   return (
     <div
-      className={`recipe-overview-step ${isCurrentStep ? 'current-step' : ''} ${
-        !step.baseTask || step.baseTask === HUMAN_TASK ? 'human-task' : 'automated-task'
-      }`}
+      className={`recipe-overview-step ${isCurrentStep ? 'current-step' : ''} ${!step.baseTask || step.baseTask === HUMAN_TASK ? 'human-task' : 'automated-task'
+        }`}
       onClick={() => setCurrentStep(index)}
       draggable="true"
       onDragStart={e => dragStartHandler(e)}

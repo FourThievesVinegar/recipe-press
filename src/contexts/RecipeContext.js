@@ -99,7 +99,7 @@ export const RecipeProvider = ({ children }) => {
 
   const createStep = (message, baseStep, parameters, description) => {
     const newStep = { message, baseStep, parameters, description }
-    const newSteps = [...recipes[currentRecipe].steps]
+    const newSteps = [...recipes[currentRecipe]?.steps]
 
     newSteps.push(newStep)
 
@@ -120,17 +120,17 @@ export const RecipeProvider = ({ children }) => {
     const newSteps =
       newIndex < currentIndex
         ? [
-            ...oldSteps.slice(0, newIndex),
-            newStep,
-            ...oldSteps.slice(newIndex, currentIndex),
-            ...oldSteps.slice(currentIndex + 1, oldSteps.length),
-          ]
+          ...oldSteps.slice(0, newIndex),
+          newStep,
+          ...oldSteps.slice(newIndex, currentIndex),
+          ...oldSteps.slice(currentIndex + 1, oldSteps.length),
+        ]
         : [
-            ...oldSteps.slice(0, currentIndex),
-            ...oldSteps.slice(currentIndex + 1, newIndex),
-            newStep,
-            ...oldSteps.slice(newIndex, oldSteps.length),
-          ]
+          ...oldSteps.slice(0, currentIndex),
+          ...oldSteps.slice(currentIndex + 1, newIndex),
+          newStep,
+          ...oldSteps.slice(newIndex, oldSteps.length),
+        ]
 
     updateRecipe(recipes[currentRecipe].title, newSteps)
   }
