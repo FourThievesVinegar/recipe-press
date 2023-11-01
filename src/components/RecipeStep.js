@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { recipeStepBaseTasks, iconMap } from '../constants'
-import { HUMAN_TASK, useRecipeContext } from '../contexts/RecipeContext'
+import { recipeStepBaseTasks, iconMap, HUMAN_TASK } from '../constants'
+import { useRecipeContext } from '../contexts/RecipeContext'
 
 import './RecipeStep.css'
 import { RecipeStepParameters } from './RecipeStepParameters'

@@ -1,7 +1,6 @@
 import React from 'react'
 
-import { baseStepParameters, pumpNames } from '../constants'
-import { HUMAN_TASK } from '../contexts/RecipeContext'
+import { baseStepParameters, pumpNames, HUMAN_TASK } from '../constants'
 
 import './RecipeStepParameters.css'
 
@@ -107,7 +106,7 @@ export const RecipeStepParameters = ({ step, updateStep, stepIndex }) => {
     const newOptions = [...step.options]
     newOptions.splice(index, index)
     console.log(newOptions)
-    updateStep({ ...step, options: [ ...newOptions ] }, stepIndex)
+    updateStep({ ...step, options: [...newOptions] }, stepIndex)
   }
 
   const updateOption = (newOption, newOptionIndex) => {

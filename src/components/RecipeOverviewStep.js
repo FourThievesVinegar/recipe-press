@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
-import { HUMAN_TASK, useRecipeContext } from '../contexts/RecipeContext'
+import { useRecipeContext } from '../contexts/RecipeContext'
 
-import { iconMap } from "../constants"
+import { iconMap, taskToIconMap, HUMAN_TASK } from "../constants"
 
 import './RecipeOverviewStep.css'
 
 const RecipeOverviewStepIcon = ({ step }) => {
   if (!step) return <></>
 
-  return iconMap[step.icon || step.baseTask]?.image
+  return iconMap[step.icon || taskToIconMap[step.baseTask]]?.image
 }
 
 export const RecipeOverViewDropTarget = ({ index }) => {

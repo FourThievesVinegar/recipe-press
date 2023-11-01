@@ -1,5 +1,3 @@
-import { HUMAN_TASK } from './contexts/RecipeContext'
-
 import complete from './icons/complete.svg'
 import cooling from './icons/cooling.svg'
 import crystalisation from './icons/crystalisation.svg'
@@ -20,6 +18,14 @@ import stirring from './icons/stirring.svg'
 import syringeDispensing from './icons/syringe-dispense.svg'
 import takeOutOfReactionChamber from './icons/take-out-of-reaction-chamber.svg'
 
+export const HUMAN_TASK = 'humanTask'
+export const COOL_TASK = 'cool'
+export const HEAT_TASK = 'heat'
+export const MAINTAIN_COOL_TASK = 'maintainCool'
+export const MAINTAIN_HEAT_TASK = 'maintainHeat'
+export const PUMP_TASK = 'pump'
+export const STIR_TASK = 'stir'
+
 export const baseStepParameters = {
   humanTask: [],
   cool: ['temp'],
@@ -32,12 +38,12 @@ export const baseStepParameters = {
 
 export const recipeStepBaseTasks = [
   { label: 'Human Task', value: HUMAN_TASK },
-  { label: 'Cool', value: 'cool' },
-  { label: 'Heat', value: 'heat' },
-  { label: 'Maintain Cooling', value: 'maintainCool' },
-  { label: 'Maintain Heat', value: 'maintainHeat' },
-  { label: 'Pump', value: 'pump' },
-  { label: 'Stir', value: 'stir' },
+  { label: 'Cool', value: COOL_TASK },
+  { label: 'Heat', value: HEAT_TASK },
+  { label: 'Maintain Cooling', value: MAINTAIN_COOL_TASK },
+  { label: 'Maintain Heat', value: MAINTAIN_HEAT_TASK },
+  { label: 'Pump', value: PUMP_TASK },
+  { label: 'Stir', value: STIR_TASK },
 ]
 
 export const pumpNames = ['X', 'Y', 'Z']
@@ -100,4 +106,14 @@ export const iconMap = {
   'remove': {
     image: <img src={takeOutOfReactionChamber} alt="Remove from Reaction Chamber" /> // This should be deprecated for more precise icons
   }
+}
+
+export const taskToIconMap = {
+  [HUMAN_TASK]: 'human_task',
+  [COOL_TASK]: 'cooling',
+  [HEAT_TASK]: 'heating',
+  [MAINTAIN_COOL_TASK]: 'maintain_cool',
+  [MAINTAIN_HEAT_TASK]: 'maintain_heat',
+  [PUMP_TASK]: 'dispensing',
+  [STIR_TASK]: 'stirring'
 }

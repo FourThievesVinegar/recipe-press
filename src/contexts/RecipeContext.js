@@ -1,10 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { saveAs } from 'file-saver'
-// import dummyRecipeData from './DummyRecipeData.json'
+import { HUMAN_TASK } from '../constants'
 
 export const RecipeContext = createContext({})
-
-export const HUMAN_TASK = 'humanTask'
 
 const MESSAGE_TYPES = {
   RECIPE: 'recipe',
@@ -97,8 +95,8 @@ export const RecipeProvider = ({ children }) => {
     setRecipes(newRecipies)
   }
 
-  const createStep = (message, baseStep, parameters, description) => {
-    const newStep = { message, baseStep, parameters, description }
+  const createStep = (message, baseTask, parameters, description) => {
+    const newStep = { message, baseTask, parameters, description }
     const newSteps = [...recipes[currentRecipe]?.steps]
 
     newSteps.push(newStep)

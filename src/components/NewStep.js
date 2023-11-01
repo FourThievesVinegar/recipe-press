@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useRecipeContext } from '../contexts/RecipeContext'
+import { HUMAN_TASK } from '../constants'
 
 export const NewStep = () => {
   const [message, setMessage] = useState('')
@@ -19,7 +20,7 @@ export const NewStep = () => {
       />
       <button
         onClick={() => {
-          createStep(message)
+          createStep(message, HUMAN_TASK)
         }}
       >
         Add Step

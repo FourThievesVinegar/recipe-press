@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { HUMAN_TASK, useRecipeContext } from './RecipeContext'
+import { useRecipeContext } from './RecipeContext'
+import { HUMAN_TASK } from '../constants'
+
 export const RecipeSimulatorContext = createContext({})
 
 export const useRecipeSimulatorContext = () => {
