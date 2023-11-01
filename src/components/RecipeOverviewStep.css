@@ -67,7 +67,7 @@
 }
 
 .recipe-overview-step-icon img {
-  max-width: 40px;
+  max-width: 60px;
   pointer-events: none;
 }
 
@@ -79,6 +79,7 @@
   font-weight: normal;
   height: 24px;
 }
+
 .recipe-step-arrow-backward,
 .recipe-step-arrow-forward {
   position: absolute;
@@ -90,10 +91,12 @@
   border: 1px solid #000;
   width: 85%;
 }
+
 .recipe-step-arrow-forward {
   left: 60%;
   padding: 0px 32px 0 4px;
 }
+
 .recipe-step-arrow-forward::after {
   content: '⇨';
   position: absolute;
@@ -101,10 +104,12 @@
   font-size: 2em;
   line-height: 0.45;
 }
+
 .recipe-step-arrow-backward {
   right: 70%;
   padding: 0px 4px 0 32px;
 }
+
 .recipe-step-arrow-backward::after {
   content: '⇦';
   position: absolute;
@@ -112,6 +117,7 @@
   font-size: 2em;
   line-height: 0.45;
 }
+
 .recipe-step-arrow-same {
   position: absolute;
   top: 100%;
@@ -123,6 +129,7 @@
   border: 20px solid #ededed;
   border-top: 0;*/
 }
+
 .recipe-step-arrow-same::after {
   content: '↷';
   position: absolute;

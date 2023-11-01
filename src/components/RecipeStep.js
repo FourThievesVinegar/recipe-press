@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { recipeStepBaseTasks } from '../constants'
+import { recipeStepBaseTasks, iconMap } from '../constants'
 import { HUMAN_TASK, useRecipeContext } from '../contexts/RecipeContext'
 
 import './RecipeStep.css'
@@ -21,22 +21,42 @@ export const RecipeStep = ({ step, index }) => {
       />
       <div className="recipe-step-task-section">
         <div className="recipe-step-task">
-          <label htmlFor="base-task">Task type</label>
-          <select
-            value={step.baseTask || HUMAN_TASK}
-            name="base-task"
-            onChange={e => {
-              updateStep({ ...step, baseTask: e.target.value }, index)
-            }}
-          >
-            {recipeStepBaseTasks.map(task => {
-              return (
-                <option key={task.value} value={task.value}>
-                  {task.label}
-                </option>
-              )
-            })}
-          </select>
+          <div>
+            <label htmlFor="base-task">Task type</label>
+            <select
+              value={step.baseTask || HUMAN_TASK}
+              name="base-task"
+              onChange={e => {
+                updateStep({ ...step, baseTask: e.target.value }, index)
+              }}
+            >
+              {recipeStepBaseTasks.map(task => {
+                return (
+                  <option key={task.value} value={task.value}>
+                    {task.label}
+                  </option>
+                )
+              })}
+            </select>
+          </div>
+          <div>
+            <label htmlFor="base-task">Task icon</label>
+            <select
+              value={step.icon || HUMAN_TASK}
+              name="icon"
+              onChange={e => {
+                updateStep({ ...step, icon: e.target.value }, index)
+              }}
+            >
+              {Object.keys(iconMap).map(icon => {
+                return (
+                  <option key={icon} value={icon}>
+                    {icon}
+                  </option>
+                )
+              })}
+            </select>
+          </div>
         </div>
         <RecipeStepParameters step={step} updateStep={updateStep} stepIndex={index} />
       </div>
