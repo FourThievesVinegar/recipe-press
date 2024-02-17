@@ -1,23 +1,22 @@
 .recipe-overview {
   position: relative;
-  border-bottom: 1px solid white;
+  height: 100%;
+  overflow-y: auto;
+  border-right: 1px solid white;
 }
 
 .recipe-overview-steps {
   display: flex;
-  flex-direction: row;
-  overflow-x: auto;
+  flex-direction: column;
   height: fit-content;
-  padding-top: 16px;
-  padding-bottom: 96px;
+  padding: 0 16px 16px 16px;
 }
 
 .recipe-overview-drop-target {
   position: absolute;
-  height: 100%;
-  top: 0;
-  right: -16px;
-  width: 16px;
+  width: 100%;
+  height: 16px;
+  top: 100%;
   z-index: 100;
 }
 

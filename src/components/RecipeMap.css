@@ -1,0 +1,36 @@
+.recipe-map {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: 1px solid white;
+    padding: 16px;
+}
+
+.recipe-map ul {
+    padding: 0;
+}
+
+.recipe-map-controls button {
+    margin: 0;
+}
+
+.recipe-map-item {
+    display: flex;
+    height: 40px;
+    width: 40px;
+    padding: 4px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 16px
+}
+
+.recipe-map-item.human-task {
+    background-color: var(--relaxing-nectarine);
+}
+
+.recipe-map-item.current-step {
+    z-index: 20;
+    font-weight: bold;
+    -webkit-box-shadow: 5px 5px 15px 5px var(--bland-mustard);
+    box-shadow: 0px 0px 0px 5px var(--bland-mustard);
+}
