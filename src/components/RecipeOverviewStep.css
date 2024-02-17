@@ -46,11 +46,12 @@
 }
 
 .recipe-overview-step.human-task {
-  background-color: var(--relaxing-nectarine);
+  background-color: var(--minty-teal);
+  color: black;
 }
 
 .automated-task {
-  background-color: var(--cyberpunk-bubblegum);
+  background-color: var(--exciting-dark-blue);
 }
 
 .recipe-overview-step-index {
