@@ -143,6 +143,7 @@ export const RecipeOverviewStep = ({ step, index, isCurrentStep, arrowCount }) =
   return (
     <div className={`recipe-overview-step-container ${isCurrentStep ? 'current-step' : ''} `}>
       <div
+        id={`recipe-overview-step-${index}`}
         className={`recipe-overview-step ${!step.baseTask || step.baseTask === HUMAN_TASK ? 'human-task' : 'automated-task'
           }`}
         onClick={() => setCurrentStep(index)}

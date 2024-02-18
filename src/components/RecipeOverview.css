@@ -5,6 +5,12 @@
   border-right: 1px solid white;
 }
 
+.recipe-overview-no-steps {
+  width: 240px;
+  padding: 16px;
+  border: 1px solid #fff;
+}
+
 .recipe-overview-steps {
   display: flex;
   flex-direction: column;

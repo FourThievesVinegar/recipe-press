@@ -17,6 +17,7 @@ export const NewStep = () => {
         onChange={e => {
           setMessage(e.target.value)
         }}
+        placeholder='The text you enter here will be shown to the user while the step is running.'
       />
       <button
         onClick={() => {

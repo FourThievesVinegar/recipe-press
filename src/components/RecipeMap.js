@@ -37,7 +37,10 @@ export const RecipeMap = () => {
 const RecipeMapItem = ({ step, index, isCurrentStep, setCurrentStep }) => (
   <li className={`recipe-map-item ${isCurrentStep ? 'current-step' : ''} ${!step.baseTask || step.baseTask === HUMAN_TASK ? 'human-task' : 'automated-task'
     }`}
-    onClick={() => setCurrentStep(index)}
+    onClick={() => {
+      setCurrentStep(index)
+      document.getElementById(`recipe-overview-step-${index}`).scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" })
+    }}
   >
     {index}
   </li >

@@ -19,6 +19,9 @@ export const RecipeOverview = () => {
     <section className="recipe-overview">
       <h2>Recipe Steps</h2>
       <div className="recipe-overview-steps">
+        {recipes[currentRecipe]?.steps?.length < 1 ?
+          <p className='recipe-overview-no-steps'>This recipe doesn't have any steps yet. <br /><br />Use the "New Recipe Step" form to add one.</p> :
+          null}
         {recipes[currentRecipe]?.steps?.map((step, index) => {
           return (
             <RecipeOverviewStep
