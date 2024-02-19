@@ -1,10 +1,10 @@
 import React from 'react'
 import { useRecipeContext } from '../contexts/RecipeContext'
-import { iconMap, taskToIconMap, HUMAN_TASK } from "../constants"
+import { HUMAN_TASK } from "../constants"
 import "./RecipeMap.css"
 
 export const RecipeMap = () => {
-  const { recipes, currentRecipe, currentStep, embedded, setCurrentStep } = useRecipeContext()
+  const { recipes, currentRecipe, currentStep, setCurrentStep } = useRecipeContext()
 
   return (
     <section className="recipe-map">

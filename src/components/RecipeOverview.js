@@ -6,7 +6,7 @@ import { useRecipeContext } from '../contexts/RecipeContext'
 import './RecipeOverview.css'
 
 export const RecipeOverview = () => {
-  const { recipes, currentRecipe, currentStep, embedded, setCurrentStep } = useRecipeContext()
+  const { recipes, currentRecipe, currentStep, embedded } = useRecipeContext()
 
   const arrowCount = useRef(0)
   arrowCount.current = 0
