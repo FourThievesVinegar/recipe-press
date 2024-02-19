@@ -111,6 +111,12 @@ export const RecipeProvider = ({ children }) => {
     updateRecipe(recipes[currentRecipe].title, newSteps)
   }
 
+  const deleteStep = (stepIndex) => {
+    let newSteps = [...recipes[currentRecipe].steps]
+    newSteps.splice(stepIndex, 1)
+    updateRecipe(recipes[currentRecipe].title, newSteps)
+  }
+
   const reorderStep = (newIndex, currentIndex) => {
     const oldSteps = [...recipes[currentRecipe].steps]
     const newStep = { ...oldSteps[currentIndex] }
@@ -204,6 +210,7 @@ export const RecipeProvider = ({ children }) => {
       value={{
         createRecipe,
         createStep,
+        deleteStep,
         currentRecipe,
         embedded,
         setCurrentRecipe,

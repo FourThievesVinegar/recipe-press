@@ -12,11 +12,12 @@ export const StepDetails = () => {
   if (step === null) return
 
   return (
-    <>
-      <div className="step-details-buttons"></div>
+    <section>
+      {currentStep > -1 && step !== undefined ? <h2>Editing Step {currentStep}</h2> : null}
+
       <div className="step-details">
         {step ? <RecipeStep step={step} index={currentStep} /> : <NewStep />}
       </div>
-    </>
+    </section>
   )
 }

@@ -2,10 +2,22 @@
   box-sizing: border-box;
 }
 
+#root {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
 .App {
+  height: 100%;
   text-align: center;
 }
 
 .App-link {
   color: #61dafb;
+}
+
+main {
+  display: flex;
+  height: calc(100% - var(--header-height));
 }

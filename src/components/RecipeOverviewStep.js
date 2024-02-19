@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useRecipeContext } from '../contexts/RecipeContext'
 
 import { iconMap, taskToIconMap, HUMAN_TASK } from "../constants"
@@ -16,7 +16,7 @@ export const RecipeOverViewDropTarget = ({ index }) => {
   const [hovered, setHovered] = useState(false)
 
   const dropHandler = (newIndex, stepIndex) => {
-    if (newIndex && stepIndex) {
+    if (newIndex !== undefined && stepIndex !== undefined) {
       reorderStep(newIndex, stepIndex)
     }
   }
@@ -41,72 +41,78 @@ export const RecipeOverViewDropTarget = ({ index }) => {
   )
 }
 
-export const RecpieOverViewStepArrows = ({ step, index }) => {
+export const RecpieOverViewStepArrows = ({ step, index, arrowCount }) => {
   let arrows = []
+
+  const stepHeight = 172;
 
   if (step.options) {
     arrows = step.options.map((option, optionIndex) => {
       const nextDistance = parseInt(option.next) - index
-      let styleObject = {}
+      let styleObject = { bottom: `${arrowCount.current * 24}px` }
+      arrowCount.current++
+
       if (nextDistance === 0) {
-        styleObject = {}
         return (
           <div
             key={`${index}-${optionIndex}`}
             className="recipe-step-arrow-same"
             style={styleObject}
           >
-            {option.text}
+            "{option.text}"
           </div>
         )
       }
       if (nextDistance > 1) {
-        const arrowWidth = 50 + 120 * (nextDistance - 1)
-        const arrowTop = 0 + 100 * (Math.min(nextDistance, 6) - 1)
-        styleObject = { width: `${arrowWidth}%`, top: `${arrowTop}%` }
+        const arrowWidth = stepHeight * (nextDistance)
+        // const arrowTop = 0 + 100 * (Math.min(nextDistance, 6) - 1)
+        styleObject = { ...styleObject, width: `${arrowWidth}px`, left: "48px" }
         return (
           <div
             key={`${index}-${optionIndex}`}
             className="recipe-step-arrow-forward"
             style={styleObject}
           >
-            {option.text}: {index} {'⇨'} {option.next}
+            "{option.text}" {index} {'⇨'} {option.next}
           </div>
         )
       }
       if (nextDistance === 1) {
+        styleObject = { ...styleObject, left: "48px", width: `${stepHeight}px` }
         return (
           <div
             key={`${index}-${optionIndex}`}
             className="recipe-step-arrow-forward"
             style={styleObject}
           >
-            {`${option.text}`}
+            {`"${option.text}"`}
           </div>
         )
       }
       if (nextDistance === -1) {
+        styleObject = { ...styleObject, left: `-${100}px`, width: `${stepHeight}px` }
+
         return (
           <div
             key={`${index}-${optionIndex}`}
             className="recipe-step-arrow-backward"
             style={styleObject}
           >
-            {`${option.text}`}
+            {`"${option.text}"`}
           </div>
         )
       }
       if (nextDistance < -1) {
-        const arrowWidth = 50 - 120 * (nextDistance + 1)
-        const arrowTop = 0 - 100 * (Math.max(nextDistance, -6) + 1)
-        styleObject = { width: `${arrowWidth}%`, top: `${arrowTop}%` }
+        const arrowWidth = stepHeight * Math.abs(nextDistance)
+
+        styleObject = { ...styleObject, width: `${arrowWidth}px`, left: `${72 - arrowWidth}px` }
         return (
           <div
             key={`${index}-${optionIndex}`}
             className="recipe-step-arrow-backward"
             style={styleObject}
           >
-            {`${option.text}`}: {index} {'⇨'} {option.next}
+            {`"${option.text}"`} {index} {'⇨'} {option.next}
           </div>
         )
       }
@@ -114,11 +120,17 @@ export const RecpieOverViewStepArrows = ({ step, index }) => {
     })
   }
 
-  return <div className="recipe-step-arrows">{arrows}</div>
+  return <div className="recipe-step-arrows" style={{ width: `${arrowCount.current * 32}px` }}>{arrows}</div>
 }
 
-export const RecipeOverviewStep = ({ step, index, isCurrentStep }) => {
-  const { setCurrentStep, reportStepError } = useRecipeContext()
+export const RecipeOverviewStep = ({ step, index, isCurrentStep, arrowCount }) => {
+  const { setCurrentStep, reportStepError, deleteStep } = useRecipeContext()
+
+  const deleteButtonClickHandler = e => {
+    if (window.confirm(`Are you sure you want to delete step ${index}?`)) {
+      deleteStep(index)
+    }
+  }
 
   const dragStartHandler = e => {
     e.dataTransfer.setData('dragged/index', index)
@@ -134,29 +146,33 @@ export const RecipeOverviewStep = ({ step, index, isCurrentStep }) => {
   reportStepError(index, errorMessage || null)
 
   return (
-    <div
-      className={`recipe-overview-step ${isCurrentStep ? 'current-step' : ''} ${!step.baseTask || step.baseTask === HUMAN_TASK ? 'human-task' : 'automated-task'
-        }`}
-      onClick={() => setCurrentStep(index)}
-      draggable="true"
-      onDragStart={e => dragStartHandler(e)}
-    >
-      <div className="recipe-overview-step-index">{index}</div>
-      {step.done && <div className="recipe-step-final-step">☑</div>}
-      {hasError ? (
-        <div title={errorMessage} className="recipe-step-error-icon">
-          ⚠
-        </div>
-      ) : (
-        <div className="recipe-overview-step-icon">
-          <RecipeOverviewStepIcon step={step} />
-        </div>
-      )}
+    <div className={`recipe-overview-step-container ${isCurrentStep ? 'current-step' : ''} `}>
+      <div
+        id={`recipe-overview-step-${index}`}
+        className={`recipe-overview-step ${!step.baseTask || step.baseTask === HUMAN_TASK ? 'human-task' : 'automated-task'
+          }`}
+        onClick={() => setCurrentStep(index)}
+        draggable="true"
+        onDragStart={e => dragStartHandler(e)}
+      >
+        <div className="recipe-overview-step-index">{index}</div>
+        <div className="recipe-overview-step-buttons"><button onClick={deleteButtonClickHandler}>X</button></div>
+        {step.done && <div className="recipe-step-final-step">☑</div>}
+        {hasError ? (
+          <div title={errorMessage} className="recipe-step-error-icon">
+            ⚠
+          </div>
+        ) : (
+          <div className="recipe-overview-step-icon">
+            <RecipeOverviewStepIcon step={step} />
+          </div>
+        )}
 
-      <p>{step.message}</p>
-      {index === 0 && <RecipeOverViewDropTarget index={index} />}
-      <RecipeOverViewDropTarget index={index + 1} />
-      <RecpieOverViewStepArrows step={step} index={index} />
+        <p>{step.message}</p>
+        {index === 0 && <RecipeOverViewDropTarget index={index} />}
+        <RecipeOverViewDropTarget index={index + 1} />
+      </div>
+      <RecpieOverViewStepArrows step={step} index={index} arrowCount={arrowCount} />
     </div>
   )
 }

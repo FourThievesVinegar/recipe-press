@@ -5,19 +5,21 @@
 
 .App-header {
   position: relative;
-  background-color: #282c34;
+  height: var(--header-height);
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   color: white;
   padding: 0 8px;
+  background-color: #282c34;
 }
 
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

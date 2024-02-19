@@ -7,7 +7,7 @@
 .parameters-list li,
 .options-list li {
   list-style-type: none;
-  padding: 8px;
+  padding: 8px 0;
   border-top: 1px solid #333;
 }
 
@@ -38,5 +38,8 @@
 }
 
 button.delete-option {
-  background-color: #cf4673;
+  background-color: var(--cyberpunk-bubblegum);
+  min-width: 32px;
+  height: 32px;
+  margin: 0;
 }

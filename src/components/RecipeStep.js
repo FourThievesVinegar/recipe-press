@@ -18,6 +18,7 @@ export const RecipeStep = ({ step, index }) => {
         onChange={e => {
           updateStep({ ...step, message: e.target.value }, index)
         }}
+        placeholder='The text you enter here will be shown to the user while the step is running.'
       />
       <div className="recipe-step-task-section">
         <div className="recipe-step-task">
@@ -67,6 +68,7 @@ export const RecipeStep = ({ step, index }) => {
         onChange={e => {
           updateStep({ ...step, details: e.target.value }, index)
         }}
+        placeholder='Additional details of the step that can be shown while reviewing the recipe on the Microlab.'
       />
     </div>
   )

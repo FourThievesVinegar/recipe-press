@@ -24,7 +24,7 @@ export const RecipeSimulator = () => {
             <button onClick={e => startSimulation()}>Restart</button>
             <p>Step {simulationStepIndex}</p>
             <div className="recipe-simulator-controls-item">
-              <label htmlFor="automated-step-length">Automated step length</label>
+              <label htmlFor="automated-step-length">Simulated step length</label>
               <input
                 type="number"
                 onChange={e => {
