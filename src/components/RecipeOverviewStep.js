@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { useRecipeContext } from '../contexts/RecipeContext'
 
 import { iconMap, taskToIconMap, HUMAN_TASK } from "../constants"
