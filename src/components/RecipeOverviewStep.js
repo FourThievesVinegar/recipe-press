@@ -16,6 +16,7 @@ export const RecipeOverViewDropTarget = ({ index }) => {
   const [hovered, setHovered] = useState(false)
 
   const dropHandler = (newIndex, stepIndex) => {
+    console.log("DROPPED!")
     if (newIndex && stepIndex) {
       reorderStep(newIndex, stepIndex)
     }
@@ -124,8 +125,13 @@ export const RecpieOverViewStepArrows = ({ step, index, arrowCount }) => {
 }
 
 export const RecipeOverviewStep = ({ step, index, isCurrentStep, arrowCount }) => {
-  const { setCurrentStep, reportStepError } = useRecipeContext()
+  const { setCurrentStep, reportStepError, deleteStep } = useRecipeContext()
 
+  const deleteButtonClickHandler = e => {
+    if (window.confirm(`Are you sure you want to delete step ${index}?`)) {
+      deleteStep(index)
+    }
+  }
 
   const dragStartHandler = e => {
     e.dataTransfer.setData('dragged/index', index)
@@ -151,6 +157,7 @@ export const RecipeOverviewStep = ({ step, index, isCurrentStep, arrowCount }) =
         onDragStart={e => dragStartHandler(e)}
       >
         <div className="recipe-overview-step-index">{index}</div>
+        <div className="recipe-overview-step-buttons"><button onClick={deleteButtonClickHandler}>X</button></div>
         {step.done && <div className="recipe-step-final-step">☑</div>}
         {hasError ? (
           <div title={errorMessage} className="recipe-step-error-icon">

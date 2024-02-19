@@ -24,6 +24,7 @@
   height: 16px;
   top: 100%;
   z-index: 100;
+  left: 0;
 }
 
 .recipe-overview-drop-target.first-target-drop-target {

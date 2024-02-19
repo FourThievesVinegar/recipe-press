@@ -8,8 +8,9 @@
   display: flex;
   flex: 1 1 0px;
   flex-direction: column;
+  height: auto;
   width: var(--recipe-step-width);
-  height: var(--recipe-step-height);
+  min-height: var(--recipe-step-height);
   max-width: var(--recipe-step-width);
   min-width: var(--recipe-step-width);
   margin-top: 16px;
@@ -57,13 +58,32 @@
 .recipe-overview-step-index {
   position: absolute;
   top: 8px;
-  right: 8px;
+  left: 8px;
+}
+
+.recipe-overview-step-buttons {
+  display: none;
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  z-index: 10;
+}
+
+.recipe-overview-step:hover .recipe-overview-step-buttons {
+  display: block
+}
+
+.recipe-overview-step-buttons button {
+  width: 32px;
+  height: 32px;
+  margin: 0;
+  background-color: var(--cyberpunk-bubblegum);
 }
 
 .recipe-step-final-step {
   position: absolute;
   top: 8px;
-  left: 8px;
+  right: 8px;
   font-size: 1.5rem;
 }
 
