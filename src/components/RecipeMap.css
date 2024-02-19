@@ -4,6 +4,7 @@
     align-items: center;
     border-right: 1px solid white;
     padding: 16px;
+    overflow-y: auto;
 }
 
 .recipe-map ul {
