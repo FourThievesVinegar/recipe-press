@@ -16,8 +16,7 @@ export const RecipeOverViewDropTarget = ({ index }) => {
   const [hovered, setHovered] = useState(false)
 
   const dropHandler = (newIndex, stepIndex) => {
-    console.log("DROPPED!")
-    if (newIndex && stepIndex) {
+    if (newIndex !== undefined && stepIndex !== undefined) {
       reorderStep(newIndex, stepIndex)
     }
   }
