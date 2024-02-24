@@ -1,4 +1,4 @@
-# Welcome to the Apothecarium Recipe Press
+# Welcome to the Microlab Recipe Press
 
 This is a simple CRA app that allows you to create, edit, and download recipe files for the [Microlab](https://github.com/FourThievesVinegar/solderless-microlab). It will run independently, but it is also designed to be accessed through projects in [Vinni](https://github.com/FourThievesVinegar/vinni), which is still pre-alpha and has very few features currently.
 

@@ -8,7 +8,7 @@ export const AppHeader = () => {
     <header className="App-header">
       <div className="title-container">
         <img src={logo} className="App-logo" alt="logo" />
-        <h1 className="title-font">Apothecarium</h1>
+        <h1 className="title-font">Recipe Press</h1>
       </div>
       <HeaderControls />
     </header>
