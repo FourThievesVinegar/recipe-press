@@ -68,7 +68,7 @@ const OptionField = ({ index, option, updateOption, deleteOption }) => {
           type="text"
           value={option.text}
           onChange={e => {
-            updateOption({ ...option, text: e.target.value }, index)
+            updateOption({ ...option, text: e.target.value.trim() }, index)
           }}
         />
         <label htmlFor={`${option}-next`}>Next step:</label>
