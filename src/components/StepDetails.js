@@ -5,11 +5,15 @@ import { RecipeStep } from './RecipeStep'
 import './StepDetails.css'
 
 export const StepDetails = () => {
-  const { recipes, currentRecipe, currentStep } = useRecipeContext()
+  const { embedded, recipes, currentRecipe, currentStep } = useRecipeContext()
 
   const step = recipes[currentRecipe]?.steps[currentStep]
 
   if (step === null) return
+
+  if (!embedded && recipes.length === 0) {
+    return (<p>Create a recipe in order to add steps!</p>)
+  }
 
   return (
     <section>

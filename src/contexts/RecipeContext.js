@@ -136,6 +136,38 @@ export const RecipeProvider = ({ children }) => {
           ...oldSteps.slice(newIndex, oldSteps.length),
         ]
 
+        console.log(newIndex, currentIndex)
+
+    if(newIndex < currentIndex) { // If we moved a step backwards in the arran
+      // we need to update every reference to a step between newIndex and currentIndex by incrementing it
+      newSteps.forEach(step => {
+        step.options?.forEach(option => {
+          if (option?.next >= newIndex && option?.next < currentIndex) {
+            console.log("incrementing", option?.next)
+            option.next++;
+          } else if (option?.next === currentIndex) {
+                // finally we need to update every reference to currentIndex to newIndex
+            console.log("updating 1", option?.next)
+            option.next = newIndex
+          }
+        })
+      })
+    } else {  // If we moved a step forwards in the arrey
+      // we need to update every reference to a step between currentIndex and newIndex by decrementing it
+      newSteps.forEach(step => {
+        step.options?.forEach(option => {
+          if (option?.next > currentIndex && option?.next < newIndex) {
+            console.log("decrementing", option?.next)
+            option.next--;
+          } else if (option?.next === currentIndex) {
+                // finally we need to update every reference to currentIndex to newIndex
+            console.log("updating 2", option?.next)
+            option.next = newIndex - 1
+          }
+        })
+      })
+    }
+
     updateRecipe(recipes[currentRecipe].title, newSteps)
   }
 
