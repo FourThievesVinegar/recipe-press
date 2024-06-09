@@ -136,6 +136,38 @@ export const RecipeProvider = ({ children }) => {
           ...oldSteps.slice(newIndex, oldSteps.length),
         ]
 
+        console.log(newIndex, currentIndex)
+
+    if(newIndex < currentIndex) { // If we moved a step backwards in the arran
+      // we need to update every reference to a step between newIndex and currentIndex by incrementing it
+      newSteps.forEach(step => {
+        step.options?.forEach(option => {
+          if (option?.next >= newIndex && option?.next < currentIndex) {
+            console.log("incrementing", option?.next)
+            option.next++;
+          } else if (option?.next === currentIndex) {
+                // finally we need to update every reference to currentIndex to newIndex
+            console.log("updating 1", option?.next)
+            option.next = newIndex
+          }
+        })
+      })
+    } else {  // If we moved a step forwards in the arrey
+      // we need to update every reference to a step between currentIndex and newIndex by decrementing it
+      newSteps.forEach(step => {
+        step.options?.forEach(option => {
+          if (option?.next > currentIndex && option?.next < newIndex) {
+            console.log("decrementing", option?.next)
+            option.next--;
+          } else if (option?.next === currentIndex) {
+                // finally we need to update every reference to currentIndex to newIndex
+            console.log("updating 2", option?.next)
+            option.next = newIndex - 1
+          }
+        })
+      })
+    }
+
     updateRecipe(recipes[currentRecipe].title, newSteps)
   }
 
@@ -180,8 +212,24 @@ export const RecipeProvider = ({ children }) => {
     const title = recipes[currentRecipe].title
     const steps = recipes[currentRecipe].steps
 
+    // For any step with andStir set, set the sub-tasks array to include (only) a stirring step.
+    // This is not elegant, but it's currently the only use of sub-tasks, so it's OK for now.
+    // In the future, we probably want to support human tasks with stirring and temperature control but for now we don't.
+    steps.forEach(step => {
+      if(step.andStir && step?.parameters?.time) {
+        // If we have a stirring task and it has a duration, add a stirring sub-task with the same duration
+        step.tasks = [
+          {
+            "baseTask": "stir",
+            "parameters": { "time": step.parameters.time }
+          }
+        ]
+      }
+    })
+
     steps[steps.length - 1].done = true
-    // Validate steps
+
+    // TODO: Validate steps
     //    Every human task has options
     //      Every option has a text and a next
     //      Every next is a valid step
@@ -190,6 +238,9 @@ export const RecipeProvider = ({ children }) => {
     //    Every step has a next or options or done (and only one of them)
     //    At least one step has a done
     //      The last step has a done
+    //    Every pump step has a pump and an amount specified
+    //    Every non-human task has a duration
+    //    Every sub-task has a duration (for now, only stirring is going to be used)
     // Validate title
     //    No illegal characters - alphanumeric only
 
