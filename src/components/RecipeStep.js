@@ -5,6 +5,7 @@ import { useRecipeContext } from '../contexts/RecipeContext'
 
 import './RecipeStep.css'
 import { RecipeStepParameters } from './RecipeStepParameters'
+import { RecipeStepSubtasks } from './RecipeStepSubtasks'
 
 export const RecipeStep = ({ step, index }) => {
   const { updateStep } = useRecipeContext()
@@ -58,6 +59,7 @@ export const RecipeStep = ({ step, index }) => {
               })}
             </select>
           </div>
+          <RecipeStepSubtasks step={step} updateStep={updateStep} stepIndex={index} />
         </div>
         <RecipeStepParameters step={step} updateStep={updateStep} stepIndex={index} />
       </div>
