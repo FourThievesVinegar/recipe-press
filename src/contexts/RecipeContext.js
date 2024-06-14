@@ -114,6 +114,13 @@ export const RecipeProvider = ({ children }) => {
   const deleteStep = (stepIndex) => {
     let newSteps = [...recipes[currentRecipe].steps]
     newSteps.splice(stepIndex, 1)
+    // we need to update every reference to a step after stepIndex by decrementing it
+    newSteps.forEach(step => {
+      step.options?.forEach(option => {
+        if (option?.next > stepIndex) {
+          option.next--;
+      }})
+    })
     updateRecipe(recipes[currentRecipe].title, newSteps)
   }
 
@@ -157,11 +164,9 @@ export const RecipeProvider = ({ children }) => {
       newSteps.forEach(step => {
         step.options?.forEach(option => {
           if (option?.next > currentIndex && option?.next < newIndex) {
-            console.log("decrementing", option?.next)
             option.next--;
           } else if (option?.next === currentIndex) {
-                // finally we need to update every reference to currentIndex to newIndex
-            console.log("updating 2", option?.next)
+            // finally we need to update every reference to currentIndex to newIndex
             option.next = newIndex - 1
           }
         })
