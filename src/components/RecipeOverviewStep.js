@@ -42,6 +42,8 @@ export const RecipeOverViewDropTarget = ({ index }) => {
 }
 
 export const RecpieOverViewStepArrows = ({ step, index, arrowCount }) => {
+  const { setCurrentStep } = useRecipeContext()
+
   let arrows = []
 
   const stepHeight = 172;
@@ -120,7 +122,7 @@ export const RecpieOverViewStepArrows = ({ step, index, arrowCount }) => {
     })
   }
 
-  return <div className="recipe-step-arrows" style={{ width: `${arrowCount.current * 32}px` }}>{arrows}</div>
+  return <button className="recipe-step-arrows" onClick={() => setCurrentStep(index)} style={{ width: `${arrowCount.current * 32}px`, height: 0, padding: 0 }}>{arrows}</button>
 }
 
 export const RecipeOverviewStep = ({ step, index, isCurrentStep, arrowCount }) => {
