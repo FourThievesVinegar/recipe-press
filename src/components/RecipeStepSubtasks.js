@@ -14,11 +14,6 @@ export const RecipeStepSubtasks = ({step, updateStep, stepIndex}) => {
   }
 
   return (
-    step.tasks? 
-      step.tasks?.forEach(task => {
-        return task
-      })
-    : 
       <>
         <input 
           type='checkbox' 
