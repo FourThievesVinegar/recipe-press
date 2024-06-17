@@ -60,6 +60,7 @@ export const RecpieOverViewStepArrows = ({ step, index, arrowCount }) => {
             key={`${index}-${optionIndex}`}
             className="recipe-step-arrow-same"
             style={styleObject}
+            title={option.text}
           >
             "{option.text}"
           </div>
@@ -74,6 +75,7 @@ export const RecpieOverViewStepArrows = ({ step, index, arrowCount }) => {
             key={`${index}-${optionIndex}`}
             className="recipe-step-arrow-forward"
             style={styleObject}
+            title={option.text}
           >
             "{option.text}" {index} {'⇨'} {option.next}
           </div>
@@ -86,6 +88,7 @@ export const RecpieOverViewStepArrows = ({ step, index, arrowCount }) => {
             key={`${index}-${optionIndex}`}
             className="recipe-step-arrow-forward"
             style={styleObject}
+            title={option.text}
           >
             {`"${option.text}"`}
           </div>
@@ -99,6 +102,7 @@ export const RecpieOverViewStepArrows = ({ step, index, arrowCount }) => {
             key={`${index}-${optionIndex}`}
             className="recipe-step-arrow-backward"
             style={styleObject}
+            title={option.text}
           >
             {`"${option.text}"`}
           </div>
@@ -113,6 +117,7 @@ export const RecpieOverViewStepArrows = ({ step, index, arrowCount }) => {
             key={`${index}-${optionIndex}`}
             className="recipe-step-arrow-backward"
             style={styleObject}
+            title={option.text}
           >
             {`"${option.text}"`} {index} {'⇨'} {option.next}
           </div>
