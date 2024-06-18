@@ -81,6 +81,7 @@ export const RecipeProvider = ({ children }) => {
 
   const createRecipe = (title, steps) => {
     if (!title) {
+      document.getElementsByName("new-recipe-title")[0]?.focus()
       console.log('You must have a title!')
       return
     }
