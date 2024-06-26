@@ -49,15 +49,17 @@ export const RecipeSimulator = () => {
                     {option.text}
                   </button>
                 ))}
+                <p>Type: {simulationStep.baseTask}</p>
                 {simulationStep.parameters && (
                   <ul className="recipe-simulator-parameters">
                     {Object.keys(simulationStep.parameters).map(paramKey => (
-                      <li>
+                      <li key={paramKey}>
                         {paramKey}: {simulationStep.parameters[paramKey]}
                       </li>
                     ))}
                   </ul>
                 )}
+                {simulationStep.andStir && <p>... and stir for the duration</p>}
                 {simulationStep.done && <p>The recipe simulation is complete.</p>}
               </>
             ) : (
