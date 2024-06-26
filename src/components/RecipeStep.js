@@ -29,7 +29,7 @@ export const RecipeStep = ({ step, index }) => {
               value={step.baseTask || HUMAN_TASK}
               name="base-task"
               onChange={e => {
-                updateStep({ ...step, baseTask: e.target.value }, index)
+                updateStep({ ...step, baseTask: e.target.value, parameters: {} }, index)
               }}
             >
               {recipeStepBaseTasks.map(task => {
