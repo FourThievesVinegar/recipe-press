@@ -160,7 +160,7 @@ export const RecipeProvider = ({ children }) => {
           }
         })
       })
-    } else {  // If we moved a step forwards in the arrey
+    } else {  // If we moved a step forwards in the array
       // we need to update every reference to a step between currentIndex and newIndex by decrementing it
       newSteps.forEach(step => {
         step.options?.forEach(option => {

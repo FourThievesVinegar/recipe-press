@@ -2,6 +2,7 @@ import React from 'react'
 import { useRecipeSimulatorContext } from '../contexts/RecipeSimulatorContext'
 
 import './RecipeSimulator.css'
+import { RecipeOverviewStepIcon } from './RecipeOverviewStep'
 
 export const RecipeSimulator = () => {
   const {
@@ -49,6 +50,7 @@ export const RecipeSimulator = () => {
                     {option.text}
                   </button>
                 ))}
+                <RecipeOverviewStepIcon step={simulationStep} />
                 <p>Type: {simulationStep.baseTask}</p>
                 {simulationStep.parameters && (
                   <ul className="recipe-simulator-parameters">
