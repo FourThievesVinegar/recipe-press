@@ -1,5 +1,5 @@
 import React from 'react'
-import { HUMAN_TASK, PUMP_TASK, STIR_TASK } from '../constants'
+import { HUMAN_TASK, STIR_TASK } from '../constants'
 
 export const RecipeStepSubtasks = ({step, updateStep, stepIndex}) => {
   const handleAndStirChange = (checked) => {
