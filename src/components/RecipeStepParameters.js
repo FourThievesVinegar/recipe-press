@@ -5,19 +5,19 @@ import { baseStepParameters, pumpNames, HUMAN_TASK } from '../constants'
 import './RecipeStepParameters.css'
 
 const parameterFieldMap = {
-  temp: 'number',
+  duration: 'number',
   pump: 'text',
   volume: 'number',
-  time: 'number',
+  temp: 'number',
   tolerance: 'number',
 }
 
 const parameterFieldHelpText = {
+  duration: 'seconds',
   pump: '',
-  temp: 'degrees C',
-  time: 'seconds',
-  tolerance: 'degrees C',
   volume: 'mL',
+  temp: 'degrees C',
+  tolerance: 'degrees C',
 }
 
 const ParameterField = ({ parameter, value, updateParameter }) => {
