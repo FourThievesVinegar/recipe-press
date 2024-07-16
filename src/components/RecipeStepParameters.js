@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { baseStepParameters, pumpNames, HUMAN_TASK } from '../constants'
+import { TASK_PARAMETERS, PUMP_NAMES, HUMAN_TASK } from '../constants'
 
 import './RecipeStepParameters.css'
 
@@ -34,7 +34,7 @@ const ParameterField = ({ parameter, value, updateParameter }) => {
             updateParameter(parameter, value)
           }}
         >
-          {['-', ...pumpNames].map(value => (
+          {['-', ...PUMP_NAMES].map(value => (
             <option value={value} key={value}>
               {value}
             </option>
@@ -101,7 +101,7 @@ export const RecipeStepParameters = ({ step, updateStep, stepIndex }) => {
   const { parameters = [], options = [], baseTask } = step
 
   const stepParameters = parameters
-  const defaultParameters = baseStepParameters[step?.baseTask]
+  const defaultParameters = TASK_PARAMETERS[step?.baseTask]
   const updateParameter = (parameter, value) => {
     updateStep({ ...step, parameters: { ...step.parameters, [parameter]: value } }, stepIndex)
   }
