@@ -5,10 +5,14 @@ import { iconMap, taskToIconMap, HUMAN_TASK } from "../constants"
 
 import './RecipeOverviewStep.css'
 
-const RecipeOverviewStepIcon = ({ step }) => {
+export const RecipeOverviewStepIcon = ({ step }) => {
   if (!step) return <></>
 
-  return iconMap[step.icon || taskToIconMap[step.baseTask]]?.image
+  return (
+    <div className="recipe-overview-step-icon">
+      {iconMap[step.icon || taskToIconMap[step.baseTask]]?.image}
+    </div>
+  )
 }
 
 export const RecipeOverViewDropTarget = ({ index }) => {
@@ -170,9 +174,7 @@ export const RecipeOverviewStep = ({ step, index, isCurrentStep, arrowCount }) =
             ⚠
           </div>
         ) : (
-          <div className="recipe-overview-step-icon">
-            <RecipeOverviewStepIcon step={step} />
-          </div>
+          <RecipeOverviewStepIcon step={step} />
         )}
 
         <p>{step.message}</p>

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { recipeStepBaseTasks, iconMap, HUMAN_TASK } from '../constants'
+import { recipeStepBaseTasks, iconMap, taskToIconMap, HUMAN_TASK } from '../constants'
 import { useRecipeContext } from '../contexts/RecipeContext'
 
 import './RecipeStep.css'
@@ -29,7 +29,8 @@ export const RecipeStep = ({ step, index }) => {
               value={step.baseTask || HUMAN_TASK}
               name="base-task"
               onChange={e => {
-                updateStep({ ...step, baseTask: e.target.value }, index)
+                const task = e.target.value
+                updateStep({ ...step, baseTask: task, parameters: {}, icon: taskToIconMap[task]}, index)
               }}
             >
               {recipeStepBaseTasks.map(task => {

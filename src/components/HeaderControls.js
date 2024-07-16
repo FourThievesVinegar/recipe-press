@@ -24,7 +24,7 @@ export const HeaderControls = () => {
           simulateRecipe()
         }}
       >
-        Simulate
+        Run it!
       </button>
       <button
         disabled={stepErrorsMessages.length > 0}

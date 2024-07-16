@@ -160,7 +160,7 @@ export const RecipeProvider = ({ children }) => {
           }
         })
       })
-    } else {  // If we moved a step forwards in the arrey
+    } else {  // If we moved a step forwards in the array
       // we need to update every reference to a step between currentIndex and newIndex by decrementing it
       newSteps.forEach(step => {
         step.options?.forEach(option => {
@@ -240,7 +240,7 @@ export const RecipeProvider = ({ children }) => {
     //      Every option has a text and a next
     //      Every next is a valid step
     //      Can a step loop back to itself? Probably not?
-    //    Every automated step has a next that is one more than its index
+    //    Every automated step has a next [that is one more than its index unless we let the user set this.]
     //    Every step has a next or options or done (and only one of them)
     //    At least one step has a done
     //      The last step has a done
@@ -249,6 +249,7 @@ export const RecipeProvider = ({ children }) => {
     //    Every sub-task has a duration (for now, only stirring is going to be used)
     // Validate title
     //    No illegal characters - alphanumeric only
+    // Highlight any steps and fields with issues
 
     var recipeString = `
     {

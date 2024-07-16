@@ -30,7 +30,7 @@
   flex-direction: row;
   justify-content: space-around;
   z-index: 10;
-  background-color: #000;
+  background-color: var(--peoples-purple);
   padding: 24px;
 }
 
@@ -46,7 +46,7 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  background-color: #000;
+  background-color: var(--peoples-purple);
 }
 
 .recipe-simulator-parameters {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { HUMAN_TASK, PUMP_TASK } from '../constants'
+import { HUMAN_TASK, STIR_TASK } from '../constants'
 
 export const RecipeStepSubtasks = ({step, updateStep, stepIndex}) => {
   const handleAndStirChange = (checked) => {
@@ -8,7 +8,7 @@ export const RecipeStepSubtasks = ({step, updateStep, stepIndex}) => {
     updateStep({...step, andStir: checked}, stepIndex)
   }
 
-  if (step.baseTask === HUMAN_TASK || step.baseTask === PUMP_TASK) {
+  if (step.baseTask === HUMAN_TASK || step.baseTask === STIR_TASK) {
     // No subtasks on these steps for now. See exportRecipe in RecipeContext.js for more details
     return null
   }
