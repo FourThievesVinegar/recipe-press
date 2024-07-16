@@ -222,12 +222,12 @@ export const RecipeProvider = ({ children }) => {
     // This is not elegant, but it's currently the only use of sub-tasks, so it's OK for now.
     // In the future, we probably want to support human tasks with stirring and temperature control but for now we don't.
     steps.forEach(step => {
-      if(step.andStir && step?.parameters?.time) {
+      if(step.andStir && step?.parameters?.duration) {
         // If we have a stirring task and it has a duration, add a stirring sub-task with the same duration
         step.tasks = [
           {
             "baseTask": "stir",
-            "parameters": { "time": step.parameters.time }
+            "parameters": { "duration": step.parameters.duration }
           }
         ]
       }

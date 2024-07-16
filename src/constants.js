@@ -30,20 +30,18 @@ export const baseStepParameters = {
   humanTask: [],
   cool: ['temp'],
   heat: ['temp'],
-  maintainCool: ['temp', 'time', 'tolerance'],
-  maintainHeat: ['temp', 'time', 'tolerance'],
-  pump: ['pump', 'volume'],
-  stir: ['time'],
+  maintainCool: ['temp', 'duration', 'tolerance'],
+  maintainHeat: ['temp', 'duration', 'tolerance'],
+  pump: ['pump', 'volume', 'duration'],
+  stir: ['duration'],
 }
 
 export const recipeStepBaseTasks = [
   { label: 'Human Task', value: HUMAN_TASK },
-  { label: 'Cool', value: COOL_TASK },
-  { label: 'Heat', value: HEAT_TASK },
-  { label: 'Maintain Cooling', value: MAINTAIN_COOL_TASK },
-  { label: 'Maintain Heat', value: MAINTAIN_HEAT_TASK },
   { label: 'Pump', value: PUMP_TASK },
   { label: 'Stir', value: STIR_TASK },
+  { label: 'Cool', value: COOL_TASK },
+  { label: 'Heat', value: HEAT_TASK },
 ]
 
 export const pumpNames = ['X', 'Y', 'Z']

@@ -57,7 +57,7 @@
       "next": 6,
       "baseTask": "stir",
       "parameters": {
-        "time": 30
+        "duration": 30
       }
     },
     {
@@ -74,7 +74,7 @@
       "next": 8,
       "baseTask": "maintainHeat",
       "parameters": {
-        "time": 600,
+        "duration": 600,
         "temp": 100,
         "tolerance": 2
       },
@@ -103,7 +103,7 @@
       "next": 11,
       "baseTask": "maintainCool",
       "parameters": {
-        "time": 600,
+        "duration": 600,
         "temp": 5,
         "tolerance": 2
       },
@@ -134,7 +134,7 @@
       "next": 14,
       "baseTask": "maintainCool",
       "parameters": {
-        "time": 1200,
+        "duration": 1200,
         "temp": 5,
         "tolerance": 2
       }
