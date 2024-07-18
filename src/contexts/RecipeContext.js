@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { saveAs } from 'file-saver'
-import { HUMAN_TASK } from '../constants'
+import { HUMAN_TASK, TASK_PARAMETERS } from '../constants'
 
 export const RecipeContext = createContext({})
 
@@ -214,6 +214,48 @@ export const RecipeProvider = ({ children }) => {
     }
   }
 
+  const validateTask = ({baseTask, parameters, options}) => {
+    switch(baseTask) {
+      case HUMAN_TASK: 
+        console.log(options)
+          //    Every human task has options
+          //      Every option has a text and a next
+          //      Every next is a valid step
+          //      Can a step loop back to itself? Probably not?
+        break;
+      default:
+        TASK_PARAMETERS[baseTask].forEach(parameter => {
+          if(!parameters[parameter]) {
+            // REPORT ISSUE! We are missing a param
+          }
+        })
+    }
+  }
+
+  const validateRecipe = () => {
+    const recipe = recipes[currentRecipe]
+
+    // The recipe must have steps and steps.length must be 1 or greater.
+
+    recipe.steps.forEach(step => {
+      validateTask({...step, task: step.baseTask})
+    })
+
+    // TODO: Validate steps
+
+    //    Every automated step has a next [that is one more than its index unless we let the user set this.]
+    //    Every step has a next or options or done (and only one of them)
+    //    At least one step has a done
+    //      The last step has a done
+    //    Every pump step has a pump and an amount specified
+    //    Every non-human task has a duration
+    //    Every sub-task has a duration (for now, only stirring is going to be used)
+    // Validate title
+    //    No illegal characters - alphanumeric only
+    // Highlight any steps and fields with issues
+
+  }
+
   const exportRecipe = () => {
     const title = recipes[currentRecipe].title
     const steps = recipes[currentRecipe].steps
@@ -234,22 +276,6 @@ export const RecipeProvider = ({ children }) => {
     })
 
     steps[steps.length - 1].done = true
-
-    // TODO: Validate steps
-    //    Every human task has options
-    //      Every option has a text and a next
-    //      Every next is a valid step
-    //      Can a step loop back to itself? Probably not?
-    //    Every automated step has a next [that is one more than its index unless we let the user set this.]
-    //    Every step has a next or options or done (and only one of them)
-    //    At least one step has a done
-    //      The last step has a done
-    //    Every pump step has a pump and an amount specified
-    //    Every non-human task has a duration
-    //    Every sub-task has a duration (for now, only stirring is going to be used)
-    // Validate title
-    //    No illegal characters - alphanumeric only
-    // Highlight any steps and fields with issues
 
     var recipeString = `
     {
@@ -280,6 +306,7 @@ export const RecipeProvider = ({ children }) => {
         reportStepError,
         stepErrors,
         updateStep,
+        validateRecipe,
       }}
     >
       {children}

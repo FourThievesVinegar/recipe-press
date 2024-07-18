@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useRecipeContext } from '../contexts/RecipeContext'
 
-import { iconMap, taskToIconMap, HUMAN_TASK } from "../constants"
+import { ICON_MAP, TASK_TO_ICON_MAP, HUMAN_TASK } from "../constants"
 
 import './RecipeOverviewStep.css'
 
@@ -10,7 +10,7 @@ export const RecipeOverviewStepIcon = ({ step }) => {
 
   return (
     <div className="recipe-overview-step-icon">
-      {iconMap[step.icon || taskToIconMap[step.baseTask]]?.image}
+      {ICON_MAP[step.icon || TASK_TO_ICON_MAP[step.baseTask]]?.image}
     </div>
   )
 }

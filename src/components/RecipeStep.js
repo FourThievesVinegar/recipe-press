@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { recipeStepBaseTasks, iconMap, taskToIconMap, HUMAN_TASK } from '../constants'
+import { RECIPE_STEP_BASE_TASKS, ICON_MAP, TASK_TO_ICON_MAP, HUMAN_TASK } from '../constants'
 import { useRecipeContext } from '../contexts/RecipeContext'
 
 import './RecipeStep.css'
@@ -30,10 +30,10 @@ export const RecipeStep = ({ step, index }) => {
               name="base-task"
               onChange={e => {
                 const task = e.target.value
-                updateStep({ ...step, baseTask: task, parameters: {}, icon: taskToIconMap[task]}, index)
+                updateStep({ ...step, baseTask: task, parameters: {}, icon: TASK_TO_ICON_MAP[task]}, index)
               }}
             >
-              {recipeStepBaseTasks.map(task => {
+              {RECIPE_STEP_BASE_TASKS.map(task => {
                 return (
                   <option key={task.value} value={task.value}>
                     {task.label}
@@ -51,7 +51,7 @@ export const RecipeStep = ({ step, index }) => {
                 updateStep({ ...step, icon: e.target.value }, index)
               }}
             >
-              {Object.keys(iconMap).map(icon => {
+              {Object.keys(ICON_MAP).map(icon => {
                 return (
                   <option key={icon} value={icon}>
                     {icon}

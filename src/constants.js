@@ -26,7 +26,7 @@ export const MAINTAIN_HEAT_TASK = 'maintainHeat'
 export const PUMP_TASK = 'pump'
 export const STIR_TASK = 'stir'
 
-export const baseStepParameters = {
+export const TASK_PARAMETERS = {
   humanTask: [],
   cool: ['temp'],
   heat: ['temp'],
@@ -36,19 +36,23 @@ export const baseStepParameters = {
   stir: ['time'],
 }
 
-export const recipeStepBaseTasks = [
+export const RECIPE_STEP_BASE_TASKS = [
   { label: 'Human Task', value: HUMAN_TASK },
-  { label: 'Cool', value: COOL_TASK },
-  { label: 'Heat', value: HEAT_TASK },
-  { label: 'Maintain Cooling', value: MAINTAIN_COOL_TASK },
-  { label: 'Maintain Heat', value: MAINTAIN_HEAT_TASK },
   { label: 'Pump', value: PUMP_TASK },
   { label: 'Stir', value: STIR_TASK },
+  { label: 'Cool', value: COOL_TASK },
+  { label: 'Heat', value: HEAT_TASK },
 ]
 
-export const pumpNames = ['X', 'Y', 'Z']
 
-export const iconMap = {
+export const BASE_TASKS_TO_SUB_TASKS_MAP = {
+  [HUMAN_TASK]: [], // Currently this does not support sub-tasks (no duration)
+  [PUMP_TASK]: [], // Currently this does not support sub-tasks (no duration)
+}
+
+export const PUMP_NAMES = ['X', 'Y', 'Z']
+
+export const ICON_MAP = {
   'reaction_complete': {
     image: <img src={complete} alt="Reaction Complete" />
   },
@@ -108,7 +112,7 @@ export const iconMap = {
   }
 }
 
-export const taskToIconMap = {
+export const TASK_TO_ICON_MAP = {
   [HUMAN_TASK]: 'human_task',
   [COOL_TASK]: 'cooling',
   [HEAT_TASK]: 'heating',
