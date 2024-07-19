@@ -220,7 +220,10 @@ export const RecipeProvider = ({ children }) => {
     const taskErrors = []
     switch (baseTask) {
       case HUMAN_TASK:
-        if (!options || options.length === 0) {
+        if (
+          stepIndex < recipes[currentRecipe]?.steps.length - 1 &&
+          (!options || options.length === 0)
+        ) {
           const errorMessage = `Step ${stepIndex} has no options`
           taskErrors.push(errorMessage)
         } else {
