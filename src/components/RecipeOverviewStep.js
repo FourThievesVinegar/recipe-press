@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useRecipeContext } from '../contexts/RecipeContext'
 
-import { ICON_MAP, TASK_TO_ICON_MAP, HUMAN_TASK } from "../constants"
+import { ICON_MAP, TASK_TO_ICON_MAP, HUMAN_TASK } from '../constants'
 
 import './RecipeOverviewStep.css'
 
@@ -39,8 +39,9 @@ export const RecipeOverViewDropTarget = ({ index }) => {
         setHovered(true)
       }}
       onDragLeave={() => setHovered(false)}
-      className={`${index === 0 ? 'first-target-drop-target ' : ''}${hovered ? 'hovered-drop-target ' : ''
-        }recipe-overview-drop-target`}
+      className={`${index === 0 ? 'first-target-drop-target ' : ''}${
+        hovered ? 'hovered-drop-target ' : ''
+      }recipe-overview-drop-target`}
     />
   )
 }
@@ -50,7 +51,7 @@ export const RecpieOverViewStepArrows = ({ step, index, arrowCount }) => {
 
   let arrows = []
 
-  const stepHeight = 172;
+  const stepHeight = 172
 
   if (step.options) {
     arrows = step.options.map((option, optionIndex) => {
@@ -71,9 +72,9 @@ export const RecpieOverViewStepArrows = ({ step, index, arrowCount }) => {
         )
       }
       if (nextDistance > 1) {
-        const arrowWidth = stepHeight * (nextDistance)
+        const arrowWidth = stepHeight * nextDistance
         // const arrowTop = 0 + 100 * (Math.min(nextDistance, 6) - 1)
-        styleObject = { ...styleObject, width: `${arrowWidth}px`, left: "48px" }
+        styleObject = { ...styleObject, width: `${arrowWidth}px`, left: '48px' }
         return (
           <div
             key={`${index}-${optionIndex}`}
@@ -86,7 +87,7 @@ export const RecpieOverViewStepArrows = ({ step, index, arrowCount }) => {
         )
       }
       if (nextDistance === 1) {
-        styleObject = { ...styleObject, left: "48px", width: `${stepHeight}px` }
+        styleObject = { ...styleObject, left: '48px', width: `${stepHeight}px` }
         return (
           <div
             key={`${index}-${optionIndex}`}
@@ -131,11 +132,19 @@ export const RecpieOverViewStepArrows = ({ step, index, arrowCount }) => {
     })
   }
 
-  return <button className="recipe-step-arrows" onClick={() => setCurrentStep(index)} style={{ width: `${arrowCount.current * 32}px`, height: 0, padding: 0 }}>{arrows}</button>
+  return (
+    <button
+      className="recipe-step-arrows"
+      onClick={() => setCurrentStep(index)}
+      style={{ width: `${arrowCount.current * 32}px`, height: 0, padding: 0 }}
+    >
+      {arrows}
+    </button>
+  )
 }
 
 export const RecipeOverviewStep = ({ step, index, isCurrentStep, arrowCount }) => {
-  const { setCurrentStep, reportStepError, deleteStep } = useRecipeContext()
+  const { setCurrentStep, stepErrors, deleteStep } = useRecipeContext()
 
   const deleteButtonClickHandler = e => {
     if (window.confirm(`Are you sure you want to delete step ${index}?`)) {
@@ -149,25 +158,26 @@ export const RecipeOverviewStep = ({ step, index, isCurrentStep, arrowCount }) =
 
   let hasError
   let errorMessage
-  if (step.baseTask === 'pump' && (step.parameters?.pump === '-' || !step.parameters?.pump)) {
+  if (stepErrors[index]) {
     hasError = true
-    errorMessage = 'You must select a pump'
+    errorMessage = stepErrors[index][0]
   }
-
-  reportStepError(index, errorMessage || null)
 
   return (
     <div className={`recipe-overview-step-container ${isCurrentStep ? 'current-step' : ''} `}>
       <div
         id={`recipe-overview-step-${index}`}
-        className={`recipe-overview-step ${!step.baseTask || step.baseTask === HUMAN_TASK ? 'human-task' : 'automated-task'
-          }`}
+        className={`recipe-overview-step ${
+          !step.baseTask || step.baseTask === HUMAN_TASK ? 'human-task' : 'automated-task'
+        }`}
         onClick={() => setCurrentStep(index)}
         draggable="true"
         onDragStart={e => dragStartHandler(e)}
       >
         <div className="recipe-overview-step-index">{index}</div>
-        <div className="recipe-overview-step-buttons"><button onClick={deleteButtonClickHandler}>X</button></div>
+        <div className="recipe-overview-step-buttons">
+          <button onClick={deleteButtonClickHandler}>X</button>
+        </div>
         {step.done && <div className="recipe-step-final-step">☑</div>}
         {hasError ? (
           <div title={errorMessage} className="recipe-step-error-icon">
