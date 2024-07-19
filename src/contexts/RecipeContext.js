@@ -42,12 +42,11 @@ export const RecipeProvider = ({ children }) => {
         setRecipes(localRecipes)
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
     validateRecipe()
-  }, [recipes, validateRecipe])
+  }, [recipes])
 
   const getLocalRecipes = () => {
     return JSON.parse(localStorage.getItem('recipes'))
