@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { saveAs } from 'file-saver'
-import { COOL_TASK, HUMAN_TASK, MAINTAIN_COOL_TASK, TASK_PARAMETERS } from '../constants'
+import { HUMAN_TASK, TASK_PARAMETERS } from '../constants'
 
 export const RecipeContext = createContext({})
 
@@ -47,7 +47,7 @@ export const RecipeProvider = ({ children }) => {
 
   useEffect(() => {
     validateRecipe()
-  }, [recipes])
+  }, [recipes, validateRecipe])
 
   const getLocalRecipes = () => {
     return JSON.parse(localStorage.getItem('recipes'))
@@ -226,7 +226,7 @@ export const RecipeProvider = ({ children }) => {
           taskErrors.push(errorMessage)
         } else {
           options.forEach((option, optionIndex) => {
-            if (typeof option.next === undefined || !option?.text) {
+            if (typeof option.next === 'undefined' || !option?.text) {
               const errorMessage = `Step ${stepIndex} option ${optionIndex} is incomplete`
               taskErrors.push(errorMessage)
             }
