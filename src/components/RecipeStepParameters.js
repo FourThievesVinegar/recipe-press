@@ -5,7 +5,7 @@ import { TASK_PARAMETERS, PUMP_NAMES, HUMAN_TASK } from '../constants'
 import './RecipeStepParameters.css'
 
 const parameterFieldMap = {
-  duration: 'number',
+  time: 'number',
   pump: 'text',
   volume: 'number',
   temp: 'number',
@@ -13,7 +13,7 @@ const parameterFieldMap = {
 }
 
 const parameterFieldHelpText = {
-  duration: 'seconds',
+  time: 'seconds',
   pump: '',
   volume: 'mL',
   temp: 'degrees C',
@@ -68,9 +68,10 @@ const OptionField = ({ index, option, updateOption, deleteOption }) => {
           type="text"
           value={option.text}
           onChange={e => {
-            updateOption({ ...option, text: e.target.value}, index)
+            updateOption({ ...option, text: e.target.value }, index)
           }}
-          onBlur={e => {  // Trim text when done editing
+          onBlur={() => {
+            // Trim text when done editing
             updateOption({ ...option, text: option.text.trim() }, index)
           }}
         />
@@ -85,7 +86,7 @@ const OptionField = ({ index, option, updateOption, deleteOption }) => {
         />
         <button
           className="delete-option"
-          onClick={e => {
+          onClick={() => {
             deleteOption(index)
           }}
           title="Delete User Option"
@@ -108,7 +109,6 @@ export const RecipeStepParameters = ({ step, updateStep, stepIndex }) => {
   const deleteOption = index => {
     const newOptions = [...step.options]
     newOptions.splice(index, index)
-    console.log(newOptions)
     updateStep({ ...step, options: [...newOptions] }, stepIndex)
   }
 

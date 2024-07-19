@@ -7,7 +7,7 @@ export const HeaderControls = () => {
   const { exportRecipe, stepErrors } = useRecipeContext()
   const { simulateRecipe } = useRecipeSimulatorContext()
 
-  const stepErrorsMessages = Object.keys(stepErrors).reduce((messages, messageIndex) => {
+  const stepErrorMessages = Object.keys(stepErrors).reduce((messages, messageIndex) => {
     const message = stepErrors[messageIndex]
       ? `Step ${messageIndex}: ${stepErrors[messageIndex]}`
       : null
@@ -27,13 +27,13 @@ export const HeaderControls = () => {
         Run it!
       </button>
       <button
-        disabled={stepErrorsMessages.length > 0}
-        title={stepErrorsMessages.length > 0 ? stepErrorsMessages : 'Click to download'}
+        disabled={stepErrorMessages.length > 0}
+        title={stepErrorMessages.length > 0 ? stepErrorMessages : 'Click to download'}
         onClick={() => {
           exportRecipe()
         }}
       >
-        Download Recipe
+        {stepErrorMessages && <span>⚠ </span>}Download Recipe
       </button>
       <HeaderMenu />
     </span>
