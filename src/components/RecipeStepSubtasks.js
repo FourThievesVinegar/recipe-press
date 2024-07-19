@@ -59,14 +59,14 @@ export const RecipeStepSubtasks = ({ step, updateStep, stepIndex }) => {
       {couldHaveTemperatureSubtask && showTempOptions ? (
         <fieldset>
           <legend>Parameters:</legend>
-          <label for="heat">
+          <label htmlFor="heat">
             <input
               id="heat"
               name="and-maintain-temp"
               type="radio"
               value={MAINTAIN_HEAT_TASK}
               checked={step.andMaintainTemp === MAINTAIN_HEAT_TASK}
-              onChange={e =>
+              onChange={() =>
                 handleTempSubtaskChange({
                   heatOrCool: MAINTAIN_HEAT_TASK,
                   temp: step.andMaintainTempTemp || 0,
@@ -75,14 +75,14 @@ export const RecipeStepSubtasks = ({ step, updateStep, stepIndex }) => {
             />
             Heat
           </label>
-          <label for="cool">
+          <label htmlFor="cool">
             <input
               id="cool"
               name="and-maintain-temp"
               type="radio"
               value={MAINTAIN_COOL_TASK}
               checked={step.andMaintainTemp === MAINTAIN_COOL_TASK}
-              onChange={e =>
+              onChange={() =>
                 handleTempSubtaskChange({
                   heatOrCool: MAINTAIN_COOL_TASK,
                   temp: step.andMaintainTempTemp || 0,

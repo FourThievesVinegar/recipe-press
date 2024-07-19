@@ -19,10 +19,10 @@ export const RecipeSimulator = () => {
   return (
     isSimulating && (
       <section className="recipe-simulator">
-        <div className="recipe-simulator-backdrop" onClick={e => cancelSimulation()} />
+        <div className="recipe-simulator-backdrop" onClick={() => cancelSimulation()} />
         <div className="recipe-simulator-container">
           <div className="recipe-simulator-controls">
-            <button onClick={e => startSimulation()}>Restart</button>
+            <button onClick={() => startSimulation()}>Restart</button>
             <p>Step {simulationStepIndex}</p>
             <div className="recipe-simulator-controls-item">
               <label htmlFor="automated-step-length">Simulated step length</label>
@@ -35,7 +35,7 @@ export const RecipeSimulator = () => {
                 min="0"
               />
             </div>
-            <button onClick={e => cancelSimulation()}>Close</button>
+            <button onClick={() => cancelSimulation()}>Close</button>
           </div>
           <div className="recipe-simulator-window">
             {simulationStep ? (
@@ -45,7 +45,7 @@ export const RecipeSimulator = () => {
                   <button
                     key={option.text}
                     className="recipe-simulator-option-button"
-                    onClick={e => goToStep(option.next)}
+                    onClick={() => goToStep(option.next)}
                   >
                     {option.text}
                   </button>

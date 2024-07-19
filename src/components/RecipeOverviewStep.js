@@ -27,7 +27,6 @@ export const RecipeOverViewDropTarget = ({ index }) => {
 
   return (
     <div
-      droppable="true"
       onDrop={e => {
         const stepIndex = parseInt(e.dataTransfer.getData('dragged/index'))
         setHovered(false)
@@ -146,7 +145,7 @@ export const RecpieOverViewStepArrows = ({ step, index, arrowCount }) => {
 export const RecipeOverviewStep = ({ step, index, isCurrentStep, arrowCount }) => {
   const { setCurrentStep, stepErrors, deleteStep } = useRecipeContext()
 
-  const deleteButtonClickHandler = e => {
+  const deleteButtonClickHandler = () => {
     if (window.confirm(`Are you sure you want to delete step ${index}?`)) {
       deleteStep(index)
     }

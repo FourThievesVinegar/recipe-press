@@ -70,7 +70,7 @@ const OptionField = ({ index, option, updateOption, deleteOption }) => {
           onChange={e => {
             updateOption({ ...option, text: e.target.value }, index)
           }}
-          onBlur={e => {
+          onBlur={() => {
             // Trim text when done editing
             updateOption({ ...option, text: option.text.trim() }, index)
           }}
@@ -86,7 +86,7 @@ const OptionField = ({ index, option, updateOption, deleteOption }) => {
         />
         <button
           className="delete-option"
-          onClick={e => {
+          onClick={() => {
             deleteOption(index)
           }}
           title="Delete User Option"

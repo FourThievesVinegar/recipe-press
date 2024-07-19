@@ -101,7 +101,7 @@ export const RecipeProvider = ({ children }) => {
 
   const createStep = (message, baseTask, parameters, description) => {
     const newStep = { message, baseTask, parameters, description }
-    const newSteps = [...recipes[currentRecipe]?.steps]
+    const newSteps = [...recipes[currentRecipe].steps]
 
     newSteps.push(newStep)
 
@@ -235,6 +235,7 @@ export const RecipeProvider = ({ children }) => {
             }
           })
         }
+        // TODO: Options must have unique text
         break
       default:
         TASK_PARAMETERS[baseTask].forEach(parameter => {
@@ -244,6 +245,13 @@ export const RecipeProvider = ({ children }) => {
           }
         })
     }
+
+    // TODO: Validate steps
+    //    Every automated step has a next [that is one more than its index unless we let the user set this.]
+    //    Every step has a next or options or done (and only one of them)
+    //    At least one step has a done
+    //      The last step has a done
+    //    Every step with andMaintainTemperature has heat/cool and temp params
 
     return taskErrors
   }
@@ -264,13 +272,6 @@ export const RecipeProvider = ({ children }) => {
 
     setStepErrors(newStepErrors)
 
-    // TODO: Validate steps
-    //    Every automated step has a next [that is one more than its index unless we let the user set this.]
-    //    Every step has a next or options or done (and only one of them)
-    //    At least one step has a done
-    //      The last step has a done
-    //    Every sub-task has a duration
-    //    Every step with andMaintainTemperature has heat/cool and temp params
     // Validate title
     //    No illegal characters - alphanumeric only
     // Highlight any steps and fields with issues
