@@ -271,6 +271,7 @@ export const RecipeProvider = ({ children }) => {
     //    At least one step has a done
     //      The last step has a done
     //    Every sub-task has a duration
+    //    Every step with andMaintainTemperature has heat/cool and temp params
     // Validate title
     //    No illegal characters - alphanumeric only
     // Highlight any steps and fields with issues
