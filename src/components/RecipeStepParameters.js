@@ -108,7 +108,7 @@ export const RecipeStepParameters = ({ step, updateStep, stepIndex }) => {
   }
   const deleteOption = index => {
     const newOptions = [...step.options]
-    newOptions.splice(index, index)
+    newOptions.splice(index, 1)
     updateStep({ ...step, options: [...newOptions] }, stepIndex)
   }
 
