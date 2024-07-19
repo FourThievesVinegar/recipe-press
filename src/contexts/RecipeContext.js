@@ -238,7 +238,7 @@ export const RecipeProvider = ({ children }) => {
         // TODO: Options must have unique text
         break
       default:
-        TASK_PARAMETERS[baseTask].forEach(parameter => {
+        TASK_PARAMETERS[baseTask]?.forEach(parameter => {
           if (!parameters[parameter]) {
             const errorMessage = `Step ${stepIndex} missing parameter ${parameter}`
             taskErrors.push(errorMessage)
