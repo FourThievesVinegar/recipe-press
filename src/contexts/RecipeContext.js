@@ -227,7 +227,7 @@ export const RecipeProvider = ({ children }) => {
           const errorMessage = `Step ${stepIndex} has no options`
           taskErrors.push(errorMessage)
         } else {
-          options.forEach((option, optionIndex) => {
+          options?.forEach((option, optionIndex) => {
             if (typeof option.next === 'undefined' || !option?.text) {
               const errorMessage = `Step ${stepIndex} option ${optionIndex} is incomplete`
               taskErrors.push(errorMessage)
