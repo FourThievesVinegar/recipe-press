@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useRecipeContext } from '../contexts/RecipeContext'
-import { HUMAN_TASK } from '../constants'
+import { TaskType } from '../constants'
 
 export const NewStep = () => {
   const [message, setMessage] = useState('')
@@ -17,11 +17,11 @@ export const NewStep = () => {
         onChange={e => {
           setMessage(e.target.value)
         }}
-        placeholder='The text you enter here will be shown to the user while the step is running.'
+        placeholder="The text you enter here will be shown to the user while the step is running."
       />
       <button
         onClick={() => {
-          createStep(message, HUMAN_TASK)
+          createStep(message, TaskType.HUMAN_TASK)
         }}
       >
         Add Step

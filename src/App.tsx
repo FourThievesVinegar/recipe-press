@@ -7,6 +7,7 @@ import { StepDetails } from './components/StepDetails'
 import './App.css'
 import { RecipeSimulatorProvider } from './contexts/RecipeSimulatorContext'
 import { RecipeSimulator } from './components/RecipeSimulator'
+import React from 'react'
 
 function App() {
   return (

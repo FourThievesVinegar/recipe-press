@@ -1,13 +1,13 @@
 import React from 'react'
 
-import { RECIPE_STEP_BASE_TASKS, ICON_MAP, TASK_TO_ICON_MAP, HUMAN_TASK } from '../constants'
-import { useRecipeContext } from '../contexts/RecipeContext'
+import { RECIPE_STEP_BASE_TASKS, ICON_MAP, TASK_TO_ICON_MAP, TaskType } from '../constants'
+import { RecipeStepType, useRecipeContext } from '../contexts/RecipeContext'
 
 import './RecipeStep.css'
 import { RecipeStepParameters } from './RecipeStepParameters'
 import { RecipeStepSubtasks } from './RecipeStepSubtasks'
 
-export const RecipeStep = ({ step, index }) => {
+export const RecipeStep = ({ step, index }: { step: RecipeStepType; index: number }) => {
   const { updateStep } = useRecipeContext()
 
   return (
@@ -19,18 +19,21 @@ export const RecipeStep = ({ step, index }) => {
         onChange={e => {
           updateStep({ ...step, message: e.target.value }, index)
         }}
-        placeholder='The text you enter here will be shown to the user while the step is running.'
+        placeholder="The text you enter here will be shown to the user while the step is running."
       />
       <div className="recipe-step-task-section">
         <div className="recipe-step-task">
           <div>
             <label htmlFor="base-task">Task type</label>
             <select
-              value={step.baseTask || HUMAN_TASK}
+              value={step.baseTask || TaskType.HUMAN_TASK}
               name="base-task"
               onChange={e => {
-                const task = e.target.value
-                updateStep({ ...step, baseTask: task, parameters: {}, icon: TASK_TO_ICON_MAP[task]}, index)
+                const task: TaskType = e.target.value as TaskType
+                updateStep(
+                  { ...step, baseTask: task, parameters: {}, icon: TASK_TO_ICON_MAP[task] },
+                  index
+                )
               }}
             >
               {RECIPE_STEP_BASE_TASKS.map(task => {
@@ -45,7 +48,7 @@ export const RecipeStep = ({ step, index }) => {
           <div>
             <label htmlFor="base-task">Task icon</label>
             <select
-              value={step.icon || HUMAN_TASK}
+              value={step.icon || TaskType.HUMAN_TASK}
               name="icon"
               onChange={e => {
                 updateStep({ ...step, icon: e.target.value }, index)
@@ -71,7 +74,7 @@ export const RecipeStep = ({ step, index }) => {
         onChange={e => {
           updateStep({ ...step, details: e.target.value }, index)
         }}
-        placeholder='Additional details of the step that can be shown while reviewing the recipe on the Microlab.'
+        placeholder="Additional details of the step that can be shown while reviewing the recipe on the Microlab."
       />
     </div>
   )

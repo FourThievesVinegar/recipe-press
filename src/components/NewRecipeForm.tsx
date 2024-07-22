@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useRecipeContext } from '../contexts/RecipeContext'
 
 import './NewRecipeForm.css'
+import React from 'react'
 
 export const NewRecipeForm = () => {
   const [newRecipeTitle, setNewRecipeTitle] = useState('')

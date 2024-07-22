@@ -1,3 +1,4 @@
+import React from 'react'
 import complete from './icons/complete.svg'
 import cooling from './icons/cooling.svg'
 import crystalisation from './icons/crystalisation.svg'
@@ -18,38 +19,57 @@ import stirring from './icons/stirring.svg'
 import syringeDispensing from './icons/syringe-dispense.svg'
 import takeOutOfReactionChamber from './icons/take-out-of-reaction-chamber.svg'
 
-export const HUMAN_TASK = 'humanTask'
-export const COOL_TASK = 'cool'
-export const HEAT_TASK = 'heat'
-export const MAINTAIN_COOL_TASK = 'maintainCool'
-export const MAINTAIN_HEAT_TASK = 'maintainHeat'
-export const PUMP_TASK = 'pump'
-export const STIR_TASK = 'stir'
+export enum TaskParameterFieldNames {
+  TIME = 'time',
+  PUMP = 'pump',
+  VOLUME = 'volume',
+  TEMP = 'temp',
+  TOLERANCE = 'tolerance',
+}
+export enum TaskType {
+  HUMAN_TASK = 'humanTask',
+  COOL_TASK = 'cool',
+  HEAT_TASK = 'heat',
+  MAINTAIN_COOL_TASK = 'maintainCool',
+  MAINTAIN_HEAT_TASK = 'maintainHeat',
+  PUMP_TASK = 'pump',
+  STIR_TASK = 'stir',
+}
 
-export const TASK_PARAMETERS = {
+export const TASK_PARAMETERS: { [key in TaskType]: TaskParameterFieldNames[] } = {
   humanTask: [],
-  cool: ['temp'],
-  heat: ['temp'],
-  maintainCool: ['temp', 'time', 'tolerance'], // These will always be a sub-task, currently only for stirring steps
-  maintainHeat: ['temp', 'time', 'tolerance'], // These will always be a sub-task, currently only for stirring steps
-  pump: ['pump', 'volume'],
-  stir: ['time'],
+  cool: [TaskParameterFieldNames.TEMP],
+  heat: [TaskParameterFieldNames.TEMP],
+  maintainCool: [
+    TaskParameterFieldNames.TEMP,
+    TaskParameterFieldNames.TIME,
+    TaskParameterFieldNames.TOLERANCE,
+  ], // These will always be a sub-task, currently only for stirring steps
+  maintainHeat: [
+    TaskParameterFieldNames.TEMP,
+    TaskParameterFieldNames.TIME,
+    TaskParameterFieldNames.TOLERANCE,
+  ], // These will always be a sub-task, currently only for stirring steps
+  pump: [TaskParameterFieldNames.PUMP, TaskParameterFieldNames.VOLUME],
+  stir: [TaskParameterFieldNames.TIME],
 }
 
 export const RECIPE_STEP_BASE_TASKS = [
-  { label: 'Human Task', value: HUMAN_TASK }, // Something a human does, or a decision for a human to make
-  { label: 'Pump', value: PUMP_TASK }, // Injecting a reactant into the reaction chamber
-  { label: 'Stir', value: STIR_TASK }, // Stirring the mixture
-  { label: 'Cool', value: COOL_TASK }, // Cooling to a target temperature
-  { label: 'Heat', value: HEAT_TASK }, // Heating to a target temperature
+  { label: 'Human Task', value: TaskType.HUMAN_TASK }, // Something a human does, or a decision for a human to make
+  { label: 'Pump', value: TaskType.PUMP_TASK }, // Injecting a reactant into the reaction chamber
+  { label: 'Stir', value: TaskType.STIR_TASK }, // Stirring the mixture
+  { label: 'Cool', value: TaskType.COOL_TASK }, // Cooling to a target temperature
+  { label: 'Heat', value: TaskType.HEAT_TASK }, // Heating to a target temperature
 ]
 
-export const BASE_TASKS_TO_SUB_TASKS_MAP = {
-  [HUMAN_TASK]: [], // Currently this does not support sub-tasks (no duration)
-  [PUMP_TASK]: [], // Currently this does not support sub-tasks (no duration now, but hopefully this will change soon)
-  [STIR_TASK]: [MAINTAIN_COOL_TASK, MAINTAIN_HEAT_TASK],
-  [HEAT_TASK]: [], // Currently this does not support sub-tasks (no duration)
-  [COOL_TASK]: [], // Currently this does not support sub-tasks (no duration)
+export const BASE_TASKS_TO_SUB_TASKS_MAP: { [key in TaskType]: TaskType[] } = {
+  [TaskType.HUMAN_TASK]: [], // Currently this does not support sub-tasks (no duration)
+  [TaskType.PUMP_TASK]: [], // Currently this does not support sub-tasks (no duration now, but hopefully this will change soon)
+  [TaskType.STIR_TASK]: [TaskType.MAINTAIN_COOL_TASK, TaskType.MAINTAIN_HEAT_TASK],
+  [TaskType.HEAT_TASK]: [], // Currently this does not support sub-tasks (no duration)
+  [TaskType.COOL_TASK]: [], // Currently this does not support sub-tasks (no duration)
+  [TaskType.MAINTAIN_COOL_TASK]: [], // Was added for typing
+  [TaskType.MAINTAIN_HEAT_TASK]: [], // Was added for typing
 }
 
 export const PUMP_NAMES = ['X', 'Y', 'Z']
@@ -115,11 +135,11 @@ export const ICON_MAP = {
 }
 
 export const TASK_TO_ICON_MAP = {
-  [HUMAN_TASK]: 'human_task',
-  [COOL_TASK]: 'cooling',
-  [HEAT_TASK]: 'heating',
-  [MAINTAIN_COOL_TASK]: 'maintain_cool',
-  [MAINTAIN_HEAT_TASK]: 'maintain_heat',
-  [PUMP_TASK]: 'dispensing',
-  [STIR_TASK]: 'stirring',
+  [TaskType.HUMAN_TASK]: 'human_task',
+  [TaskType.COOL_TASK]: 'cooling',
+  [TaskType.HEAT_TASK]: 'heating',
+  [TaskType.MAINTAIN_COOL_TASK]: 'maintain_cool',
+  [TaskType.MAINTAIN_HEAT_TASK]: 'maintain_heat',
+  [TaskType.PUMP_TASK]: 'dispensing',
+  [TaskType.STIR_TASK]: 'stirring',
 }

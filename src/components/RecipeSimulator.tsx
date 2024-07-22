@@ -29,7 +29,7 @@ export const RecipeSimulator = () => {
               <input
                 type="number"
                 onChange={e => {
-                  setAutomatedStepLength(e.target.value)
+                  setAutomatedStepLength(Number(e.target.value))
                 }}
                 value={automatedStepLength}
                 min="0"

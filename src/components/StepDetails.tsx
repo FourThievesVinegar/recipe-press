@@ -12,7 +12,7 @@ export const StepDetails = () => {
   if (step === null) return
 
   if (!embedded && recipes.length === 0) {
-    return (<p>Create a recipe in order to add steps!</p>)
+    return <p>Create a recipe in order to add steps!</p>
   }
 
   return (

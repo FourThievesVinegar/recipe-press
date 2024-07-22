@@ -1,32 +1,38 @@
 import React from 'react'
-import {
-  BASE_TASKS_TO_SUB_TASKS_MAP,
-  MAINTAIN_COOL_TASK,
-  MAINTAIN_HEAT_TASK,
-  STIR_TASK,
-} from '../constants'
+import { BASE_TASKS_TO_SUB_TASKS_MAP, TaskType } from '../constants'
+import { RecipeStepType } from '../contexts/RecipeContext'
 
-export const RecipeStepSubtasks = ({ step, updateStep, stepIndex }) => {
-  const couldHaveStirringSubtask = BASE_TASKS_TO_SUB_TASKS_MAP[step.baseTask]?.includes(STIR_TASK)
+export const RecipeStepSubtasks = ({
+  step,
+  updateStep,
+  stepIndex,
+}: {
+  step: RecipeStepType
+  updateStep: (step: RecipeStepType, position: number) => void
+  stepIndex: number
+}) => {
+  const couldHaveStirringSubtask = BASE_TASKS_TO_SUB_TASKS_MAP[step.baseTask]?.includes(
+    TaskType.STIR_TASK
+  )
   const couldHaveTemperatureSubtask =
-    BASE_TASKS_TO_SUB_TASKS_MAP[step.baseTask]?.includes(MAINTAIN_COOL_TASK) ||
-    BASE_TASKS_TO_SUB_TASKS_MAP[step.baseTask]?.includes(MAINTAIN_HEAT_TASK)
+    BASE_TASKS_TO_SUB_TASKS_MAP[step.baseTask]?.includes(TaskType.MAINTAIN_COOL_TASK) ||
+    BASE_TASKS_TO_SUB_TASKS_MAP[step.baseTask]?.includes(TaskType.MAINTAIN_HEAT_TASK)
 
   const [showTempOptions, setShowTempOptions] = React.useState(
     step.andMaintainTemp !== undefined || false
   )
 
-  const handleAndStirChange = checked => {
+  const handleAndStirChange = (checked: boolean) => {
     // Rather than setting up sub-tasks here (which could require syncing duration between the baseTask)
     // We will add a flag and add/update the stirring subtask at recipe export.
     updateStep({ ...step, andStir: checked }, stepIndex)
   }
 
-  const handleAndMaintainTempChange = checked => {
+  const handleAndMaintainTempChange = (checked: boolean) => {
     setShowTempOptions(checked)
   }
 
-  const handleTempSubtaskChange = ({ heatOrCool, temp }) => {
+  const handleTempSubtaskChange = ({ heatOrCool, temp }: any) => {
     updateStep({ ...step, andMaintainTemp: heatOrCool, andMaintainTempTemp: temp }, stepIndex)
   }
 
@@ -64,11 +70,11 @@ export const RecipeStepSubtasks = ({ step, updateStep, stepIndex }) => {
               id="heat"
               name="and-maintain-temp"
               type="radio"
-              value={MAINTAIN_HEAT_TASK}
-              checked={step.andMaintainTemp === MAINTAIN_HEAT_TASK}
+              value={TaskType.MAINTAIN_HEAT_TASK}
+              checked={step.andMaintainTemp === TaskType.MAINTAIN_HEAT_TASK}
               onChange={() =>
                 handleTempSubtaskChange({
-                  heatOrCool: MAINTAIN_HEAT_TASK,
+                  heatOrCool: TaskType.MAINTAIN_HEAT_TASK,
                   temp: step.andMaintainTempTemp || 0,
                 })
               }
@@ -80,11 +86,11 @@ export const RecipeStepSubtasks = ({ step, updateStep, stepIndex }) => {
               id="cool"
               name="and-maintain-temp"
               type="radio"
-              value={MAINTAIN_COOL_TASK}
-              checked={step.andMaintainTemp === MAINTAIN_COOL_TASK}
+              value={TaskType.MAINTAIN_COOL_TASK}
+              checked={step.andMaintainTemp === TaskType.MAINTAIN_COOL_TASK}
               onChange={() =>
                 handleTempSubtaskChange({
-                  heatOrCool: MAINTAIN_COOL_TASK,
+                  heatOrCool: TaskType.MAINTAIN_COOL_TASK,
                   temp: step.andMaintainTempTemp || 0,
                 })
               }
