@@ -95,7 +95,7 @@ export const RecipeProvider = ({ children }: React.PropsWithChildren) => {
     return JSON.parse(localStorage.getItem('recipes') ?? '[]')
   }
 
-  const saveLocalRecipes = (recipes: any[]) => {
+  const saveLocalRecipes = (recipes: Recipe[]) => {
     localStorage.setItem('recipes', JSON.stringify(recipes))
   }
 
@@ -227,7 +227,7 @@ export const RecipeProvider = ({ children }: React.PropsWithChildren) => {
     updateRecipe(recipes[currentRecipe].title, newSteps)
   }
 
-  const updateRecipe = (title: string, steps: any[]) => {
+  const updateRecipe = (title: string, steps: RecipeStepType[]) => {
     let newRecipe = null
     const newRecipes = recipes.map((recipe, index) => {
       if (index === currentRecipe) {
