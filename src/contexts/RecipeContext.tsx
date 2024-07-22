@@ -34,7 +34,7 @@ export type RecipeContext = {
   currentRecipe: number
   embedded: boolean
   setCurrentRecipe: (recipeIndex: number) => void
-  currentStep: any
+  currentStep: number
   setCurrentStep: (stepIndex: number) => void
   exportRecipe: () => void
   recipes: Recipe[]
