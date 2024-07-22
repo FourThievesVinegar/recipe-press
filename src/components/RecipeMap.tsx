@@ -1,7 +1,7 @@
 import React from 'react'
 import { useRecipeContext } from '../contexts/RecipeContext'
-import { HUMAN_TASK } from "../constants"
-import "./RecipeMap.css"
+import { TaskType } from '../constants'
+import './RecipeMap.css'
 
 export const RecipeMap = () => {
   const { recipes, currentRecipe, currentStep, setCurrentStep } = useRecipeContext()
@@ -34,14 +34,18 @@ export const RecipeMap = () => {
   )
 }
 
-const RecipeMapItem = ({ step, index, isCurrentStep, setCurrentStep }) => (
-  <li className={`recipe-map-item ${isCurrentStep ? 'current-step' : ''} ${!step.baseTask || step.baseTask === HUMAN_TASK ? 'human-task' : 'automated-task'
+const RecipeMapItem = ({ step, index, isCurrentStep, setCurrentStep }: any) => (
+  <li
+    className={`recipe-map-item ${isCurrentStep ? 'current-step' : ''} ${
+      !step.baseTask || step.baseTask === TaskType.HUMAN_TASK ? 'human-task' : 'automated-task'
     }`}
     onClick={() => {
       setCurrentStep(index)
-      document.getElementById(`recipe-overview-step-${index}`).scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" })
+      document
+        .getElementById(`recipe-overview-step-${index}`)
+        ?.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' })
     }}
   >
     {index}
-  </li >
+  </li>
 )

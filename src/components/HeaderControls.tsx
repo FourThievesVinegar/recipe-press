@@ -8,7 +8,8 @@ export const HeaderControls = () => {
   const { simulateRecipe } = useRecipeSimulatorContext()
 
   const stepErrorMessages = Object.keys(stepErrors).reduce((messages, messageIndex) => {
-    const message = stepErrors[messageIndex]
+    //@ts-ignore
+    const message = stepErrors[messageIndex] //@ts-ignore
       ? `Step ${messageIndex}: ${stepErrors[messageIndex]}`
       : null
     if (message) {

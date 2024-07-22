@@ -1,8 +1,9 @@
 import React from 'react'
 
-import { TASK_PARAMETERS, PUMP_NAMES, HUMAN_TASK } from '../constants'
+import { TASK_PARAMETERS, PUMP_NAMES, TaskParameterFieldNames, TaskType } from '../constants'
 
 import './RecipeStepParameters.css'
+import { RecipeStepType } from '../contexts/RecipeContext'
 
 const parameterFieldMap = {
   time: 'number',
@@ -20,7 +21,15 @@ const parameterFieldHelpText = {
   tolerance: 'degrees C',
 }
 
-const ParameterField = ({ parameter, value, updateParameter }) => {
+const ParameterField = ({
+  parameter,
+  value,
+  updateParameter,
+}: {
+  parameter: TaskParameterFieldNames
+  value: any
+  updateParameter: any
+}) => {
   return (
     <div className="parameter-data-row">
       <label htmlFor={parameter}>{parameter}</label>
@@ -57,7 +66,7 @@ const ParameterField = ({ parameter, value, updateParameter }) => {
   )
 }
 
-const OptionField = ({ index, option, updateOption, deleteOption }) => {
+const OptionField = ({ index, option, updateOption, deleteOption }: any) => {
   return (
     <>
       <p>User Option {index}: </p>
@@ -98,21 +107,30 @@ const OptionField = ({ index, option, updateOption, deleteOption }) => {
   )
 }
 
-export const RecipeStepParameters = ({ step, updateStep, stepIndex }) => {
+export const RecipeStepParameters = ({
+  step,
+  updateStep,
+  stepIndex,
+}: {
+  step: RecipeStepType
+  updateStep: any
+  stepIndex: number
+}) => {
   const { parameters = [], options = [], baseTask } = step
 
   const stepParameters = parameters
   const defaultParameters = TASK_PARAMETERS[step?.baseTask]
-  const updateParameter = (parameter, value) => {
+  const updateParameter = (parameter: TaskParameterFieldNames, value: any) => {
     updateStep({ ...step, parameters: { ...step.parameters, [parameter]: value } }, stepIndex)
   }
-  const deleteOption = index => {
+  const deleteOption = (index: number) => {
+    //@ts-ignore
     const newOptions = [...step.options]
     newOptions.splice(index, 1)
     updateStep({ ...step, options: [...newOptions] }, stepIndex)
   }
 
-  const updateOption = (newOption, newOptionIndex) => {
+  const updateOption = (newOption: any, newOptionIndex: number) => {
     const newOptionsBeginning = step?.options?.slice(0, newOptionIndex) || []
     const newOptionsEnding = step?.options?.slice(newOptionIndex + 1, options.length) || []
 
@@ -122,7 +140,7 @@ export const RecipeStepParameters = ({ step, updateStep, stepIndex }) => {
 
   return (
     <>
-      {(baseTask !== '' || baseTask !== HUMAN_TASK) && (
+      {baseTask !== TaskType.HUMAN_TASK && (
         <ul className="parameters-list">
           {defaultParameters?.map(parameter => {
             return (
@@ -137,7 +155,7 @@ export const RecipeStepParameters = ({ step, updateStep, stepIndex }) => {
           })}
         </ul>
       )}
-      {(!baseTask || baseTask === '' || baseTask === HUMAN_TASK) && (
+      {(!baseTask || baseTask === TaskType.HUMAN_TASK) && (
         <ul className="options-list">
           {options?.map((option, index) => {
             return (

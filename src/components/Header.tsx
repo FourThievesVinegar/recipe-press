@@ -5,7 +5,7 @@ import { HeaderControls } from './HeaderControls'
 import { useRecipeContext } from '../contexts/RecipeContext'
 
 export const AppHeader = () => {
-  const {currentRecipe, recipes} = useRecipeContext()
+  const { currentRecipe, recipes } = useRecipeContext()
 
   const recipeTitle = recipes[currentRecipe]?.title
 
@@ -13,7 +13,7 @@ export const AppHeader = () => {
     <header className="App-header">
       <div className="title-container">
         <img src={logo} className="App-logo" alt="logo" />
-        <h1 className="title-font">Recipe Press{recipeTitle ? ` - ${recipeTitle}` : ""}</h1>
+        <h1 className="title-font">Recipe Press{recipeTitle ? ` - ${recipeTitle}` : ''}</h1>
       </div>
       <HeaderControls />
     </header>

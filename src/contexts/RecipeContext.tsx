@@ -1,8 +1,51 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { saveAs } from 'file-saver'
-import { HUMAN_TASK, TASK_PARAMETERS } from '../constants'
+import { TASK_PARAMETERS, TaskType } from '../constants'
 
-export const RecipeContext = createContext({})
+export type RecipeStepType = {
+  baseTask: TaskType
+  parameters: any
+  tasks?: {
+    baseTask: TaskType
+    parameters: any
+  }[]
+  message: string
+  next?: number
+  options?: {
+    text: string
+    next: number
+  }[]
+  details?: string
+  icon?: string
+  done?: boolean
+  andStir?: boolean
+  andMaintainTemp?: TaskType.MAINTAIN_COOL_TASK | TaskType.MAINTAIN_HEAT_TASK
+  andMaintainTempTemp?: number
+}
+export type Recipe = {
+  steps: RecipeStepType[]
+  title: string
+}
+
+export type RecipeContext = {
+  createRecipe: (title: string, steps?: RecipeStepType[]) => void
+  createStep: (message: string, baseTask: TaskType, parameters?: any, description?: string) => void
+  deleteStep: (stepIndex: number) => void
+  currentRecipe: number
+  embedded: boolean
+  setCurrentRecipe: (recipeIndex: number) => void
+  currentStep: number
+  setCurrentStep: (stepIndex: number) => void
+  exportRecipe: () => void
+  recipes: Recipe[]
+  reorderStep: (newIndex: number, currentIndex: number) => void
+  reportStepError: (stepIndex: number, errorMessage: string) => void
+  stepErrors: string[]
+  updateStep: (step: RecipeStepType, position: number) => void
+  validateRecipe: () => void
+}
+//@ts-ignore
+export const RecipeContext = createContext<RecipeContext>()
 
 const MESSAGE_TYPES = {
   RECIPE: 'recipe',
@@ -21,13 +64,13 @@ export const useRecipeContext = () => {
   return context
 }
 
-export const RecipeProvider = ({ children }) => {
-  const [recipes, setRecipes] = useState([])
-  const [currentRecipe, setCurrentRecipe] = useState(0)
+export const RecipeProvider = ({ children }: React.PropsWithChildren) => {
+  const [recipes, setRecipes] = useState<Recipe[]>([])
+  const [currentRecipe, setCurrentRecipe] = useState<number>(0)
   const [currentStep, setCurrentStep] = useState(0)
   const [embedded, setEmbedded] = useState(false)
 
-  const [stepErrors, setStepErrors] = useState({})
+  const [stepErrors, setStepErrors] = useState<any>({})
 
   useEffect(() => {
     // Load local recipes and/or get them from parent window (if embedded)
@@ -49,10 +92,10 @@ export const RecipeProvider = ({ children }) => {
   }, [recipes])
 
   const getLocalRecipes = () => {
-    return JSON.parse(localStorage.getItem('recipes'))
+    return JSON.parse(localStorage.getItem('recipes') ?? '[]')
   }
 
-  const saveLocalRecipes = recipes => {
+  const saveLocalRecipes = (recipes: Recipe[]) => {
     localStorage.setItem('recipes', JSON.stringify(recipes))
   }
 
@@ -62,16 +105,16 @@ export const RecipeProvider = ({ children }) => {
     window.parent.postMessage(message, PARENT_DOMAIN)
   }
 
-  const sendRecipeToParent = newRecipe => {
+  const sendRecipeToParent = (newRecipe: Recipe) => {
     const message = { messageType: MESSAGE_TYPES.RECIPE, payload: newRecipe }
     console.log('Sending recipe message to parent', message)
     window.parent.postMessage(message, PARENT_DOMAIN)
   }
 
-  const handleMessageFromParent = event => {
+  const handleMessageFromParent = (event: any) => {
     switch (event.data.messageType) {
       case MESSAGE_TYPES.RECIPE: {
-        let parentRecipe = event.data.payload
+        const parentRecipe = event.data.payload
         console.log('GOT RECIPE FROM PARENT', event.data)
         createRecipe(parentRecipe.title, parentRecipe.steps)
         return
@@ -82,7 +125,7 @@ export const RecipeProvider = ({ children }) => {
     }
   }
 
-  const createRecipe = (title, steps) => {
+  const createRecipe = (title: string, steps?: RecipeStepType[]) => {
     if (!title) {
       document.getElementsByName('new-recipe-title')[0]?.focus()
       console.log('You must have a title!')
@@ -99,7 +142,12 @@ export const RecipeProvider = ({ children }) => {
     setRecipes(newRecipies)
   }
 
-  const createStep = (message, baseTask, parameters, description) => {
+  const createStep = (
+    message: string,
+    baseTask: TaskType,
+    parameters?: any,
+    description?: string
+  ) => {
     const newStep = { message, baseTask, parameters, description }
     const newSteps = [...recipes[currentRecipe].steps]
 
@@ -108,15 +156,15 @@ export const RecipeProvider = ({ children }) => {
     updateRecipe(recipes[currentRecipe].title, newSteps)
   }
 
-  const updateStep = (step, position) => {
-    let newSteps = [...recipes[currentRecipe].steps]
+  const updateStep = (step: RecipeStepType, position: number) => {
+    const newSteps = [...recipes[currentRecipe].steps]
 
     newSteps[position] = { ...step, next: position + 1 }
     updateRecipe(recipes[currentRecipe].title, newSteps)
   }
 
-  const deleteStep = stepIndex => {
-    let newSteps = [...recipes[currentRecipe].steps]
+  const deleteStep = (stepIndex: number) => {
+    const newSteps = [...recipes[currentRecipe].steps]
     newSteps.splice(stepIndex, 1)
     // we need to update every reference to a step after stepIndex by decrementing it
     newSteps.forEach(step => {
@@ -129,7 +177,7 @@ export const RecipeProvider = ({ children }) => {
     updateRecipe(recipes[currentRecipe].title, newSteps)
   }
 
-  const reorderStep = (newIndex, currentIndex) => {
+  const reorderStep = (newIndex: number, currentIndex: number) => {
     const oldSteps = [...recipes[currentRecipe].steps]
     const newStep = { ...oldSteps[currentIndex] }
 
@@ -179,14 +227,14 @@ export const RecipeProvider = ({ children }) => {
     updateRecipe(recipes[currentRecipe].title, newSteps)
   }
 
-  const updateRecipe = (title, steps) => {
+  const updateRecipe = (title: string, steps: RecipeStepType[]) => {
     let newRecipe = null
     const newRecipes = recipes.map((recipe, index) => {
       if (index === currentRecipe) {
         const newSteps = [...steps]
         newSteps.forEach((step, index) => {
           step.done = false
-          if (!step.baseTask || step.baseTask === HUMAN_TASK) {
+          if (!step.baseTask || step.baseTask === TaskType.HUMAN_TASK) {
             delete step.next
           } else {
             step.next = index + 1
@@ -202,7 +250,7 @@ export const RecipeProvider = ({ children }) => {
       }
       return recipe
     })
-    if (embedded) {
+    if (embedded && newRecipe) {
       sendRecipeToParent(newRecipe)
     } else {
       saveLocalRecipes(newRecipes)
@@ -210,16 +258,16 @@ export const RecipeProvider = ({ children }) => {
     setRecipes(newRecipes)
   }
 
-  const reportStepError = (stepIndex, errorMessage) => {
+  const reportStepError = (stepIndex: number, errorMessage: string) => {
     if (stepErrors[stepIndex] !== errorMessage) {
       setStepErrors({ ...stepErrors, [stepIndex]: errorMessage })
     }
   }
 
-  const validateTask = ({ baseTask, parameters, options }, stepIndex) => {
+  const validateTask = ({ baseTask, parameters, options }: RecipeStepType, stepIndex: number) => {
     const taskErrors = []
     switch (baseTask) {
-      case HUMAN_TASK:
+      case TaskType.HUMAN_TASK:
         if (
           stepIndex < recipes[currentRecipe]?.steps.length - 1 &&
           (!options || options.length === 0)
@@ -227,7 +275,7 @@ export const RecipeProvider = ({ children }) => {
           const errorMessage = `Step ${stepIndex} has no options`
           taskErrors.push(errorMessage)
         } else {
-          options?.forEach((option, optionIndex) => {
+          options?.forEach((option, optionIndex: number) => {
             if (typeof option.next === 'undefined' || !option?.text) {
               const errorMessage = `Step ${stepIndex} option ${optionIndex} is incomplete`
               taskErrors.push(errorMessage)
@@ -262,11 +310,13 @@ export const RecipeProvider = ({ children }) => {
   const validateRecipe = () => {
     const recipe = recipes[currentRecipe]
 
-    let newStepErrors = {}
+    const newStepErrors: any = {}
     let currentStepErrors = null
     // The recipe must have steps and steps.length must be 1 or greater.
 
     recipe?.steps?.forEach((step, index) => {
+      //bug?
+      //@ts-ignore
       currentStepErrors = validateTask({ ...step, task: step.baseTask }, index)
       if (currentStepErrors.length > 0) {
         newStepErrors[index] = currentStepErrors
@@ -290,7 +340,7 @@ export const RecipeProvider = ({ children }) => {
       if (step.andStir && step?.parameters?.time) {
         // If we have a stirring task and it has a duration, add a stirring sub-task with the same duration
         step.tasks.push({
-          baseTask: 'stir',
+          baseTask: TaskType.STIR_TASK,
           parameters: { time: step.parameters.time },
         })
       }
@@ -304,7 +354,7 @@ export const RecipeProvider = ({ children }) => {
 
     steps[steps.length - 1].done = true
 
-    var recipeString = `
+    const recipeString = `
     {
       "title": "${title}",
       "steps": ${JSON.stringify(steps)}

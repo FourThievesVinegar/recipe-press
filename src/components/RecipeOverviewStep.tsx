@@ -1,25 +1,22 @@
 import React, { useState } from 'react'
-import { useRecipeContext } from '../contexts/RecipeContext'
+import { RecipeStepType, useRecipeContext } from '../contexts/RecipeContext'
 
-import { ICON_MAP, TASK_TO_ICON_MAP, HUMAN_TASK } from '../constants'
+import { ICON_MAP, TASK_TO_ICON_MAP, TaskType } from '../constants'
 
 import './RecipeOverviewStep.css'
 
-export const RecipeOverviewStepIcon = ({ step }) => {
+export const RecipeOverviewStepIcon = ({ step }: { step: RecipeStepType }) => {
   if (!step) return <></>
-
-  return (
-    <div className="recipe-overview-step-icon">
-      {ICON_MAP[step.icon || TASK_TO_ICON_MAP[step.baseTask]]?.image}
-    </div>
-  )
+  //@ts-ignore
+  const icon = ICON_MAP[step.icon || TASK_TO_ICON_MAP[step.baseTask]]
+  return <div className="recipe-overview-step-icon">{icon?.image}</div>
 }
 
-export const RecipeOverViewDropTarget = ({ index }) => {
+export const RecipeOverViewDropTarget = ({ index }: { index: number }) => {
   const { reorderStep } = useRecipeContext()
   const [hovered, setHovered] = useState(false)
 
-  const dropHandler = (newIndex, stepIndex) => {
+  const dropHandler = (newIndex: number, stepIndex: number) => {
     if (newIndex !== undefined && stepIndex !== undefined) {
       reorderStep(newIndex, stepIndex)
     }
@@ -45,17 +42,25 @@ export const RecipeOverViewDropTarget = ({ index }) => {
   )
 }
 
-export const RecpieOverViewStepArrows = ({ step, index, arrowCount }) => {
+export const RecpieOverViewStepArrows = ({
+  step,
+  index,
+  arrowCount,
+}: {
+  step: RecipeStepType
+  index: number
+  arrowCount: any
+}) => {
   const { setCurrentStep } = useRecipeContext()
 
-  let arrows = []
+  let arrows: any[] = []
 
   const stepHeight = 172
 
   if (step.options) {
     arrows = step.options.map((option, optionIndex) => {
-      const nextDistance = parseInt(option.next) - index
-      let styleObject = { bottom: `${arrowCount.current * 24}px` }
+      const nextDistance = parseInt(option.next as any) - index
+      let styleObject: any = { bottom: `${arrowCount.current * 24}px` }
       arrowCount.current++
 
       if (nextDistance === 0) {
@@ -142,7 +147,17 @@ export const RecpieOverViewStepArrows = ({ step, index, arrowCount }) => {
   )
 }
 
-export const RecipeOverviewStep = ({ step, index, isCurrentStep, arrowCount }) => {
+export const RecipeOverviewStep = ({
+  step,
+  index,
+  isCurrentStep,
+  arrowCount,
+}: {
+  step: RecipeStepType
+  index: number
+  isCurrentStep: boolean
+  arrowCount: any
+}) => {
   const { setCurrentStep, stepErrors, deleteStep } = useRecipeContext()
 
   const deleteButtonClickHandler = () => {
@@ -151,7 +166,7 @@ export const RecipeOverviewStep = ({ step, index, isCurrentStep, arrowCount }) =
     }
   }
 
-  const dragStartHandler = e => {
+  const dragStartHandler = (e: any) => {
     e.dataTransfer.setData('dragged/index', index)
   }
 
@@ -167,7 +182,7 @@ export const RecipeOverviewStep = ({ step, index, isCurrentStep, arrowCount }) =
       <div
         id={`recipe-overview-step-${index}`}
         className={`recipe-overview-step ${
-          !step.baseTask || step.baseTask === HUMAN_TASK ? 'human-task' : 'automated-task'
+          !step.baseTask || step.baseTask === TaskType.HUMAN_TASK ? 'human-task' : 'automated-task'
         }`}
         onClick={() => setCurrentStep(index)}
         draggable="true"
