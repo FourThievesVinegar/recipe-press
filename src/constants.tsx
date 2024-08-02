@@ -52,8 +52,8 @@ export const TASK_PARAMETERS: { [key in TaskType]: TaskParameterFieldNames[] } =
   ], // These will always be a sub-task, currently only for stirring steps
   pump: [
     TaskParameterFieldNames.PUMP,
-    TaskParameterFieldNames.VOLUME,
     TaskParameterFieldNames.TIME,
+    TaskParameterFieldNames.VOLUME,
   ],
   stir: [TaskParameterFieldNames.TIME],
 }
