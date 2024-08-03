@@ -303,6 +303,8 @@ export const RecipeProvider = ({ children }: React.PropsWithChildren) => {
     //    At least one step has a done
     //      The last step has a done
     //    Every step with andMaintainTemperature has heat/cool and temp params
+    //    Every temp param is a number
+    //    Every time param is a number
 
     return taskErrors
   }
