@@ -68,7 +68,11 @@ export const RECIPE_STEP_BASE_TASKS = [
 
 export const BASE_TASKS_TO_SUB_TASKS_MAP: { [key in TaskType]: TaskType[] } = {
   [TaskType.HUMAN_TASK]: [], // Currently this does not support sub-tasks (no duration)
-  [TaskType.PUMP_TASK]: [], // Currently this does not support sub-tasks (no duration now, but hopefully this will change soon)
+  [TaskType.PUMP_TASK]: [
+    TaskType.STIR_TASK,
+    TaskType.MAINTAIN_COOL_TASK,
+    TaskType.MAINTAIN_HEAT_TASK,
+  ],
   [TaskType.STIR_TASK]: [TaskType.MAINTAIN_COOL_TASK, TaskType.MAINTAIN_HEAT_TASK],
   [TaskType.HEAT_TASK]: [], // Currently this does not support sub-tasks (no duration)
   [TaskType.COOL_TASK]: [], // Currently this does not support sub-tasks (no duration)
