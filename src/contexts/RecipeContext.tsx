@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { saveAs } from 'file-saver'
 import { TASK_PARAMETERS, TaskType } from '../constants'
+import { useTranslation } from 'react-i18next'
 
 export type RecipeStepType = {
   baseTask: TaskType
@@ -65,6 +66,7 @@ export const useRecipeContext = () => {
 }
 
 export const RecipeProvider = ({ children }: React.PropsWithChildren) => {
+  const { t } = useTranslation()
   const [recipes, setRecipes] = useState<Recipe[]>([])
   const [currentRecipe, setCurrentRecipe] = useState<number>(0)
   const [currentStep, setCurrentStep] = useState(0)
@@ -272,16 +274,19 @@ export const RecipeProvider = ({ children }: React.PropsWithChildren) => {
           stepIndex < recipes[currentRecipe]?.steps.length - 1 &&
           (!options || options.length === 0)
         ) {
-          const errorMessage = `Step ${stepIndex} has no options`
+          const errorMessage = t('error-step-with-no-options', { stepIndex })
           taskErrors.push(errorMessage)
         } else {
           options?.forEach((option, optionIndex: number) => {
             if (typeof option.next === 'undefined' || !option?.text) {
-              const errorMessage = `Step ${stepIndex} option ${optionIndex} is incomplete`
+              const errorMessage = t('error-step-has-incomplete-option', { stepIndex, optionIndex })
               taskErrors.push(errorMessage)
             }
             if (!recipes[currentRecipe].steps[option?.next]) {
-              const errorMessage = `Step ${stepIndex} option ${optionIndex} points to missing step`
+              const errorMessage = t('error-step-option-points-to-missing-step', {
+                stepIndex,
+                optionIndex,
+              })
               taskErrors.push(errorMessage)
             }
           })
@@ -291,7 +296,10 @@ export const RecipeProvider = ({ children }: React.PropsWithChildren) => {
       default:
         TASK_PARAMETERS[baseTask]?.forEach(parameter => {
           if (!parameters[parameter]) {
-            const errorMessage = `Step ${stepIndex} missing parameter ${parameter}`
+            const errorMessage = t('error-step-missing-parameter', {
+              stepIndex,
+              parameter,
+            })
             taskErrors.push(errorMessage)
           }
         })

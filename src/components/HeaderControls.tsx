@@ -2,8 +2,10 @@ import React from 'react'
 import { HeaderMenu } from './HeaderMenu'
 import { useRecipeContext } from '../contexts/RecipeContext'
 import { useRecipeSimulatorContext } from '../contexts/RecipeSimulatorContext'
+import { useTranslation } from 'react-i18next'
 
 export const HeaderControls = () => {
+  const { t } = useTranslation()
   const { exportRecipe, stepErrors } = useRecipeContext()
   const { simulateRecipe } = useRecipeSimulatorContext()
 
@@ -25,16 +27,17 @@ export const HeaderControls = () => {
           simulateRecipe()
         }}
       >
-        Run it!
+        {t('simulate-recipe')}
       </button>
       <button
         disabled={stepErrorMessages.length > 0}
-        title={stepErrorMessages.length > 0 ? stepErrorMessages : 'Click to download'}
+        title={stepErrorMessages.length > 0 ? stepErrorMessages : t('download-recipe-tooltip')}
         onClick={() => {
           exportRecipe()
         }}
       >
-        {stepErrorMessages && <span>⚠ </span>}Download Recipe
+        {stepErrorMessages && <span>⚠ </span>}
+        {t('download-recipe')}
       </button>
       <HeaderMenu />
     </span>

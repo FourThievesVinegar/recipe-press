@@ -4,8 +4,10 @@ import { RecipeOverviewStep } from './RecipeOverviewStep'
 import { useRecipeContext } from '../contexts/RecipeContext'
 
 import './RecipeOverview.css'
+import { Trans, useTranslation } from 'react-i18next'
 
 export const RecipeOverview = () => {
+  const { t } = useTranslation()
   const { recipes, currentRecipe, currentStep, embedded } = useRecipeContext()
 
   const arrowCount = useRef(0)
@@ -17,13 +19,11 @@ export const RecipeOverview = () => {
 
   return (
     <section className="recipe-overview">
-      <h2>Recipe Steps</h2>
+      <h2>{t('recipe-steps')}</h2>
       <div className="recipe-overview-steps">
         {recipes[currentRecipe]?.steps?.length < 1 ? (
           <p className="recipe-overview-no-steps">
-            This recipe doesn&apos;t have any steps yet. <br />
-            <br />
-            Use the &quot;New Recipe Step&quot; form to add one.
+            <Trans i18nKey={'recipe-has-no-steps'}></Trans>
           </p>
         ) : null}
         {recipes[currentRecipe]?.steps?.map((step, index) => {

@@ -4,6 +4,7 @@ import { RecipeStepType, useRecipeContext } from '../contexts/RecipeContext'
 import { ICON_MAP, TASK_TO_ICON_MAP, TaskType } from '../constants'
 
 import './RecipeOverviewStep.css'
+import { useTranslation } from 'react-i18next'
 
 export const RecipeOverviewStepIcon = ({ step }: { step: RecipeStepType }) => {
   if (!step) return <></>
@@ -158,10 +159,11 @@ export const RecipeOverviewStep = ({
   isCurrentStep: boolean
   arrowCount: any
 }) => {
+  const { t } = useTranslation()
   const { setCurrentStep, stepErrors, deleteStep } = useRecipeContext()
 
   const deleteButtonClickHandler = () => {
-    if (window.confirm(`Are you sure you want to delete step ${index}?`)) {
+    if (window.confirm(t(`delete-step-confirmation`, { index }))) {
       deleteStep(index)
     }
   }

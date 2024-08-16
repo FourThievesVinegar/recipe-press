@@ -4,6 +4,7 @@ import { TASK_PARAMETERS, PUMP_NAMES, TaskParameterFieldNames, TaskType } from '
 
 import './RecipeStepParameters.css'
 import { RecipeStepType } from '../contexts/RecipeContext'
+import { useTranslation } from 'react-i18next'
 
 const parameterFieldMap = {
   time: 'number',
@@ -67,11 +68,12 @@ const ParameterField = ({
 }
 
 const OptionField = ({ index, option, updateOption, deleteOption }: any) => {
+  const { t } = useTranslation()
   return (
     <>
       <p>User Option {index}: </p>
       <div className="option-data-row">
-        <label htmlFor={`${option}-text`}>Button Text:</label>
+        <label htmlFor={`${option}-text`}>{t('user-option-button-text-label')}</label>
         <input
           name={`${option}-text`}
           type="text"
@@ -84,7 +86,7 @@ const OptionField = ({ index, option, updateOption, deleteOption }: any) => {
             updateOption({ ...option, text: option.text.trim() }, index)
           }}
         />
-        <label htmlFor={`${option}-next`}>Next step:</label>
+        <label htmlFor={`${option}-next`}>{t('user-option-next-step-label')}</label>
         <input
           name={`${option}-text`}
           type="number"
@@ -98,7 +100,7 @@ const OptionField = ({ index, option, updateOption, deleteOption }: any) => {
           onClick={() => {
             deleteOption(index)
           }}
-          title="Delete User Option"
+          title={t('delete-user-option')}
         >
           X
         </button>
@@ -116,6 +118,7 @@ export const RecipeStepParameters = ({
   updateStep: any
   stepIndex: number
 }) => {
+  const { t } = useTranslation()
   const { parameters = [], options = [], baseTask } = step
 
   const stepParameters = parameters
@@ -175,7 +178,7 @@ export const RecipeStepParameters = ({
                 updateOption({ text: '', next: stepIndex + 1 }, options.length)
               }}
             >
-              New Option +
+              {t('add-user-option')}
             </button>
           </li>
         </ul>

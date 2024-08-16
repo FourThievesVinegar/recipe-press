@@ -2,8 +2,10 @@ import React from 'react'
 import { useRecipeContext } from '../contexts/RecipeContext'
 import { TaskType } from '../constants'
 import './RecipeMap.css'
+import { useTranslation } from 'react-i18next'
 
 export const RecipeMap = () => {
+  const { t } = useTranslation()
   const { recipes, currentRecipe, currentStep, setCurrentStep } = useRecipeContext()
 
   return (
@@ -14,7 +16,7 @@ export const RecipeMap = () => {
             setCurrentStep(-1)
           }}
         >
-          New Step
+          {t('new-step')}
         </button>
       </div>
       <ul>

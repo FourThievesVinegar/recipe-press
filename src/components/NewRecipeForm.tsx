@@ -3,8 +3,10 @@ import { useRecipeContext } from '../contexts/RecipeContext'
 
 import './NewRecipeForm.css'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 export const NewRecipeForm = () => {
+  const { t } = useTranslation()
   const [newRecipeTitle, setNewRecipeTitle] = useState('')
   const { createRecipe } = useRecipeContext()
 
@@ -13,7 +15,7 @@ export const NewRecipeForm = () => {
       <input
         name="new-recipe-title"
         value={newRecipeTitle}
-        placeholder="New Recipe Title"
+        placeholder={t('new-recipe-title')}
         onChange={e => {
           setNewRecipeTitle(e.target.value)
         }}
@@ -23,7 +25,7 @@ export const NewRecipeForm = () => {
           createRecipe(newRecipeTitle)
         }}
       >
-        New Recipe
+        {t('new-recipe')}
       </button>
     </div>
   )
