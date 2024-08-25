@@ -3,8 +3,10 @@ import { useRecipeSimulatorContext } from '../contexts/RecipeSimulatorContext'
 
 import './RecipeSimulator.css'
 import { RecipeOverviewStepIcon } from './RecipeOverviewStep'
+import { useTranslation } from 'react-i18next'
 
 export const RecipeSimulator = () => {
+  const { t } = useTranslation()
   const {
     automatedStepLength,
     cancelSimulation,
@@ -22,10 +24,10 @@ export const RecipeSimulator = () => {
         <div className="recipe-simulator-backdrop" onClick={() => cancelSimulation()} />
         <div className="recipe-simulator-container">
           <div className="recipe-simulator-controls">
-            <button onClick={() => startSimulation()}>Restart</button>
-            <p>Step {simulationStepIndex}</p>
+            <button onClick={() => startSimulation()}>{t('simulation-restart')}</button>
+            <p>{t('simulation-step', { simulationStepIndex })}</p>
             <div className="recipe-simulator-controls-item">
-              <label htmlFor="automated-step-length">Simulated step length</label>
+              <label htmlFor="automated-step-length">{t('simulation-step-length')}</label>
               <input
                 type="number"
                 onChange={e => {
@@ -35,7 +37,7 @@ export const RecipeSimulator = () => {
                 min="0"
               />
             </div>
-            <button onClick={() => cancelSimulation()}>Close</button>
+            <button onClick={() => cancelSimulation()}>{t('close-simulation')}</button>
           </div>
           <div className="recipe-simulator-window">
             {simulationStep ? (
@@ -61,11 +63,11 @@ export const RecipeSimulator = () => {
                     ))}
                   </ul>
                 )}
-                {simulationStep.andStir && <p>... and stir for the duration</p>}
-                {simulationStep.done && <p>The recipe simulation is complete.</p>}
+                {simulationStep.andStir && <p>{t('simulation-and-stir')}</p>}
+                {simulationStep.done && <p>{t('simulation-complete')}</p>}
               </>
             ) : (
-              <p>No Simulation Step!</p>
+              <p>{t('no-simulation-step')}</p>
             )}
           </div>
         </div>

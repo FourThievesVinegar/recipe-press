@@ -7,8 +7,10 @@
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
     "file-saver": "^2.0.5",
+    "i18next": "^23.12.2",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "react-i18next": "^15.0.1",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.0"
   },
@@ -37,10 +39,10 @@
     ]
   },
   "devDependencies": {
+    "@types/file-saver": "^2.0.7",
     "@types/node": "^20.10.7",
     "@types/react": "^18.2.47",
     "@types/react-dom": "^18.2.18",
-    "@types/file-saver": "^2.0.7",
     "@typescript-eslint/eslint-plugin": "^7.16.1",
     "@typescript-eslint/parser": "^7.16.1",
     "eslint": "^8.57.0",

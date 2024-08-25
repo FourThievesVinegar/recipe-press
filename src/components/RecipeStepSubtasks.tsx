@@ -1,6 +1,7 @@
 import React from 'react'
 import { BASE_TASKS_TO_SUB_TASKS_MAP, TaskType } from '../constants'
 import { RecipeStepType } from '../contexts/RecipeContext'
+import { useTranslation } from 'react-i18next'
 
 export const RecipeStepSubtasks = ({
   step,
@@ -11,6 +12,7 @@ export const RecipeStepSubtasks = ({
   updateStep: (step: RecipeStepType, position: number) => void
   stepIndex: number
 }) => {
+  const { t } = useTranslation()
   const couldHaveStirringSubtask = BASE_TASKS_TO_SUB_TASKS_MAP[step.baseTask]?.includes(
     TaskType.STIR_TASK
   )
@@ -46,7 +48,7 @@ export const RecipeStepSubtasks = ({
             checked={step.andStir}
             onChange={e => handleAndStirChange(e.currentTarget.checked)}
           />
-          <label htmlFor="and-stir">... and stir?</label>
+          <label htmlFor="and-stir">{t('add-stir-task')}</label>
         </>
       ) : null}
       {couldHaveTemperatureSubtask ? (
@@ -57,14 +59,14 @@ export const RecipeStepSubtasks = ({
             checked={showTempOptions}
             onChange={e => handleAndMaintainTempChange(e.currentTarget.checked)}
           />
-          <label htmlFor="and-maintain-temp">... and maintain temperature?</label>
+          <label htmlFor="and-maintain-temp">{t('add-maintain-temp-task')}</label>
         </>
       ) : (
         ''
       )}
       {couldHaveTemperatureSubtask && showTempOptions ? (
         <fieldset>
-          <legend>Parameters:</legend>
+          <legend>{t('temp-parameters')}</legend>
           <label htmlFor="heat">
             <input
               id="heat"
@@ -79,7 +81,7 @@ export const RecipeStepSubtasks = ({
                 })
               }
             />
-            Heat
+            {t('maintain-heat')}
           </label>
           <label htmlFor="cool">
             <input
@@ -95,7 +97,7 @@ export const RecipeStepSubtasks = ({
                 })
               }
             />
-            Cool
+            {t('maintain-cool')}
           </label>
           <input
             type="number"
@@ -103,8 +105,8 @@ export const RecipeStepSubtasks = ({
             onChange={e =>
               handleTempSubtaskChange({ heatOrCool: step.andMaintainTemp, temp: e.target.value })
             }
-          />{' '}
-          deg C
+          />
+          {t('temp-unit')}
         </fieldset>
       ) : (
         ''
