@@ -67,43 +67,49 @@ export const RecipeStepSubtasks = ({
       {couldHaveTemperatureSubtask && showTempOptions ? (
         <fieldset>
           <legend>{t('temp-parameters')}</legend>
-          <label htmlFor="heat">
-            <input
-              id="heat"
-              name="and-maintain-temp"
-              type="radio"
-              value={TaskType.MAINTAIN_HEAT_TASK}
-              checked={step.andMaintainTemp === TaskType.MAINTAIN_HEAT_TASK}
-              onChange={() =>
-                handleTempSubtaskChange({
-                  heatOrCool: TaskType.MAINTAIN_HEAT_TASK,
-                  temp: step.andMaintainTempTemp || 0,
-                })
-              }
-            />
-            {t('maintain-heat')}
-          </label>
-          <label htmlFor="cool">
-            <input
-              id="cool"
-              name="and-maintain-temp"
-              type="radio"
-              value={TaskType.MAINTAIN_COOL_TASK}
-              checked={step.andMaintainTemp === TaskType.MAINTAIN_COOL_TASK}
-              onChange={() =>
-                handleTempSubtaskChange({
-                  heatOrCool: TaskType.MAINTAIN_COOL_TASK,
-                  temp: step.andMaintainTempTemp || 0,
-                })
-              }
-            />
-            {t('maintain-cool')}
-          </label>
+          <div>
+            <label htmlFor="heat">
+              <input
+                id="heat"
+                name="and-maintain-temp"
+                type="radio"
+                value={TaskType.MAINTAIN_HEAT_TASK}
+                checked={step.andMaintainTemp === TaskType.MAINTAIN_HEAT_TASK}
+                onChange={() =>
+                  handleTempSubtaskChange({
+                    heatOrCool: TaskType.MAINTAIN_HEAT_TASK,
+                    temp: step.andMaintainTempTemp || 0,
+                  })
+                }
+              />
+              {t('maintain-heat')}
+            </label>
+            <label htmlFor="cool">
+              <input
+                id="cool"
+                name="and-maintain-temp"
+                type="radio"
+                value={TaskType.MAINTAIN_COOL_TASK}
+                checked={step.andMaintainTemp === TaskType.MAINTAIN_COOL_TASK}
+                onChange={() =>
+                  handleTempSubtaskChange({
+                    heatOrCool: TaskType.MAINTAIN_COOL_TASK,
+                    temp: step.andMaintainTempTemp || 0,
+                  })
+                }
+              />
+              {t('maintain-cool')}
+            </label>
+          </div>
           <input
+            name="maintain-temperature"
             type="number"
             value={step.andMaintainTempTemp || 0}
             onChange={e =>
-              handleTempSubtaskChange({ heatOrCool: step.andMaintainTemp, temp: e.target.value })
+              handleTempSubtaskChange({
+                heatOrCool: step.andMaintainTemp,
+                temp: parseFloat(e.target.value),
+              })
             }
           />
           {t('temp-unit')}
