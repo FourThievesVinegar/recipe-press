@@ -343,6 +343,8 @@ export const RecipeProvider = ({ children }: React.PropsWithChildren) => {
   const exportRecipe = () => {
     const title = recipes[currentRecipe].title
     const steps = recipes[currentRecipe].steps
+    // Make sure numerical values are numbers
+    const NUMERIC_PARAM_KEYS = ['time', 'temp', 'tolerance', 'volume']
 
     // For any step with andStir set, set the sub-tasks array to include a stirring step. Same for maintaining heat or cooling.
     steps.forEach(step => {
@@ -360,6 +362,14 @@ export const RecipeProvider = ({ children }: React.PropsWithChildren) => {
           parameters: { time: step.parameters.time, temp: step.andMaintainTempTemp, tolerance: 1 },
         })
       }
+      // Make sure numerical values are numbers
+      step.tasks.forEach(task => {
+        NUMERIC_PARAM_KEYS.forEach(key => {
+          if (key in task.parameters) {
+            task.parameters[key] = Number(task.parameters[key])
+          }
+        })
+      })
     })
 
     steps[steps.length - 1].done = true
@@ -371,7 +381,6 @@ export const RecipeProvider = ({ children }: React.PropsWithChildren) => {
     }`
 
     // Sanitize title
-    // Make sure numerical values are numbers
 
     saveAs(new Blob([recipeString], { type: 'application/json' }), `${title}.json`) //When the microlab can read it, change to .4tv
   }

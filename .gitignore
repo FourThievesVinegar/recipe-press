@@ -4,6 +4,8 @@
 /node_modules
 /.pnp
 .pnp.js
+# don't check in accidental npm lock files
+package-lock.json
 
 # testing
 /coverage
